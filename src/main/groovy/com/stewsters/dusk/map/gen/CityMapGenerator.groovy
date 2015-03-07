@@ -26,7 +26,7 @@ class CityMapGenerator implements MapGenerator {
     public static final int BLOCKSIZE = 25
 
     @Override
-    public LevelMap reGenerate() {
+    public LevelMap reGenerate(int level) {
 
         int width = 200
         int height = 200

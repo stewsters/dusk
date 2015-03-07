@@ -5,7 +5,7 @@ import com.stewsters.dusk.map.LevelMap
 
 public interface MapGenerator {
 
-    public LevelMap reGenerate();
+    public LevelMap reGenerate(int level);
 
     public int getPlayerStartX();
 

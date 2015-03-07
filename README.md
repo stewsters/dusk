@@ -135,3 +135,12 @@ Monsters are a-z A-Z
 
 ## Licence ##
     Feel free to make Lets Play videos and monetize them.
+
+    If you want to change the font, take a look at the assets/settings.props file
+
+```
+    font{
+        name="Ariel"
+        size=14
+    }
+```

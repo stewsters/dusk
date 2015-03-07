@@ -7,6 +7,7 @@ import com.stewsters.dusk.flyweight.*
 import com.stewsters.dusk.magic.Fireball
 import com.stewsters.dusk.magic.Healing
 import com.stewsters.dusk.map.MapStack
+import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
 import com.stewsters.dusk.map.gen.SimpleMapGenerator
 import com.stewsters.dusk.screen.subscreen.ListSelector
@@ -23,7 +24,6 @@ import static java.awt.event.KeyEvent.*
  * Created by stewsters on 1/30/15.
  */
 class CharacterGeneration implements Screen {
-    MapGenerator mapGen
 
     int pointerColumn = 0;
 
@@ -33,11 +33,6 @@ class CharacterGeneration implements Screen {
 
     public CharacterGeneration() {
         //TODO: generate the map in another thread and wait for it
-
-        //MapGenerator mapGen = new StaticMapGenerator();
-//        MapGenerator mapGen = new TestMapGenerator();
-        mapGen = new SimpleMapGenerator()
-//        MapGenerator mapGen = new CityMapGenerator()
 
 
         raceSelect = new ListSelector<>("Select Race", Race.values() as List)
@@ -124,11 +119,30 @@ class CharacterGeneration implements Screen {
 
     private Screen startGame() {
 
-
         MapStack mapStack = new MapStack(10)
 
+        MapGenerator jailMapGen = new JailMapGenerator()
+        MapGenerator simpleMapGen = new SimpleMapGenerator()
+
+//        MapGenerator mapGen = new StaticMapGenerator();
+//        MapGenerator mapGen = new TestMapGenerator();
+//        mapGen = new SimpleMapGenerator()
+//        MapGenerator mapGen = new CityMapGenerator()
+
+
+        int playerStartX, playerStartY
         10.times {
-            mapStack.levelMaps[it] = mapGen.reGenerate()
+
+            if (it == 0) {
+                mapStack.levelMaps[it] = jailMapGen.reGenerate(it)
+                playerStartX = jailMapGen.playerStartX
+                playerStartY = jailMapGen.playerStartY
+
+            } else if (it < 5) {
+                mapStack.levelMaps[it] = jailMapGen.reGenerate(it)
+            } else {
+                mapStack.levelMaps[it] = simpleMapGen.reGenerate(it)
+            }
         }
 
         String name
@@ -140,7 +154,7 @@ class CharacterGeneration implements Screen {
         name += " " + NameGen.randomLastName()
 
         //TODO: use fantasy name generation
-        Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: mapGen.playerStartX, y: mapGen.playerStartY,
+        Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
                 priority: Priority.PLAYER, faction: Faction.GOOD,
                 ai: new LocalPlayer(),
@@ -163,7 +177,7 @@ class CharacterGeneration implements Screen {
         player.spellbook.spells.add(new Healing())
 
         player.ai.owner = player
-        return new DuskApplicationScreen(mapGen, player)
+        return new DuskApplicationScreen(mapStack, player)
 
 
     }

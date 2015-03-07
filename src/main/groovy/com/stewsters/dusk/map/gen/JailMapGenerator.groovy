@@ -16,18 +16,12 @@ import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 import squidpony.squidcolor.SColor
 
-class SimpleMapGenerator implements MapGenerator {
-/* 4*4
-        ++++
-        +..+
-        +..+
-        ++++
-*/
-    //This room includes the walls
+class JailMapGenerator implements MapGenerator {
+
     private static int ROOM_MAX_SIZE = 12
     private static int ROOM_MIN_SIZE = 6
     private static int MAX_ROOMS = 20
-    private static int MAX_ROOM_MONSTERS = 2
+    private static int MAX_ROOM_MONSTERS = 0//2
     private static int MAX_ROOM_ITEMS = 2
 
     int playerStartX = 0
@@ -96,6 +90,14 @@ class SimpleMapGenerator implements MapGenerator {
                 MessageLog.log("failed to place room " + roomNo)
             }
         }
+
+        Point2i upStair = rooms.last().center()
+        map.ground[upStair.x][upStair.y].tileType = TileType.STAIRS_UP
+
+        if (level > 0) {
+            map.ground[playerStartX][playerStartY].tileType = TileType.STAIRS_DOWN
+        }//TODO: starting
+
         return map
     }
 

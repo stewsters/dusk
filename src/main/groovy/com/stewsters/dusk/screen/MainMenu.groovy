@@ -54,7 +54,7 @@ class MainMenu implements Screen {
             MapStack mapStack = new MapStack(10)
 
             10.times {
-                mapStack.levelMaps[it] = mapGen.reGenerate()
+                mapStack.levelMaps[it] = mapGen.reGenerate(it)
             }
 
 

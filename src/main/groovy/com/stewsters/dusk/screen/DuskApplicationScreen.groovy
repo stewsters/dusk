@@ -257,12 +257,15 @@ public class DuskApplicationScreen implements Screen {
                         levelMap.remove(player)
 
                         mapStack.currentLevel++
+
+                        player.levelMap = levelMap
                         player.x = dest.x
                         player.y = dest.y
+
                         levelMap.add(player)
 
                         shadowCaster2d = new ShadowCaster2d(levelMap);
-                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
+//                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
                         stepSim()
                     }
                     break
@@ -274,11 +277,14 @@ public class DuskApplicationScreen implements Screen {
                         levelMap.remove(player)
 
                         mapStack.currentLevel--
+
+                        player.levelMap = levelMap
                         player.x = dest.x
                         player.y = dest.y
                         levelMap.add(player)
+
                         shadowCaster2d = new ShadowCaster2d(levelMap);
-                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
+//                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
                         stepSim()
                     }
                     break

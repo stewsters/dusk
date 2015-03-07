@@ -15,7 +15,7 @@ class TestMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    public LevelMap reGenerate() {
+    public LevelMap reGenerate(int level) {
         int width = 100
         int height = 100
         LevelMap map = new LevelMap(width, height);
