@@ -1,8 +1,10 @@
 # Dusk of a Shattered Kingdom #
 
-This is a traditional roguelike
+This is a traditional roguelike where you are being imprisoned at the bottom of a dungeon and need to escape.
 
-Influences
+
+
+Influences:
 Brogue (ui, controls)
 Shadow of Mordor (Bosses)
 
@@ -114,17 +116,17 @@ Monsters are a-z A-Z
     f
     g  goblin, Gargoyle
     h
-    i  ifrit
+    i  imprisoned Spirit
     j
     k
     l
     m
     n
     o  orc, Ogre
-    p
+    p  phalanx
     q
     r  rat
-    s
+    s  Guardian Statue
     t  Troll
     u
     v  vampire

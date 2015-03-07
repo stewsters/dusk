@@ -1,3 +1,5 @@
+package com.stewsters.test
+
 import spock.lang.Specification
 
 class LibraryTest extends Specification {

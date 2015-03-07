@@ -77,7 +77,7 @@ class SimpleMapGenerator implements MapGenerator {
                     playerStartY = center.y
 
                 } else {
-                    placeObjects(map, newRoom)
+                    placeObjects(map, newRoom, level)
 
                     Point2i lastCenter = rooms[(num_rooms - 1)].center()
                     Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
@@ -124,7 +124,7 @@ class SimpleMapGenerator implements MapGenerator {
         }
     }
 
-    private static void placeObjects(LevelMap map, Rect room) {
+    private static void placeObjects(LevelMap map, Rect room, int level) {
 
         int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
 
@@ -173,7 +173,9 @@ class SimpleMapGenerator implements MapGenerator {
             int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
             int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
             if (!map.isBlocked(x, y)) {
-                FantasyItemGen.getRandomItem(map, x, y)
+
+                FantasyItemGen.getRandomItemByLevel(map, x, y, level)
+
             }
         }
     }

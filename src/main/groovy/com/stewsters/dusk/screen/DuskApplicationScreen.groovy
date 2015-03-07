@@ -250,7 +250,7 @@ public class DuskApplicationScreen implements Screen {
                     if (fire()) stepSim() //use a bow or spell
                     break;
                 case VK_COMMA:
-                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps.length > mapStack.currentLevel+1) {
+                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps.length-1 > mapStack.currentLevel) {
 
                         // Ascend
                         Point2i dest = mapStack.levelMaps[mapStack.currentLevel + 1].findATile(TileType.STAIRS_DOWN)
