@@ -1,0 +1,11 @@
+title="Dusk of a Shattered Kingdom"
+
+graphics{
+    width=120
+    height=60
+}
+
+font{
+    name="Ariel"
+    size=14
+}

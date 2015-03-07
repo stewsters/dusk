@@ -1,0 +1,45 @@
+
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = 'com.stewsters.dusk.main.DuskApplicationMain'
+version = 1.1
+
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    // We use the latest groovy 2.x version for building this library
+    compile 'org.codehaus.groovy:groovy-all:2.4.0'
+
+    compile 'com.squidpony:squidlib:1.95.1'
+    compile 'com.stewsters.util:stewsters-util:0.10'
+
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
+
+    // We use the awesome Spock testing and specification framework
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'junit:junit:4.11'
+}
+
+
+jar {
+    from files(sourceSets.main.output.classesDir)
+    from(configurations.runtime.asFileTree.files.collect { zipTree(it) }) {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
