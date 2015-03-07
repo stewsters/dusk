@@ -34,16 +34,21 @@ class FantasyItemGen {
             // Scroll of Kill
 
             // slash
-            [name: "Arming Sword", rarity: 10, startLevel: 1, endLevel: 4],
+            [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
+            [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
             [name: "Longsword", rarity: 10, startLevel: 3, endLevel: 9],
 
             // pierce
             [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
+            [name: "Spear", rarity: 10, startLevel: 0, endLevel: 3],
+            [name: "Halberd", rarity: 10, startLevel: 0, endLevel: 3],
 
             // halberd - piercing
 
             // Blunt
-            [name:"Mace", rarity: 10, startLevel: 3, endLevel: 7]
+            [name:"Club", rarity: 10, startLevel: 0, endLevel: 4],
+            [name:"Mace", rarity: 10, startLevel: 3, endLevel: 6],
+            [name:"Maul", rarity: 10, startLevel: 6, endLevel: 9]
             //warhammer
 
 //            "Helm"                : 10,
@@ -207,7 +212,20 @@ class FantasyItemGen {
                 )
                 break
 
-
+            // Slash
+            case "Hand Axe":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.WHITE,
+                        name: 'Hand Axe',
+                        description: "A one handed axe",
+                        equipment: new Equipment(
+                                slot: Slot.PRIMARY_HAND,
+                                accuracyModifier: 1,
+                                evasionModifier: 0, // parrying
+                                damage: (6..12)
+                        )
+                )
+                break
             case "Arming Sword":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.SILVER_GREY,
@@ -235,6 +253,7 @@ class FantasyItemGen {
                 )
                 break
 
+            // Pierce
             case "Stiletto":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
@@ -243,12 +262,52 @@ class FantasyItemGen {
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 3,
-                                evasionModifier: 1, // parrying
+                                evasionModifier: 0, // parrying
                                 damage: (3..5)
                         )
                 )
                 break
+            case "Spear":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.GRAY,
+                        name: 'Spear',
+                        description: "A pointy stick. Classic.",
+                        equipment: new Equipment(
+                                slot: Slot.PRIMARY_HAND,
+                                accuracyModifier: 3,
+                                evasionModifier: 1, // parrying
+                                damage: (8..12)
+                        )
+                )
+                break
+            case "Halberd":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.GOLDEN,
+                        name: 'Halberd',
+                        description: "A halberd.",
+                        equipment: new Equipment(
+                                slot: Slot.PRIMARY_HAND,
+                                accuracyModifier: 0,
+                                evasionModifier: 2, // parrying
+                                damage: (10..14)
+                        )
+                )
+                break
 
+            // Bash
+            case "Club":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.WHITE,
+                        name: 'Club',
+                        description: "A stick.",
+                        equipment: new Equipment(
+                                slot: Slot.PRIMARY_HAND,
+                                accuracyModifier: 1,
+                                evasionModifier: 1, // parrying
+                                damage: (4..8)
+                        )
+                )
+                break
             case "Mace":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
@@ -258,10 +317,25 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: -1,
                                 evasionModifier: -1, // parrying
+                                damage: (6..16)
+                        )
+                )
+                break
+
+            case "Maul":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.RED_BEAN,
+                        name: 'Maul',
+                        description: "A great hammer",
+                        equipment: new Equipment(
+                                slot: Slot.PRIMARY_HAND,
+                                accuracyModifier: -3,
+                                evasionModifier: -3, // parrying
                                 damage: (10..20)
                         )
                 )
                 break
+
 
             default:
                 println "Cannot find ${name}"
