@@ -1,24 +1,17 @@
 package com.stewsters.dusk.map.gen.items
 
-import com.stewsters.dusk.component.Equipment
 import com.stewsters.dusk.component.Fighter
-import com.stewsters.dusk.component.Item
 import com.stewsters.dusk.component.ai.BasicOpponent
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.sfx.DeathFunctions
-import com.stewsters.dusk.sfx.ItemFunctions
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 
 class MonsterGen {
-
-    public init() {
-
-    }
 
 
     private static final List<Map> spawnPerLevel = [
@@ -52,8 +45,6 @@ class MonsterGen {
                         fighter: new Fighter(hp: 4, stamina: 4, melee: 0, evasion: 3,
                                 unarmedDamage: (1..4),
                                 deathFunction: DeathFunctions.opponentDeath)
-
-
                 )
                 break
 
@@ -70,7 +61,7 @@ class MonsterGen {
 
             case ("Troll"):
 
-                new Entity(map: map, x: x, y: y,
+                return new Entity(map: map, x: x, y: y,
                         ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
                         fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
@@ -84,6 +75,28 @@ class MonsterGen {
                 assert false
 
         }
+
+    }
+
+
+    public static Entity generateBossForLevel(LevelMap map, int x, int y, int level) {
+
+        //early on they have more weaknesses, later they have more resistances
+        List<DamageType> resistances = []
+        List<DamageType> weaknesses = []
+
+
+        MatUtils.randVal(        DamageType.values())
+
+
+
+        return new Entity(map: map, x: x, y: y,
+                ch: 'K', name: 'Knight', color: SColor.BURNT_ORANGE, blocks: true,
+                priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                fighter: new Fighter(hp: 20 + 10*level, stamina: 8+ level, melee: level + 2, evasion: level/2,
+                        unarmedDamage: (4..8),
+                        deathFunction: DeathFunctions.opponentDeath)
+        )
 
     }
 

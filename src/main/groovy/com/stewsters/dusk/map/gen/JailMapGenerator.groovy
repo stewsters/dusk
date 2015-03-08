@@ -1,21 +1,14 @@
 package com.stewsters.dusk.map.gen
 
-import com.stewsters.dusk.component.Fighter
-import com.stewsters.dusk.component.ai.BasicOpponent
-import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.Faction
-import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.FantasyItemGen
 import com.stewsters.dusk.map.gen.items.MonsterGen
-import com.stewsters.dusk.sfx.DeathFunctions
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
-import squidpony.squidcolor.SColor
 
 class JailMapGenerator implements MapGenerator {
 
@@ -95,6 +88,8 @@ class JailMapGenerator implements MapGenerator {
         Point2i upStair = rooms.last().center()
         map.ground[upStair.x][upStair.y].tileType = TileType.STAIRS_UP
 
+        MonsterGen.generateBossForLevel(map, upStair.x + 1, upStair.y, level)
+
         if (level > 0) {
             map.ground[playerStartX][playerStartY].tileType = TileType.STAIRS_DOWN
         }//TODO: starting
@@ -136,7 +131,7 @@ class JailMapGenerator implements MapGenerator {
             int y = MatUtils.getIntInRange(room.y1, room.y2)
 
             if (!map.isBlocked(x, y)) {
-                MonsterGen.getRandomMonsterByLevel(map,x,y,level)
+                MonsterGen.getRandomMonsterByLevel(map, x, y, level)
             }
         }
 

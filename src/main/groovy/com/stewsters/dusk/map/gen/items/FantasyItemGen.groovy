@@ -11,11 +11,6 @@ import squidpony.squidcolor.SColor
 
 class FantasyItemGen {
 
-    public init() {
-
-    }
-
-
     private static final List<Map> spawnPerLevel = [
             [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
