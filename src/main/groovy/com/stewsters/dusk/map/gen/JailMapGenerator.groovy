@@ -10,6 +10,7 @@ import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.FantasyItemGen
+import com.stewsters.dusk.map.gen.items.MonsterGen
 import com.stewsters.dusk.sfx.DeathFunctions
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
@@ -135,37 +136,7 @@ class JailMapGenerator implements MapGenerator {
             int y = MatUtils.getIntInRange(room.y1, room.y2)
 
             if (!map.isBlocked(x, y)) {
-
-                int d100 = MatUtils.getIntInRange(0, 100)
-                if (d100 < 70) {
-                    new Entity(map: map, x: x, y: y,
-                            ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
-                            priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
-                            fighter: new Fighter(hp: 4, stamina: 4, melee: 0, evasion: 3,
-                                    unarmedDamage: (1..4),
-                                    deathFunction: DeathFunctions.opponentDeath)
-
-
-                    )
-                } else if (d100 < 90) {
-
-                    new Entity(map: map, x: x, y: y,
-                            ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
-                            priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
-                            fighter: new Fighter(hp: 10, stamina: 4, melee: 3, evasion: 2,
-                                    unarmedDamage: (1..6),
-                                    deathFunction: DeathFunctions.opponentDeath)
-                    )
-                } else {
-
-                    new Entity(map: map, x: x, y: y,
-                            ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                            priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
-                            fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
-                                    unarmedDamage: (4..8),
-                                    deathFunction: DeathFunctions.opponentDeath)
-                    )
-                }
+                MonsterGen.getRandomMonsterByLevel(map,x,y,level)
             }
         }
 

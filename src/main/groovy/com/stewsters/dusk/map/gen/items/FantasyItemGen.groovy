@@ -58,30 +58,6 @@ class FantasyItemGen {
     ]
 
 
-//    public static Map<String, Integer> spawnChance = [
-//            "Gold"                : 20,
-//            "Leather Coat"        : 20,
-//            "Chain Hauberk"       : 10,
-//            "Coat of Plates"      : 5,
-//
-//            "Healing Potion"      : 10,
-//
-//            "Scroll of Fireball"  : 20,
-//            "Scroll of Lightning" : 20,
-//            "Scroll of Domination": 10,
-//            "Scroll of Confusion" : 10,
-//            "Scroll of Wrath"     : 80,
-//
-//            "Longsword"           : 10,
-//            "Arming Sword"        : 10,
-//
-////            "Helm"                : 10,
-////            "Boots"               : 10,
-////            "Greaves"             : 10
-////            "Quiver"              : 10
-//    ]
-
-
     public static Entity getRandomItemByLevel(LevelMap map, int x, int y, int level) {
 
         Map<String, Integer> spawnChances = [:]
@@ -92,11 +68,6 @@ class FantasyItemGen {
 
         return createFromName(map, x, y, MatUtils.getChoice(spawnChances))
     }
-
-//    public static Entity getRandomItem(LevelMap map, int x, int y) {
-//        return createFromName(map, x, y, MatUtils.getChoice(spawnChance))
-//    }
-
 
     public static Entity createFromName(LevelMap map, int x, int y, String name) {
         switch (name) {
@@ -205,7 +176,7 @@ class FantasyItemGen {
                 break
             case "Scroll of Wrath":
                 return new Entity(map: map, x: x, y: y,
-                        ch: '?', color: SColor.AMARANTH,
+                        ch: '?', color: SColor.SILVER_GREY,
                         name: "Scroll Of Wrath",
                         description: "Throws enemies away from you.",
                         itemComponent: new Item(useFunction: ItemFunctions.castWrath)
