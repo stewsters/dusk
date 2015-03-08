@@ -258,9 +258,12 @@ public class DuskApplicationScreen implements Screen {
 
                         mapStack.currentLevel++
 
+                        player.ai.gameTurn = levelMap.actors.peek().gameTurn
+
                         player.levelMap = levelMap
                         player.x = dest.x
                         player.y = dest.y
+
 
                         levelMap.add(player)
 
@@ -277,6 +280,8 @@ public class DuskApplicationScreen implements Screen {
                         levelMap.remove(player)
 
                         mapStack.currentLevel--
+
+                        player.ai.gameTurn = levelMap.actors.peek().gameTurn
 
                         player.levelMap = levelMap
                         player.x = dest.x

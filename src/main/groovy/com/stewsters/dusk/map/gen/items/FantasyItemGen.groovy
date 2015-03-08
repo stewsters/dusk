@@ -40,8 +40,8 @@ class FantasyItemGen {
 
             // pierce
             [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
-            [name: "Spear", rarity: 10, startLevel: 0, endLevel: 3],
-            [name: "Halberd", rarity: 10, startLevel: 0, endLevel: 3],
+            [name: "Spear", rarity: 10, startLevel: 2, endLevel: 4],
+            [name: "Halberd", rarity: 10, startLevel: 4, endLevel: 9],
 
             // halberd - piercing
 
