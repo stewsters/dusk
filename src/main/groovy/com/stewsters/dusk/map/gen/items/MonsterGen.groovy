@@ -82,18 +82,28 @@ class MonsterGen {
     public static Entity generateBossForLevel(LevelMap map, int x, int y, int level) {
 
         //early on they have more weaknesses, later they have more resistances
-        List<DamageType> resistances = []
-        List<DamageType> weaknesses = []
+        Set<DamageType> resistances = []
+        Set<DamageType> weaknesses = []
 
+        int resistanceCount = level / 3
+        int weaknessCount = 3 - resistanceCount
 
-        MatUtils.randVal(        DamageType.values())
+        resistanceCount.times {
+            resistances.add(MatUtils.randVal(DamageType.values()))
+        }
+
+        weaknessCount.times {
+            weaknesses.add(MatUtils.randVal(DamageType.values()))
+        }
+
+        String name = "Sir " + MatUtils.randVal(new File('assets/names/HUMAN/male.txt').text.split("\\s"))
 
 
 
         return new Entity(map: map, x: x, y: y,
-                ch: 'K', name: 'Knight', color: SColor.BURNT_ORANGE, blocks: true,
+                ch: 'K', name: name, color: SColor.BURNT_ORANGE, blocks: true,
                 priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
-                fighter: new Fighter(hp: 20 + 10*level, stamina: 8+ level, melee: level + 2, evasion: level/2,
+                fighter: new Fighter(hp: 20 + 10 * level, stamina: 8 + level, melee: level + 2, evasion: level / 2,
                         unarmedDamage: (4..8),
                         deathFunction: DeathFunctions.opponentDeath)
         )
