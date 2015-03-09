@@ -1,6 +1,7 @@
 package com.stewsters.dusk.component
 
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
@@ -18,7 +19,9 @@ class Fighter {
     int baseMaxStamina
     int stamina // used to make attacks and sprint
 
-    //Proper stats to come
+
+    Set<DamageType> resistances
+    Set<DamageType> weaknesses
 
     // Skills
     int skillMelee   //strength with melee weapons
@@ -44,7 +47,7 @@ class Fighter {
         stamina = baseMaxStamina
 
         baseMaxToxicity = params.toxicity ?: 1
-        toxicity =  0
+        toxicity = 0
 
         skillEvasion = params.evasion ?: 0
         skillMelee = params.melee ?: 0
@@ -52,10 +55,19 @@ class Fighter {
 
         unarmedDamage = params.unarmedDamage ?: (0..0)
 
+        resistances = params.resistances ?: []
+        weaknesses = params.weaknesses ?: []
+
         deathFunction = params.deathFunction ?: null
     }
 
-    public takeDamage(damage) {
+    public takeDamage(int damage, Set<DamageType> damageTypes = []) {
+
+        int resistance = resistances.intersect(damageTypes).size()
+        int weakness = weaknesses.intersect(damageTypes).size()
+
+        damage *= Math.pow(1.5, weakness - resistance)
+
         if (damage > 0) {
             hp -= damage
             if (hp <= 0) {
@@ -98,12 +110,22 @@ class Fighter {
         if (attackRoll >= evasionRoll) {
             //figure out damage
 
-            //Assuming this is a weapon may not always be the case.  if it isn't, use unarmed
-            IntRange damageRange = owner.inventory?.getEquippedInSlot(Slot.PRIMARY_HAND)?.damage ?: unarmedDamage
+
+            Equipment equipment = owner.inventory?.getEquippedInSlot(Slot.PRIMARY_HAND)
+            IntRange damageRange
+            Set<DamageType> damageTypes
+
+            if (equipment) {
+                damageRange = equipment?.damage
+                damageTypes = equipment?.damageTypes
+            } else {
+                damageRange = unarmedDamage
+                damageTypes = [DamageType.BASH]
+            }
 
             int damage = MatUtils.getIntInRange(damageRange.from, damageRange.to)
 
-            owner.inventory?.getAllEquippedEquipment().each {
+            target.inventory?.getAllEquippedEquipment().each {
                 if (it.armor)
                     damage -= MatUtils.getIntInRange(it.armor.from, it.armor.to)
             }
@@ -111,7 +133,7 @@ class Fighter {
 
             if (damage > 0) {
                 MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE, [owner, target]
-                target.fighter.takeDamage(damage)
+                target.fighter.takeDamage(damage, damageTypes)
                 //other effects?
                 // if (owner.faction == Faction.EVIL) {
                 //   target.fighter.infect(1)

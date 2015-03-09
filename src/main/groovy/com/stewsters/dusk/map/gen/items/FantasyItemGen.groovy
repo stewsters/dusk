@@ -3,6 +3,7 @@ package com.stewsters.dusk.map.gen.items
 import com.stewsters.dusk.component.Equipment
 import com.stewsters.dusk.component.Item
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.sfx.ItemFunctions
@@ -41,9 +42,9 @@ class FantasyItemGen {
             // halberd - piercing
 
             // Blunt
-            [name:"Club", rarity: 10, startLevel: 0, endLevel: 4],
-            [name:"Mace", rarity: 10, startLevel: 3, endLevel: 6],
-            [name:"Maul", rarity: 10, startLevel: 6, endLevel: 9]
+            [name: "Club", rarity: 10, startLevel: 0, endLevel: 4],
+            [name: "Mace", rarity: 10, startLevel: 3, endLevel: 6],
+            [name: "Maul", rarity: 10, startLevel: 6, endLevel: 9]
             //warhammer
 
 //            "Helm"                : 10,
@@ -178,7 +179,7 @@ class FantasyItemGen {
                 )
                 break
 
-            // Slash
+        // Slash
             case "Hand Axe":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
@@ -188,7 +189,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 1,
                                 evasionModifier: 0, // parrying
-                                damage: (6..12)
+                                damage: (6..12),
+                                damageTypes: [DamageType.SLASH]
                         )
                 )
                 break
@@ -201,7 +203,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 2,
                                 evasionModifier: 1, // parrying
-                                damage: (6..10)
+                                damage: (6..10),
+                                damageTypes: [DamageType.SLASH]
                         )
                 )
                 break
@@ -214,12 +217,13 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 1,
                                 evasionModifier: 1, // parrying
-                                damage: (10..14)
+                                damage: (10..14),
+                                damageTypes: [DamageType.SLASH]
                         )
                 )
                 break
 
-            // Pierce
+        // Pierce
             case "Stiletto":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
@@ -229,7 +233,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 3,
                                 evasionModifier: 0, // parrying
-                                damage: (3..5)
+                                damage: (3..5),
+                                damageTypes: [DamageType.PIERCE]
                         )
                 )
                 break
@@ -242,7 +247,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 3,
                                 evasionModifier: 1, // parrying
-                                damage: (8..12)
+                                damage: (8..12),
+                                damageTypes: [DamageType.PIERCE]
                         )
                 )
                 break
@@ -255,12 +261,13 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 0,
                                 evasionModifier: 2, // parrying
-                                damage: (10..14)
+                                damage: (10..14),
+                                damageTypes: [DamageType.PIERCE]
                         )
                 )
                 break
 
-            // Bash
+        // Bash
             case "Club":
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
@@ -270,7 +277,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 1,
                                 evasionModifier: 1, // parrying
-                                damage: (4..8)
+                                damage: (4..8),
+                                damageTypes: [DamageType.BASH]
                         )
                 )
                 break
@@ -283,7 +291,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: -1,
                                 evasionModifier: -1, // parrying
-                                damage: (6..16)
+                                damage: (6..16),
+                                damageTypes: [DamageType.BASH]
                         )
                 )
                 break
@@ -297,7 +306,8 @@ class FantasyItemGen {
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: -3,
                                 evasionModifier: -3, // parrying
-                                damage: (10..20)
+                                damage: (10..20),
+                                damageTypes: [DamageType.BASH]
                         )
                 )
                 break

@@ -1,6 +1,7 @@
 package com.stewsters.dusk.component
 
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.graphic.MessageLog
 import squidpony.squidcolor.SColor
@@ -28,6 +29,8 @@ class Equipment {
     int evasionModifier // evasion bonus or penalty
     IntRange armor
 
+    Set<DamageType> damageTypes
+
     //TODO: magic, identification
 
 
@@ -45,6 +48,8 @@ class Equipment {
 
         evasionModifier = params?.evasionModifier ?: 0
         armor = params?.armor ?: 0..0
+
+        damageTypes = params?.damageTypes ?: []
     }
 
     public void toggleEquip(Entity holder) {

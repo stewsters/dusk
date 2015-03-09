@@ -1,6 +1,7 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
 import groovy.transform.CompileStatic
@@ -32,7 +33,7 @@ class Fireball implements Spell {
         }else{
             int damage = MatUtils.d(FIREBALL_DAMAGE + level) + level
 
-            enemy.fighter.takeDamage(damage)
+            enemy.fighter.takeDamage(damage,[DamageType.FIRE] as Set)
 
             MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
             return true

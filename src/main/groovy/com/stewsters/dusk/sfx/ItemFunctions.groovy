@@ -5,6 +5,7 @@ import com.stewsters.dusk.component.ai.ConfusedOpponent
 import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.AmmoType
+import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
@@ -72,7 +73,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${FIREBALL_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(FIREBALL_DAMAGE)
+            enemy.fighter.takeDamage(FIREBALL_DAMAGE, [DamageType.FIRE])
             return true
         }
     }
@@ -106,11 +107,11 @@ class ItemFunctions {
         if (!enemies) {
             MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user, enemy])
             return false
-        }  else {
+        } else {
 
             int turns = (int) Math.ceil(CONFUSE_NUM_TURNS / enemies.size())
 
-            enemies.each{Entity enemy->
+            enemies.each { Entity enemy ->
                 Ai oldID = enemy.ai
                 enemy.levelMap.actors.remove(oldID)
                 enemy.ai = new ConfusedOpponent(oldAI: oldID, castor: user, numTurns: turns)
@@ -147,7 +148,7 @@ class ItemFunctions {
                 Ai oldAI = enemy.ai
                 enemy.levelMap.actors.remove(oldAI)
                 enemy.ai = new Projectile(oldAI: oldAI, castor: user,
-                        target: new Point2i(dx,dy))
+                        target: new Point2i(dx, dy))
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)

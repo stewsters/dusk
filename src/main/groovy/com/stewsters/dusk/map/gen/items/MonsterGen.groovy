@@ -104,6 +104,8 @@ class MonsterGen {
                 ch: 'K', name: name, color: SColor.BURNT_ORANGE, blocks: true,
                 priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
                 fighter: new Fighter(hp: 20 + 10 * level, stamina: 8 + level, melee: level + 2, evasion: level / 2,
+                        weaknesses:weaknesses,
+                        resistances:resistances,
                         unarmedDamage: (4..8),
                         deathFunction: DeathFunctions.opponentDeath)
         )
