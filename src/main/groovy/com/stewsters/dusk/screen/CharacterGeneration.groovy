@@ -10,6 +10,7 @@ import com.stewsters.dusk.map.MapStack
 import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
 import com.stewsters.dusk.map.gen.SimpleMapGenerator
+import com.stewsters.dusk.map.gen.name.KnightNameGen
 import com.stewsters.dusk.screen.subscreen.ListSelector
 import com.stewsters.dusk.sfx.DeathFunctions
 import com.stewsters.util.name.NameGen
@@ -145,13 +146,13 @@ class CharacterGeneration implements Screen {
             }
         }
 
-        String name
-        if (genderSelect.selected == Gender.MALE) {
-            name = NameGen.randomMaleFirstName()
-        } else {
-            name = NameGen.randomFemaleFirstName()
-        }
-        name += " " + NameGen.randomLastName()
+        String name = KnightNameGen.generate(genderSelect.selected)
+//        if (genderSelect.selected == Gender.MALE) {
+//            name = NameGen.randomMaleFirstName()
+//        } else {
+//            name = NameGen.randomFemaleFirstName()
+//        }
+//        name += " " + NameGen.randomLastName()
 
         //TODO: use fantasy name generation
         Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,

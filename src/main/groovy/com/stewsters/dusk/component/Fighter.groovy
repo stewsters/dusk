@@ -61,7 +61,7 @@ class Fighter {
         deathFunction = params.deathFunction ?: null
     }
 
-    public takeDamage(int damage, Set<DamageType> damageTypes = []) {
+    public takeDamage(int damage, List<DamageType> damageTypes = []) {
 
         int resistance = resistances.intersect(damageTypes).size()
         int weakness = weaknesses.intersect(damageTypes).size()
@@ -113,7 +113,7 @@ class Fighter {
 
             Equipment equipment = owner.inventory?.getEquippedInSlot(Slot.PRIMARY_HAND)
             IntRange damageRange
-            Set<DamageType> damageTypes
+            List<DamageType> damageTypes
 
             if (equipment) {
                 damageRange = equipment?.damage

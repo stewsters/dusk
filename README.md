@@ -136,6 +136,8 @@ Monsters are a-z A-Z
     z  zombie
 
 ## Licence ##
+    MIT
+
     Feel free to make Lets Play videos and monetize them.
 
     If you want to change the font, take a look at the assets/settings.props file

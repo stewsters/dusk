@@ -33,7 +33,7 @@ class Fireball implements Spell {
         }else{
             int damage = MatUtils.d(FIREBALL_DAMAGE + level) + level
 
-            enemy.fighter.takeDamage(damage,[DamageType.FIRE] as Set)
+            enemy.fighter.takeDamage(damage,[DamageType.FIRE])
 
             MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
             return true

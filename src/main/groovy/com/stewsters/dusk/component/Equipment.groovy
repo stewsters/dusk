@@ -29,7 +29,7 @@ class Equipment {
     int evasionModifier // evasion bonus or penalty
     IntRange armor
 
-    Set<DamageType> damageTypes
+    List<DamageType> damageTypes
 
     //TODO: magic, identification
 

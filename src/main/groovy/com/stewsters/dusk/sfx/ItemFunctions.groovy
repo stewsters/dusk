@@ -54,7 +54,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(LIGHTNING_DAMAGE)
+            enemy.fighter.takeDamage(LIGHTNING_DAMAGE,[])
             return true
         }
     }

@@ -12,7 +12,7 @@ import squidpony.squidcolor.SColor
 
 class FantasyItemGen {
 
-    private static final List<Map> spawnPerLevel = [
+    public static final List<Map> spawnPerLevel = [
             [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
             //Gambesan
@@ -181,6 +181,8 @@ class FantasyItemGen {
 
         // Slash
             case "Hand Axe":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
                         name: 'Hand Axe',
@@ -190,11 +192,13 @@ class FantasyItemGen {
                                 accuracyModifier: 1,
                                 evasionModifier: 0, // parrying
                                 damage: (6..12),
-                                damageTypes: [DamageType.SLASH]
+                                damageTypes: [DamageType.SLASH] + material
                         )
                 )
                 break
             case "Arming Sword":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.SILVER_GREY,
                         name: 'Arming Sword',
@@ -204,11 +208,13 @@ class FantasyItemGen {
                                 accuracyModifier: 2,
                                 evasionModifier: 1, // parrying
                                 damage: (6..10),
-                                damageTypes: [DamageType.SLASH]
+                                damageTypes: [DamageType.SLASH] + material
                         )
                 )
                 break
             case "Longsword":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.STEEL_BLUE,
                         name: 'Longsword',
@@ -218,13 +224,15 @@ class FantasyItemGen {
                                 accuracyModifier: 1,
                                 evasionModifier: 1, // parrying
                                 damage: (10..14),
-                                damageTypes: [DamageType.SLASH]
+                                damageTypes: [DamageType.SLASH] + material
                         )
                 )
                 break
 
         // Pierce
             case "Stiletto":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
                         name: 'Stiletto',
@@ -234,11 +242,13 @@ class FantasyItemGen {
                                 accuracyModifier: 3,
                                 evasionModifier: 0, // parrying
                                 damage: (3..5),
-                                damageTypes: [DamageType.PIERCE]
+                                damageTypes: [DamageType.PIERCE] + material
                         )
                 )
                 break
             case "Spear":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.GRAY,
                         name: 'Spear',
@@ -248,11 +258,13 @@ class FantasyItemGen {
                                 accuracyModifier: 3,
                                 evasionModifier: 1, // parrying
                                 damage: (8..12),
-                                damageTypes: [DamageType.PIERCE]
+                                damageTypes: [DamageType.PIERCE] + material
                         )
                 )
                 break
             case "Halberd":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.GOLDEN,
                         name: 'Halberd',
@@ -262,13 +274,15 @@ class FantasyItemGen {
                                 accuracyModifier: 0,
                                 evasionModifier: 2, // parrying
                                 damage: (10..14),
-                                damageTypes: [DamageType.PIERCE]
+                                damageTypes: [DamageType.PIERCE] + material
                         )
                 )
                 break
 
         // Bash
             case "Club":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
                         name: 'Club',
@@ -278,11 +292,13 @@ class FantasyItemGen {
                                 accuracyModifier: 1,
                                 evasionModifier: 1, // parrying
                                 damage: (4..8),
-                                damageTypes: [DamageType.BASH]
+                                damageTypes: [DamageType.BASH] + material
                         )
                 )
                 break
             case "Mace":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
                         name: 'Mace',
@@ -292,12 +308,14 @@ class FantasyItemGen {
                                 accuracyModifier: -1,
                                 evasionModifier: -1, // parrying
                                 damage: (6..16),
-                                damageTypes: [DamageType.BASH]
+                                damageTypes: [DamageType.BASH] + material
                         )
                 )
                 break
 
             case "Maul":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.RED_BEAN,
                         name: 'Maul',
@@ -307,7 +325,7 @@ class FantasyItemGen {
                                 accuracyModifier: -3,
                                 evasionModifier: -3, // parrying
                                 damage: (10..20),
-                                damageTypes: [DamageType.BASH]
+                                damageTypes: [DamageType.BASH] + material
                         )
                 )
                 break

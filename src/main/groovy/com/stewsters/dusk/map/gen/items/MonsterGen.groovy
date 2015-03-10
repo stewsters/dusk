@@ -7,6 +7,7 @@ import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.map.LevelMap
+import com.stewsters.dusk.map.gen.name.KnightNameGen
 import com.stewsters.dusk.sfx.DeathFunctions
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
@@ -15,9 +16,16 @@ class MonsterGen {
 
 
     private static final List<Map> spawnPerLevel = [
+
+            [name: "Rat",rarity: 40,startLevel: 0,endLevel:  3],
             [name: "Goblin", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Orc", rarity: 20, startLevel: 2, endLevel: 4],
-            [name: "Troll", rarity: 10, startLevel: 3, endLevel: 6]
+            [name: "Dark Elf", rarity: 20, startLevel: 3, endLevel: 6],
+            [name: "Imprisoned Spirit", rarity: 5, startLevel: 5, endLevel: 7],
+            [name: "Troll", rarity: 10, startLevel: 4, endLevel: 6],
+            [name: "Vampire", rarity: 20, startLevel: 8, endLevel: 9],
+            [name: "Armored Hulk", rarity: 10, startLevel: 6, endLevel: 9]
+
 
     ]
 
@@ -36,6 +44,17 @@ class MonsterGen {
     public static Entity createFromName(LevelMap map, int x, int y, String name) {
         switch (name) {
 
+            case ("Rat"):
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'r', name: 'Rat', color: SColor.AMETHYST, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                        fighter: new Fighter(hp: 2, stamina: 2, melee: 0, evasion: 2,
+                                unarmedDamage: (1..2),
+                                deathFunction: DeathFunctions.opponentDeath)
+                )
+                break
+
 
             case ("Goblin"):
 
@@ -48,6 +67,8 @@ class MonsterGen {
                 )
                 break
 
+            //wolf
+
             case ("Orc"):
 
                 return new Entity(map: map, x: x, y: y,
@@ -59,6 +80,29 @@ class MonsterGen {
                 )
                 break
 
+            case ("Dark Elf"):
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'o', name: 'Dark Elf', color: SColor.PURPLE_DYE, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                        fighter: new Fighter(hp: 10, stamina: 4, melee: 8, evasion: 3,
+                                unarmedDamage: (1..6),
+                                deathFunction: DeathFunctions.opponentDeath)
+                )
+                break
+
+            case ("Imprisoned Spirit"):
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'i', name: "Imprisoned Spirit", color: SColor.LIGHT_BLUE, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                        fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: 8,
+                                unarmedDamage: (4..8),
+                                deathFunction: DeathFunctions.opponentDeath)
+                )
+                break
+
+
             case ("Troll"):
 
                 return new Entity(map: map, x: x, y: y,
@@ -66,8 +110,39 @@ class MonsterGen {
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
                         fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
                                 unarmedDamage: (4..8),
+                                deathFunction: DeathFunctions.opponentDeath,
+                                weaknesses: [DamageType.FIRE]
+                        )
+                )
+                break
+
+            case ("Vampire"):
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'v', name: 'Vampire', color: SColor.WHITE_MOUSE, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                        fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: 8,
+                                unarmedDamage: (10..16),
+                                deathFunction: DeathFunctions.opponentDeath,
+                                resistances: [DamageType.IRON, DamageType.SLASH, DamageType.BASH],
+                                weaknesses: [DamageType.SILVER, DamageType.WOOD, DamageType.PIERCE]
+                        )
+
+                )
+                break
+
+
+            case ("Armored Hulk"):
+                //TODO: slow, add armor
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'A', name: 'Armored Hulk', color: SColor.LIGHT_GRAY, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
+                        fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
+                                unarmedDamage: (4..8),
                                 deathFunction: DeathFunctions.opponentDeath)
                 )
+
                 break
 
             default:
@@ -96,16 +171,15 @@ class MonsterGen {
             weaknesses.add(MatUtils.randVal(DamageType.values()))
         }
 
-        String name = "Sir " + MatUtils.randVal(new File('assets/names/HUMAN/male.txt').text.split("\\s"))
-
-
+        String name = KnightNameGen.generate()
+        println name
 
         return new Entity(map: map, x: x, y: y,
                 ch: 'K', name: name, color: SColor.BURNT_ORANGE, blocks: true,
                 priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
                 fighter: new Fighter(hp: 20 + 10 * level, stamina: 8 + level, melee: level + 2, evasion: level / 2,
-                        weaknesses:weaknesses,
-                        resistances:resistances,
+                        weaknesses: weaknesses,
+                        resistances: resistances,
                         unarmedDamage: (4..8),
                         deathFunction: DeathFunctions.opponentDeath)
         )
