@@ -1,8 +1,6 @@
 package com.stewsters.dusk.sfx
 
-import com.stewsters.dusk.component.Fighter
 import com.stewsters.dusk.component.ai.Ai
-import com.stewsters.dusk.component.ai.BasicOpponent
 import com.stewsters.dusk.component.ai.ConfusedOpponent
 import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
@@ -169,8 +167,8 @@ class ItemFunctions {
 
         for (int x = 0; x < user.levelMap.widthInTiles; x++) {
             for (int y = 0; y < user.levelMap.heightInTiles; y++) {
-                if(!user.levelMap.ground[x][y].tileType.blocks)
-                user.levelMap.ground[x][y].isExplored = true
+                if (!user.levelMap.ground[x][y].tileType.blocks)
+                    user.levelMap.ground[x][y].isExplored = true
             }
         }
         return true
@@ -178,16 +176,19 @@ class ItemFunctions {
 
     public static Closure castSummoning = { Entity user ->
 
-       def directions = Direction.OUTWARDS as List
+        def directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        for(Direction dir :directions){
-            if(!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)){
-                MonsterGen.getRandomMonsterByLevel(user.levelMap,user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1,9)).faction = Faction.GOOD
+        for (Direction dir : directions) {
+            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
+                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+
+                summon.ai.gameTurn = user.ai.gameTurn + 1
+                summon.faction = Faction.GOOD
                 return true
             }
         }
-        return  false
+        return false
     }
 
 
@@ -212,13 +213,10 @@ class ItemFunctions {
                     ch: 'S', name: "Statue of ${enemy.name}", color: SColor.WHITE_MOUSE, blocks: true,
                     priority: Priority.ITEM
             )
-            
+
             return true
         }
     }
-
-
-
 
 
     public static Closure cleanse = { Entity user ->
