@@ -1,15 +1,21 @@
 package com.stewsters.dusk.sfx
 
+import com.stewsters.dusk.component.Fighter
 import com.stewsters.dusk.component.ai.Ai
+import com.stewsters.dusk.component.ai.BasicOpponent
 import com.stewsters.dusk.component.ai.ConfusedOpponent
 import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.AmmoType
 import com.stewsters.dusk.flyweight.DamageType
+import com.stewsters.dusk.flyweight.Faction
+import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import squidpony.squidcolor.SColor
+import squidpony.squidgrid.util.Direction
 
 class ItemFunctions {
 
@@ -54,7 +60,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(LIGHTNING_DAMAGE,[])
+            enemy.fighter.takeDamage(LIGHTNING_DAMAGE, [])
             return true
         }
     }
@@ -158,6 +164,61 @@ class ItemFunctions {
         }
 
     }
+
+    public static Closure castMapping = { Entity user ->
+
+        for (int x = 0; x < user.levelMap.widthInTiles; x++) {
+            for (int y = 0; y < user.levelMap.heightInTiles; y++) {
+                if(!user.levelMap.ground[x][y].tileType.blocks)
+                user.levelMap.ground[x][y].isExplored = true
+            }
+        }
+        return true
+    }
+
+    public static Closure castSummoning = { Entity user ->
+
+       def directions = Direction.OUTWARDS as List
+        Collections.shuffle(directions)
+
+        for(Direction dir :directions){
+            if(!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)){
+                MonsterGen.getRandomMonsterByLevel(user.levelMap,user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1,9)).faction = Faction.GOOD
+                return true
+            }
+        }
+        return  false
+    }
+
+
+    public static final int STONE_CURSE_RANGE = 10
+
+    public static Closure castStoneCurse = { Entity user ->
+
+
+        Entity enemy = user.ai.findClosestVisibleEnemy()
+        if (!enemy) {
+            MessageLog.send('No enemy is close enough to curse.', SColor.RED)
+            return false
+        } else if (user.distanceTo(enemy) > STONE_CURSE_RANGE) {
+            MessageLog.send("${enemy.name} is too far to curse.", SColor.RED, [user])
+            return false
+        } else {
+            MessageLog.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [user, enemy])
+
+            enemy.levelMap.remove(enemy)
+
+            return new Entity(map: user.levelMap, x: enemy.x, y: enemy.y,
+                    ch: 'S', name: "Statue of ${enemy.name}", color: SColor.WHITE_MOUSE, blocks: true,
+                    priority: Priority.ITEM
+            )
+            
+            return true
+        }
+    }
+
+
+
 
 
     public static Closure cleanse = { Entity user ->

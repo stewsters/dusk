@@ -26,6 +26,9 @@ class FantasyItemGen {
             [name: "Scroll of Domination", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Confusion", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Wrath", rarity: 30, startLevel: 0, endLevel: 9],
+            [name: "Scroll of Mapping", rarity: 10, startLevel: 0, endLevel: 9],
+            [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
+            [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
             // Scroll of Raise Dead
             // Scroll of Kill
 
@@ -140,7 +143,7 @@ class FantasyItemGen {
             case "Scroll of Fireball":
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.RED,
-                        name: "Scroll Of Fireball",
+                        name: "Scroll of Fireball",
                         description: "Launches a fireball.",
                         itemComponent: new Item(useFunction: ItemFunctions.castFireball)
                 )
@@ -149,7 +152,7 @@ class FantasyItemGen {
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.ORANGE,
-                        name: "Scroll Of Lightning",
+                        name: "Scroll of Lightning",
                         description: "Electrocutes the nearest target.",
                         itemComponent: new Item(useFunction: ItemFunctions.castLightning)
                 )
@@ -157,7 +160,7 @@ class FantasyItemGen {
             case "Scroll of Domination":
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.AMBER,
-                        name: "Scroll Of Domination",
+                        name: "Scroll of Domination",
                         description: "Makes the closest target your ally.",
                         itemComponent: new Item(useFunction: ItemFunctions.castDomination)
                 )
@@ -165,7 +168,7 @@ class FantasyItemGen {
             case "Scroll of Confusion":
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.AMARANTH,
-                        name: "Scroll Of Confusion",
+                        name: "Scroll of Confusion",
                         description: "Confuses nearby targets",
                         itemComponent: new Item(useFunction: ItemFunctions.castConfuse)
                 )
@@ -173,10 +176,43 @@ class FantasyItemGen {
             case "Scroll of Wrath":
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.SILVER_GREY,
-                        name: "Scroll Of Wrath",
+                        name: "Scroll of Wrath",
                         description: "Throws enemies away from you.",
                         itemComponent: new Item(useFunction: ItemFunctions.castWrath)
                 )
+                break
+
+            case "Scroll of Mapping":
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: '?', color: SColor.ORANGE_PEEL,
+                        name: "Scroll of Mapping",
+                        description: "As you read the scroll, you begin to remember this area.",
+                        itemComponent: new Item(useFunction: ItemFunctions.castMapping)
+                )
+
+                break
+
+            case "Scroll of Summoning":
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: '?', color: SColor.YELLOW_GREEN,
+                        name: "Scroll of Summoning",
+                        description: "This scroll summons a monster in an adjacent square.",
+                        itemComponent: new Item(useFunction: ItemFunctions.castSummoning)
+                )
+
+                break
+
+            case "Scroll of Stone Curse":
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: '?', color: SColor.YELLOW_GREEN,
+                        name: "Scroll of Stone Curse",
+                        description: "This scroll turns a creature into a statue, blocking progress.",
+                        itemComponent: new Item(useFunction: ItemFunctions.castStoneCurse)
+                )
+
                 break
 
         // Slash

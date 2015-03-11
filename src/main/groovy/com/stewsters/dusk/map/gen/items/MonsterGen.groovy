@@ -83,7 +83,7 @@ class MonsterGen {
             case ("Dark Elf"):
 
                 return new Entity(map: map, x: x, y: y,
-                        ch: 'o', name: 'Dark Elf', color: SColor.PURPLE_DYE, blocks: true,
+                        ch: 'e', name: 'Dark Elf', color: SColor.PURPLE_DYE, blocks: true,
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(),
                         fighter: new Fighter(hp: 10, stamina: 4, melee: 8, evasion: 3,
                                 unarmedDamage: (1..6),

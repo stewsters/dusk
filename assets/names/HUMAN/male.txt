@@ -1,3 +1,7 @@
+Aethelred
+Aethelstan
+Aethelwulf
+Alfred
 Althalos
 Arthur
 Asher
@@ -18,7 +22,12 @@ Dain
 Destrian
 Donald
 Doran
+Eadred
+Eadwig
+Edgar
 Edmund
+Edward
+Egbert
 Falk
 Favian
 Fendrel
@@ -29,7 +38,10 @@ Gavin
 Geoffrey
 Gregory
 Hadrian
+Harald
+Harold
 Henry
+James
 Janshai
 Jarin
 John
@@ -40,12 +52,15 @@ Leo
 Leofrick
 Letholdus
 Lief
+Louis
 Merek
 Montagu
 Oliver
 Peter
 Peyton
+Philip
 Quinn
+Richard
 Robin
 Roger
 Ronald
@@ -53,6 +68,8 @@ Rowan
 Rulf
 Sadon
 Simon
+Stephen
+Sweyn
 Terrin
 Terrowin
 Terryn

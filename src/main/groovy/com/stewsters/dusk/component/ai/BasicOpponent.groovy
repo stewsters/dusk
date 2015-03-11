@@ -5,8 +5,10 @@ import com.stewsters.util.math.MatUtils
 
 class BasicOpponent extends BaseAi implements Ai {
 
-    public BasicOpponent() {
-        gameTurn = MatUtils.getIntInRange(0, speed)
+    public BasicOpponent(int speed = 10) {
+        this.speed = speed
+
+        gameTurn = MatUtils.getIntInRange(1, speed)
     }
 
     private boolean active = true;
