@@ -27,13 +27,13 @@ class Fireball implements Spell {
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED, [caster])
             return false
-        } else if(caster.distanceTo(enemy) >  FIREBALL_RANGE + level ) {
+        } else if (caster.distanceTo(enemy) > FIREBALL_RANGE + level) {
             MessageLog.send(enemy.name + ' is too far to strike.', SColor.RED, [caster])
             return false
-        }else{
+        } else {
             int damage = MatUtils.d(FIREBALL_DAMAGE + level) + level
 
-            enemy.fighter.takeDamage(damage,[DamageType.FIRE])
+            enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
 
             MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
             return true

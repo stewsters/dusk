@@ -11,7 +11,7 @@ class BasicOpponent extends BaseAi implements Ai {
         gameTurn = MatUtils.getIntInRange(1, speed)
     }
 
-    private boolean active = true;
+    private boolean active = false;
 
     public boolean takeTurn() {
         if (!owner)
@@ -29,7 +29,7 @@ class BasicOpponent extends BaseAi implements Ai {
             } else {
 
                 if (MatUtils.boolean) {
-                    owner.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
+                    owner.randomMovement()
                 } else {
                     if (lastNoise) {
                         owner.moveTowardsAndAttack(lastNoise.x, lastNoise.y)

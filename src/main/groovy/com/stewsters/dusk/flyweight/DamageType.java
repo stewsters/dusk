@@ -3,13 +3,13 @@ package com.stewsters.dusk.flyweight;
 
 public enum DamageType {
 
-    SLASH("slash"),
-    PIERCE("pierce"),
-    BASH("bash"),
-    WOOD("wood"),
-    SILVER("silver"),
-    IRON("iron"),
-    FIRE("fire");
+    SLASH("Slash"),
+    PIERCE("Pierce"),
+    BASH("Bash"),
+    WOOD("Wood"),
+    SILVER("Silver"),
+    IRON("Iron"),
+    FIRE("Fire");
 
     String name;
 

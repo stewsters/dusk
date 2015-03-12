@@ -20,17 +20,19 @@ class Fighter {
     int stamina // used to make attacks and sprint
 
 
-    Set<DamageType> resistances
-    Set<DamageType> weaknesses
+    List<DamageType> resistances
+    List<DamageType> weaknesses
 
     // Skills
     int skillMelee   //strength with melee weapons
     int skillEvasion //make it harder to hit - evasion
     int skillMarksman // attack bonus with ranged weapons
 
-    //  armor depends on equipment
+    int experience
 
+    //  armor depends on equipment
     IntRange unarmedDamage
+    List<DamageType> unarmedDamageTypes
 
     // Level
     // Experience
@@ -54,6 +56,7 @@ class Fighter {
         skillMarksman = params.marksman ?: 0
 
         unarmedDamage = params.unarmedDamage ?: (0..0)
+        unarmedDamageTypes = params.unarmedDamageTypes ?: [DamageType.BASH]
 
         resistances = params.resistances ?: []
         weaknesses = params.weaknesses ?: []
@@ -61,7 +64,7 @@ class Fighter {
         deathFunction = params.deathFunction ?: null
     }
 
-    public takeDamage(int damage, List<DamageType> damageTypes = []) {
+    public takeDamage(int damage, Entity attacker = null, List<DamageType> damageTypes = []) {
 
         int resistance = resistances.intersect(damageTypes).size()
         int weakness = weaknesses.intersect(damageTypes).size()
@@ -73,7 +76,7 @@ class Fighter {
             if (hp <= 0) {
                 hp = 0
                 if (deathFunction)
-                    deathFunction(owner)
+                    deathFunction(owner, attacker)
             }
 
             int range = Math.min((int) (damage / 2), 5)
@@ -120,7 +123,7 @@ class Fighter {
                 damageTypes = equipment?.damageTypes
             } else {
                 damageRange = unarmedDamage
-                damageTypes = [DamageType.BASH]
+                damageTypes = unarmedDamageTypes
             }
 
             int damage = MatUtils.getIntInRange(damageRange.from, damageRange.to)
@@ -133,7 +136,7 @@ class Fighter {
 
             if (damage > 0) {
                 MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE, [owner, target]
-                target.fighter.takeDamage(damage, damageTypes)
+                target.fighter.takeDamage(damage, owner, damageTypes)
                 //other effects?
                 // if (owner.faction == Faction.EVIL) {
                 //   target.fighter.infect(1)
@@ -145,6 +148,14 @@ class Fighter {
         } else {
             MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
         }
+    }
+
+
+    public int levelUp() {
+        skillMelee++
+        skillEvasion++
+        skillMarksman++
+        hp += 5
     }
 
     /* Equipment functions */

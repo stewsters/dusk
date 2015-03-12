@@ -12,6 +12,10 @@ import squidpony.squidcolor.SColor
 
 class FantasyItemGen {
 
+    //TODO: add the ability to choose to generate a category, ie weapon, armor, scroll,
+
+//    public static final List<Map>
+
     public static final List<Map> spawnPerLevel = [
             [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
@@ -29,6 +33,11 @@ class FantasyItemGen {
             [name: "Scroll of Mapping", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
+
+            // Scrolls to level up?
+            // Scroll of Health
+            // Scroll of
+
             // Scroll of Raise Dead
             // Scroll of Kill
 
@@ -133,6 +142,8 @@ class FantasyItemGen {
                         )
                 )
                 break
+
+        // Potions
             case "Healing Potion":
                 return new Entity(map: map, x: x, y: y,
                         ch: '!', color: SColor.AZURE,
@@ -140,6 +151,8 @@ class FantasyItemGen {
                         description: "Restores health at the cost of toxicity buildup",
                         itemComponent: new Item(useFunction: ItemFunctions.castHeal)
                 )
+
+        // Scrolls
             case "Scroll of Fireball":
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.RED,
@@ -183,45 +196,39 @@ class FantasyItemGen {
                 break
 
             case "Scroll of Mapping":
-
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.ORANGE_PEEL,
                         name: "Scroll of Mapping",
                         description: "As you read the scroll, you begin to remember this area.",
                         itemComponent: new Item(useFunction: ItemFunctions.castMapping)
                 )
-
                 break
 
             case "Scroll of Summoning":
-
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.YELLOW_GREEN,
                         name: "Scroll of Summoning",
                         description: "This scroll summons a monster in an adjacent square.",
                         itemComponent: new Item(useFunction: ItemFunctions.castSummoning)
                 )
-
                 break
 
             case "Scroll of Stone Curse":
-
                 return new Entity(map: map, x: x, y: y,
                         ch: '?', color: SColor.YELLOW_GREEN,
                         name: "Scroll of Stone Curse",
                         description: "This scroll turns a creature into a statue, blocking progress.",
                         itemComponent: new Item(useFunction: ItemFunctions.castStoneCurse)
                 )
-
                 break
 
         // Slash
             case "Hand Axe":
-                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
-                        name: 'Hand Axe',
+                        name: "${material.name} Hand Axe",
                         description: "A one handed axe",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -233,11 +240,11 @@ class FantasyItemGen {
                 )
                 break
             case "Arming Sword":
-                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.SILVER_GREY,
-                        name: 'Arming Sword',
+                        name: "${material.name} Arming Sword",
                         description: "A knightly sword.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -249,11 +256,11 @@ class FantasyItemGen {
                 )
                 break
             case "Longsword":
-                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.STEEL_BLUE,
-                        name: 'Longsword',
+                        name: "${material.name} Longsword",
                         description: "A long sword",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -267,11 +274,11 @@ class FantasyItemGen {
 
         // Pierce
             case "Stiletto":
-                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
-                        name: 'Stiletto',
+                        name: "${material.name} Stiletto",
                         description: "A small piercing dagger.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -287,7 +294,7 @@ class FantasyItemGen {
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.GRAY,
-                        name: 'Spear',
+                        name: "${material.name} Spear",
                         description: "A pointy stick. Classic.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -303,7 +310,7 @@ class FantasyItemGen {
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.GOLDEN,
-                        name: 'Halberd',
+                        name: "${material.name} Halberd",
                         description: "A halberd.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -317,12 +324,12 @@ class FantasyItemGen {
 
         // Bash
             case "Club":
-                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.WOOD])
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
-                        name: 'Club',
-                        description: "A stick.",
+                        name: "${material.name} Club",
+                        description: "A solid club.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
                                 accuracyModifier: 1,
@@ -337,7 +344,7 @@ class FantasyItemGen {
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
-                        name: 'Mace',
+                        name: "${material.name} Mace",
                         description: "A weight on the end of a stick.",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,
@@ -354,7 +361,7 @@ class FantasyItemGen {
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.RED_BEAN,
-                        name: 'Maul',
+                        name: "${material.name} Maul",
                         description: "A great hammer",
                         equipment: new Equipment(
                                 slot: Slot.PRIMARY_HAND,

@@ -58,7 +58,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(LIGHTNING_DAMAGE, [])
+            enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
             return true
         }
     }
@@ -76,8 +76,13 @@ class ItemFunctions {
             MessageLog.send("${enemy.name} is too far to strike.", SColor.RED, [user])
             return false
         } else {
+
+            //TODO: create a fireball in the direction of the opponent.
+
+            //TODO: immolate on impact
+
             MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${FIREBALL_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(FIREBALL_DAMAGE, [DamageType.FIRE])
+            enemy.fighter.takeDamage(FIREBALL_DAMAGE, user, [DamageType.FIRE])
             return true
         }
     }

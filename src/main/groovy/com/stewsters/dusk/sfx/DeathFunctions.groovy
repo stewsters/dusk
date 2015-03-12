@@ -10,7 +10,7 @@ import squidpony.squidcolor.SColor
 class DeathFunctions {
 
 
-    public static Closure playerDeath = { Entity owner ->
+    public static Closure playerDeath = { Entity owner, Entity attacker ->
 
         MessageLog.send("${owner.name} is dead. Press space to identify items.", SColor.RED, [owner])
         owner.ch = '%'
@@ -27,7 +27,7 @@ class DeathFunctions {
     }
 
 
-    public static Closure opponentDeath = { Entity owner ->
+    public static Closure opponentDeath = { Entity owner, Entity attacker ->
         MessageLog.send("${owner.name} is dead!", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
@@ -44,7 +44,27 @@ class DeathFunctions {
     }
 
 
-    public static Closure zombify = { Entity owner ->
+    public static Closure bossDeath = { Entity owner, Entity attacker ->
+        MessageLog.send("${attacker.name} has slain ${owner.name}.", SColor.RED, [owner])
+        owner.ch = '%'
+        owner.color = SColor.BLOOD_RED
+        owner.blocks = false
+        owner.fighter = null
+        owner.levelMap.actors.remove(owner.ai)
+        owner.ai.owner = null
+        owner.ai = null
+        owner.name = "Remains of ${owner.name}"
+        owner.priority = Priority.CORPSE
+        owner.faction = null
+        if (owner.inventory)
+            owner.inventory.dump()
+
+        //TODO: give exp that can be used for leveling
+        attacker.fighter.experience++
+    }
+
+
+    public static Closure zombify = { Entity owner, Entity attacker ->
         MessageLog.send("${owner.name} is changing!", SColor.RED, [owner])
         owner.faction = Faction.EVIL
         owner.ch = 'z'
