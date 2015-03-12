@@ -19,7 +19,7 @@ class SkirmisherAi extends BaseAi implements Ai {
         if (enemy && owner.fighter) {
             //if we have a gun, and they are getting too close, shoot them
 
-            if (owner.fighter.hp < owner.fighter.maxHP) {
+            if (owner.fighter.hp == owner.fighter.maxHP) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
                 //if injured, move away. This works best for regenerators
@@ -31,6 +31,13 @@ class SkirmisherAi extends BaseAi implements Ai {
             }
         } else if (MatUtils.boolean) {
             owner.randomMovement();
+        } else {
+            //TODO: regeneration
+            owner.standStill()
+            if (owner.fighter) {
+                owner.fighter.addHealth(1)
+            }
+
         }
 
         gameTurn += speed

@@ -64,7 +64,6 @@ class ItemFunctions {
     }
 
     public static final int FIREBALL_DAMAGE = 20
-    public static final int FIREBALL_RANGE = 5
 
     public static Closure castFireball = { Entity user ->
 
@@ -72,17 +71,29 @@ class ItemFunctions {
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED, [user])
             return false
-        } else if (user.distanceTo(enemy) > FIREBALL_RANGE) {
-            MessageLog.send("${enemy.name} is too far to strike.", SColor.RED, [user])
-            return false
         } else {
 
+            int dx = MatUtils.limit(enemy.x - user.x, -1, 1)
+            int dy = MatUtils.limit(enemy.y - user.y, -1, 1)
+
             //TODO: create a fireball in the direction of the opponent.
+            new Entity(map: user.levelMap, x: user.x + dx, y: user.y + dy,
+                    ch: '*', name: 'Fireball', color: SColor.BLOOD_RED, blocks: false, priority: Priority.OPPONENT,
+                    ai: new Projectile(caster: user, target: new Point2i(enemy.x, enemy.y),
+                            onImpact: { Entity caster, int x, int y ->
 
-            //TODO: immolate on impact
+                                caster.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).findAll{it.fighter}.each {
 
-            MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${FIREBALL_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(FIREBALL_DAMAGE, user, [DamageType.FIRE])
+                                    int damage = MatUtils.getIntInRange(10, 20)
+                                    enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+                                    MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+                                }
+                                //TODO: immolate on impact
+                                 return  true
+                            }
+                    )
+            )
+
             return true
         }
     }
@@ -156,8 +167,20 @@ class ItemFunctions {
 
                 Ai oldAI = enemy.ai
                 enemy.levelMap.actors.remove(oldAI)
-                enemy.ai = new Projectile(oldAI: oldAI, castor: user,
-                        target: new Point2i(dx, dy))
+                enemy.ai = new Projectile(oldAI: oldAI, caster: user,
+                        target: new Point2i(dx, dy),
+                        onImpact: { Entity caster, int x, int y ->
+
+                            MessageLog.send("The ${enemy.name} colides!", SColor.RED, [owner, caster])
+
+                            caster.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
+                                enemy.fighter.takeDamage(1, caster, [DamageType.FIRE])
+                            }
+                            //TODO: immolate on impact
+                            return false
+                        }
+
+                )
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
@@ -195,6 +218,24 @@ class ItemFunctions {
         }
         return false
     }
+
+    public static Closure castHostileSummoning = { Entity user ->
+
+        def directions = Direction.OUTWARDS as List
+        Collections.shuffle(directions)
+
+        for (Direction dir : directions) {
+            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
+                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+
+                summon.ai.gameTurn = user.ai.gameTurn + 1
+                summon.faction = Faction.EVIL
+                return true
+            }
+        }
+        return false
+    }
+
 
 
     public static final int STONE_CURSE_RANGE = 10

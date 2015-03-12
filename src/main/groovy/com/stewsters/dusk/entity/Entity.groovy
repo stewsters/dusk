@@ -170,6 +170,37 @@ public class Entity {
     }
 
 
+    public boolean  moveTowards(int targetX, int targetY) {
+        int dx = targetX - x
+        int dy = targetY - y
+
+        int mx = 0
+        int my = 0
+
+        // get direction of the vector
+        if (dx > 0) {
+            mx = 1
+        } else if (dx < 0)
+            mx = -1
+
+        if (dy > 0) {
+            my = 1
+        } else if (dy < 0)
+            my = -1
+
+        if (move(mx, my)) {
+            return true
+        } else {
+            if (Math.abs(dx) > Math.abs(dy)) {
+                return move(mx, 0) || move(0, my)
+            } else {
+                return move(0, my) || move(mx, 0)
+            }
+        }
+
+    }
+
+
     public boolean moveTowardsAndAttack(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y

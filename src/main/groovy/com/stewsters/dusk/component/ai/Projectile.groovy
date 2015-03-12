@@ -1,20 +1,25 @@
 package com.stewsters.dusk.component.ai
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.Point2i
-import squidpony.squidcolor.SColor
 
 class Projectile extends BaseAi implements Ai {
     Ai oldAI = null
-    Entity castor
+    Entity caster
     Point2i target
+    Closure onImpact
 
     public Projectile(params) {
         oldAI = params.oldAI
-        castor = params.castor
+        caster = params.caster
         target = params.target
-        gameTurn = oldAI.gameTurn
+        onImpact = params.onImpact
+
+        if (oldAI)
+            gameTurn = oldAI.gameTurn
+        else if (caster && caster.ai) {
+            gameTurn = caster.ai.gameTurn
+        }
     }
 
     public boolean takeTurn() {
@@ -28,6 +33,11 @@ class Projectile extends BaseAi implements Ai {
         if (owner.move(dx, dy)) {
             // kept flying
             if (target.x == owner.x && target.y == owner.y) {
+
+                if (onImpact(0, 0)) {
+                    return false
+                }
+
                 // natural land
                 gameTurn += speed // recovery
                 restore()
@@ -37,11 +47,25 @@ class Projectile extends BaseAi implements Ai {
 
         } else {
             //collision
+            if (onImpact(dx, dy)) {
+                return false
+            }
+
             gameTurn += speed // recovery
             restore()
-            MessageLog.send("The ${owner.name} colides!", SColor.RED, [owner, castor])
+
             return false
         }
+    }
+
+    private onImpact(int dx, int dy) {
+        if (onImpact) {
+            if (onImpact(caster, owner.x + dx, owner.y + dy)) {
+                owner.levelMap.remove(owner)
+                return true
+            }
+        }
+        return false
     }
 
 

@@ -25,13 +25,14 @@ class FantasyItemGen {
 
             [name: "Healing Potion", rarity: 10, startLevel: 0, endLevel: 9],
 
-            [name: "Scroll of Fireball", rarity: 20, startLevel: 0, endLevel: 9],
+            [name: "Scroll of Fireball", rarity: 30, startLevel: 0, endLevel: 9],
             [name: "Scroll of Lightning", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Scroll of Domination", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Confusion", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Wrath", rarity: 30, startLevel: 0, endLevel: 9],
             [name: "Scroll of Mapping", rarity: 10, startLevel: 0, endLevel: 9],
             [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
+            [name: "Scroll of Testing", rarity: 0, startLevel: 0, endLevel: 9],
             [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
 
             // Scrolls to level up?
@@ -50,8 +51,6 @@ class FantasyItemGen {
             [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
             [name: "Spear", rarity: 10, startLevel: 2, endLevel: 4],
             [name: "Halberd", rarity: 10, startLevel: 4, endLevel: 9],
-
-            // halberd - piercing
 
             // Blunt
             [name: "Club", rarity: 10, startLevel: 0, endLevel: 4],
@@ -212,6 +211,15 @@ class FantasyItemGen {
                         itemComponent: new Item(useFunction: ItemFunctions.castSummoning)
                 )
                 break
+            case "Scroll of Testing":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '?', color: SColor.YELLOW_GREEN,
+                        name: "Scroll of Testing",
+                        description: "This scroll summons a monster in an adjacent square.",
+                        itemComponent: new Item(useFunction: ItemFunctions.castHostileSummoning)
+                )
+                break
+
 
             case "Scroll of Stone Curse":
                 return new Entity(map: map, x: x, y: y,

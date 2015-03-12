@@ -2,6 +2,7 @@ package com.stewsters.dusk.map.gen.items
 
 import com.stewsters.dusk.component.Fighter
 import com.stewsters.dusk.component.ai.BasicOpponent
+import com.stewsters.dusk.component.ai.ChargerAi
 import com.stewsters.dusk.component.ai.KnightAi
 import com.stewsters.dusk.component.ai.SkirmisherAi
 import com.stewsters.dusk.entity.Entity
@@ -28,6 +29,7 @@ class MonsterGen {
             [name: "Imprisoned Spirit", rarity: 5, startLevel: 5, endLevel: 7],
             [name: "Troll", rarity: 10, startLevel: 4, endLevel: 6],
             [name: "Vampire", rarity: 20, startLevel: 8, endLevel: 9],
+            [name: "Minotaur", rarity: 20, startLevel: 4, endLevel: 9],
             [name: "Armored Hulk", rarity: 10, startLevel: 6, endLevel: 9]
 
             // Puddi
@@ -111,6 +113,18 @@ class MonsterGen {
                 )
                 break
 
+            case ("Minotaur"):
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: 'm', name: 'Minotaur', color: SColor.LAWN_GREEN, blocks: true,
+                        priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new ChargerAi(),
+                        fighter: new Fighter(hp: 20, stamina: 8, melee: 5, evasion: -2,
+                                unarmedDamage: (3..8),
+                                deathFunction: DeathFunctions.opponentDeath)
+                )
+                break
+
+                break
             case ("Dark Elf"):
 
                 return new Entity(map: map, x: x, y: y,
