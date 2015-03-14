@@ -3,14 +3,6 @@
 This is a traditional roguelike where you are being imprisoned at the bottom of a dungeon and need to escape.
 
 
-
-Influences:
-Brogue (ui, controls)
-Shadow of Mordor (Bosses)
-
-
-
-
 ## My tools: ##
 
 + Groovy 2.4.0
@@ -21,10 +13,16 @@ Shadow of Mordor (Bosses)
 
 
 ## Download ##
-Coming
+https://drive.google.com/file/d/0B3U_dH2ElnmuLUlCaEl6STdrZjQ/view?usp=sharing
 
+## Run Prepackaged ##
+Download the above zip, extract it.  Navigate to the directory and execute
 
-## Compile ##
+```bash
+java -jar dusk-1.0.jar
+```
+
+## Compile From Sourc##
 To compile from source you will need a JDK and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:
 
@@ -57,9 +55,7 @@ e: equip
 
 r: remove
 
-t: Throw
-
-esc: back out of menus
+esc: back out of menus.  If you are not in a menu, it will bring up one that lets you level up your character or exit to main.
 
 ```
 
@@ -69,40 +65,23 @@ esc: back out of menus
 ## Glyphs ##
 
 
-
 ### Tiles ###
 
-    _  Altar
-    O  Cloud
     .  Corridors
-    +/ Door
-    <> Staircases
-    ß  Statue
-    ^  Traps
-    ♈  Foliage
-    £  Tree
     #  Walls
+    <> Staircases - please note you are trying to go up, so look for <
+    £  Tree
     ~  shallow Water, Lava
     ≈  Deep water, Lava
 
 ### Items ###
 
-    [  Armor, shields, cloaks, boots, girdles, gauntlets and helmets
-    *  Gems and rocks
-    ]  Tools (keys, writing sets, elemental orbs, and various other things)
-    ♀  Necklaces, amulet
+    [  Armor
     ↑  Melee weapons (all of them)
-    }  Missile weapons (bows, crossbows, slings)
-    /  Missiles (arrows, quarrels, etc)
-    =  Rings
-    \  Wands, staffs, rods
     !  Potions, Quaffables
     ?  Scrolls
     %  corpses
-    ;  Food  (inc  and herbs)
-    $  Gold Coins
-    {  Musical Instruments
-    "  Books
+    $  Gold Coins (Just for fun, no one sells anything)
 
 ### Monsters ###
 Monsters are a-z A-Z
@@ -123,7 +102,7 @@ Monsters are a-z A-Z
     m  Minotaur - if they see you are range they will try to charge you.
     n
     o  orc -  Fairly standard
-    p  phalanx
+    p
     q
     r  rat
     s  Statue

@@ -152,6 +152,11 @@ public class Inventory {
             i++
         }
 
+        if (item?.equipment?.damage) {
+            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage.from} - ${item?.equipment?.damage.to}" )
+            i++
+        }
+
 
         String actions = ""
 

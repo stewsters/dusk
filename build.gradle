@@ -3,11 +3,9 @@ apply plugin: 'groovy'
 apply plugin: 'application'
 
 mainClassName = 'com.stewsters.dusk.main.DuskApplicationMain'
-version = 1.1
+version = 1.0
 
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
