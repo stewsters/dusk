@@ -321,6 +321,10 @@ public class PlayingScreen implements Screen {
                 case VK_D:
                     screenMode = ScreenMode.DROP
                     break;
+                case VK_ESCAPE:
+                    return new EscapeScreen(this)
+                    break
+
                 default:
                     break;
 

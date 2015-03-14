@@ -86,7 +86,7 @@ class ItemFunctions {
 
                                     if(it.fighter) {
                                         int damage = MatUtils.getIntInRange(10, 20)
-                                        enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+                                        it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
                                         MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
                                     }
                                 }
