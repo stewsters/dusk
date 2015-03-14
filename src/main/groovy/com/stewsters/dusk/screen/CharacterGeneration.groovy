@@ -176,7 +176,7 @@ class CharacterGeneration implements Screen {
         player.spellbook.spells.add(new Healing())
 
         player.ai.owner = player
-        return new DuskApplicationScreen(mapStack, player)
+        return new PlayingScreen(mapStack, player)
 
 
     }

@@ -13,7 +13,6 @@ import com.stewsters.dusk.map.gen.SimpleMapGenerator
 import com.stewsters.dusk.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.map.gen.TestMapGenerator
 import com.stewsters.dusk.sfx.DeathFunctions
-import com.stewsters.util.mapgen.twoDimension.MapGen2d
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -79,7 +78,7 @@ class MainMenu implements Screen {
                             deathFunction: DeathFunctions.playerDeath)
             )
 
-            return new DuskApplicationScreen(mapStack, testPlayer)
+            return new PlayingScreen(mapStack, testPlayer)
         } else if (code == VK_X) {
             System.exit(0)
         }

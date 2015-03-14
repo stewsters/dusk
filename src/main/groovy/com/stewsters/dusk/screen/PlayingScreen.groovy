@@ -24,7 +24,7 @@ import java.awt.event.KeyEvent
 import static java.awt.event.KeyEvent.*
 import static squidpony.squidgrid.util.Direction.*
 
-public class DuskApplicationScreen implements Screen {
+public class PlayingScreen implements Screen {
 
 
     public MapStack mapStack
@@ -35,7 +35,7 @@ public class DuskApplicationScreen implements Screen {
 
     private int selectedItem = -1
 
-    public DuskApplicationScreen(MapStack mapStack, Entity player) {
+    public PlayingScreen(MapStack mapStack, Entity player) {
 
         this.mapStack = mapStack;
         this.player = player;
@@ -158,6 +158,15 @@ public class DuskApplicationScreen implements Screen {
         }
         if (entity?.fighter?.toxicity) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Toxicity", entity?.fighter?.toxicity ?: 0, entity?.fighter?.maxToxicity ?: 1, SColor.DARK_RED)
+            linesTaken++
+        }
+
+        if (entity?.fighter?.weaknesses) {
+            display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
+            linesTaken++
+        }
+        if (entity?.fighter?.resistances) {
+            display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
             linesTaken++
         }
 
@@ -421,7 +430,7 @@ public class DuskApplicationScreen implements Screen {
             }
         }
 
-        if(player.levelMap.ground[player.x][player.y].tileType == TileType.GAME_WIN){
+        if (player.levelMap.ground[player.x][player.y].tileType == TileType.GAME_WIN) {
             return new WinScreen(player)
         }
 

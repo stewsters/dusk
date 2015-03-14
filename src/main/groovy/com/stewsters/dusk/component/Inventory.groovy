@@ -146,6 +146,13 @@ public class Inventory {
 
         // TODO: attribute / characteristic Tags
 
+        if (item?.equipment?.damageTypes) {
+            i++
+            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, item?.equipment?.damageTypes?.name?.join(", ") ?: "")
+            i++
+        }
+
+
         String actions = ""
 
         // Render possible actions

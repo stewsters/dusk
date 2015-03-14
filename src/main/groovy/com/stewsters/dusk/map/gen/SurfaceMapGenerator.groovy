@@ -8,6 +8,9 @@ import com.stewsters.util.noise.OpenSimplexNoise
 
 class SurfaceMapGenerator implements MapGenerator {
 
+    int playerX
+    int playerY
+
     @Override
     LevelMap reGenerate(int level) {
 
@@ -38,7 +41,7 @@ class SurfaceMapGenerator implements MapGenerator {
             map.ySize.times { y ->
                 if (!map.ground[x][y].tileType.blocks) {
 
-                    int tDist = MatUtils.manhattanDistance(x, y, (int)(map.getWidthInTiles() / 2), (int)(map.getHeightInTiles() / 2))
+                    int tDist = MatUtils.manhattanDistance(x, y, (int) (map.getWidthInTiles() / 2), (int) (map.getHeightInTiles() / 2))
                     if (tDist < distToCenter) {
                         distToCenter = tDist
                         tX = x
@@ -48,6 +51,8 @@ class SurfaceMapGenerator implements MapGenerator {
                 }
             }
         }
+        playerX = tX
+        playerY = tY
 
         map.ground[tX][tY].tileType = TileType.STAIRS_DOWN
 
@@ -56,12 +61,12 @@ class SurfaceMapGenerator implements MapGenerator {
 
     @Override
     int getPlayerStartX() {
-        return 0
+        return playerX
     }
 
     @Override
     int getPlayerStartY() {
-        return 0
+        return playerY
     }
 
 
@@ -69,25 +74,17 @@ class SurfaceMapGenerator implements MapGenerator {
         //Randomly place trees on grass squares
         OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
 
-
         map.xSize.times { x ->
             map.ySize.times { y ->
 
                 //if grass
                 if (TileType.grassTypes.contains(map.ground[x][y].tileType)) {
-
                     if (openSimplexNoise.eval((double) x / 10.0, (double) y / 10.0) > 0.5) {
                         map.ground[x][y].tileType = TileType.TREE
                     }
-
                 }
 
-
             }
-
         }
-
     }
-
-
 }
