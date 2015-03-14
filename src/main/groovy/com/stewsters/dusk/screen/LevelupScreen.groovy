@@ -27,7 +27,7 @@ class LevelupScreen implements Screen {
 
 
         display.placeHorizontalString(x, y, "XP: " + playingScreen?.player?.fighter?.experience)
-        y+=2
+        y += 2
 
         display.placeHorizontalString(x, y, "Melee: " + playingScreen?.player?.fighter?.skillMelee)
         y++
@@ -85,6 +85,7 @@ class LevelupScreen implements Screen {
             if (playingScreen?.player?.fighter?.experience) {
                 playingScreen.player.fighter.experience--
                 playingScreen.player.fighter.baseMaxHp += 5
+                playingScreen.player.fighter.hp += 5
             }
         }
 

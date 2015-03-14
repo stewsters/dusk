@@ -3,7 +3,10 @@ package com.stewsters.dusk.screen
 import com.stewsters.dusk.component.*
 import com.stewsters.dusk.component.ai.LocalPlayer
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.*
+import com.stewsters.dusk.flyweight.Faction
+import com.stewsters.dusk.flyweight.Gender
+import com.stewsters.dusk.flyweight.Priority
+import com.stewsters.dusk.flyweight.SocialClass
 import com.stewsters.dusk.magic.Fireball
 import com.stewsters.dusk.magic.Healing
 import com.stewsters.dusk.map.MapStack
@@ -21,20 +24,18 @@ import java.awt.event.KeyEvent
 
 import static java.awt.event.KeyEvent.*
 
-
 class CharacterGeneration implements Screen {
 
     int pointerColumn = 0;
 
-    ListSelector<Race> raceSelect
+//    ListSelector<Race> raceSelect
     ListSelector<SocialClass> socialClassSelect
     ListSelector<Gender> genderSelect
 
     public CharacterGeneration() {
         //TODO: generate the map in another thread and wait for it
 
-
-        raceSelect = new ListSelector<>("Select Race", Race.values() as List)
+//        raceSelect = new ListSelector<>("Select Race", Race.values() as List)
         socialClassSelect = new ListSelector<>("Select Class", SocialClass.values() as List)
         genderSelect = new ListSelector<>("Select Gender", Gender.values() as List)
 
@@ -43,13 +44,13 @@ class CharacterGeneration implements Screen {
     @Override
     void displayOutput(SwingPane display) {
 
-        raceSelect.render(display, 10, 10, pointerColumn == 0);
-        socialClassSelect.render(display, 30, 10, pointerColumn == 1)
-        genderSelect.render(display, 50, 10, pointerColumn == 2)
+//        raceSelect.render(display, 10, 10, pointerColumn == 0);
+        socialClassSelect.render(display, 30, 10, pointerColumn == 0)
+        genderSelect.render(display, 50, 10, pointerColumn == 1)
 
         // Whats your name today?  Generate
 
-        display.placeHorizontalString(10, 30, "Push Space to begin your adventure")
+        display.placeHorizontalString(30, 30, "Push Space to begin your adventure")
 
     }
 
@@ -69,13 +70,13 @@ class CharacterGeneration implements Screen {
             case VK_UP:
             case VK_NUMPAD8:
                 switch (pointerColumn) {
+//                    case 0:
+//                        raceSelect.up()
+//                        break
                     case 0:
-                        raceSelect.up()
-                        break
-                    case 1:
                         socialClassSelect.up()
                         break
-                    case 2:
+                    case 1:
                         genderSelect.up()
                         break
                 }
@@ -84,13 +85,13 @@ class CharacterGeneration implements Screen {
             case VK_DOWN:
             case VK_NUMPAD2:
                 switch (pointerColumn) {
+//                    case 0:
+//                        raceSelect.down()
+//                        break
                     case 0:
-                        raceSelect.down()
-                        break
-                    case 1:
                         socialClassSelect.down()
                         break
-                    case 2:
+                    case 1:
                         genderSelect.down()
                         break
                 }
@@ -103,7 +104,7 @@ class CharacterGeneration implements Screen {
             case VK_L:
             case VK_RIGHT:
             case VK_NUMPAD6:
-                pointerColumn = Math.min(2, pointerColumn + 1)
+                pointerColumn = Math.min(1, pointerColumn + 1)
                 break
             case VK_SPACE:
                 return startGame()
@@ -138,21 +139,16 @@ class CharacterGeneration implements Screen {
                 playerStartY = jailMapGen.playerStartY
 
             } else if (it < 8) {
-                mapStack.levelMaps[it] =simpleMapGen.reGenerate(it)
+                mapStack.levelMaps[it] = simpleMapGen.reGenerate(it)
             } else {
                 mapStack.levelMaps[it] = surfaceMapGen.reGenerate(it)
             }
         }
 
         String name = KnightNameGen.generate(genderSelect.selected)
-//        if (genderSelect.selected == Gender.MALE) {
-//            name = NameGen.randomMaleFirstName()
-//        } else {
-//            name = NameGen.randomFemaleFirstName()
-//        }
-//        name += " " + NameGen.randomLastName()
 
-        //TODO: use fantasy name generation
+
+
         Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
                 priority: Priority.PLAYER, faction: Faction.GOOD,
@@ -162,11 +158,11 @@ class CharacterGeneration implements Screen {
                 quiver: new Quiver(),
                 spellbook: new Spellbook(),
                 fighter: new Fighter(
-                        hp: 30,
+                        hp: (socialClassSelect.selected == SocialClass.PRIEST) ? 35 : 30,
                         stamina: 10,
                         toxicity: 10,
-                        melee: 1,
-                        evasion: 1,
+                        melee: (socialClassSelect.selected == SocialClass.KNIGHT) ? 2 : 1,
+                        evasion: (socialClassSelect.selected == SocialClass.POACHER) ? 2 : 1,
                         marksman: 1,
                         unarmedDamage: (1..4),
                         deathFunction: DeathFunctions.playerDeath)

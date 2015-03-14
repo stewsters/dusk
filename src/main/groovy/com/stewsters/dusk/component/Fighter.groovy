@@ -64,7 +64,7 @@ class Fighter {
         deathFunction = params.deathFunction ?: null
     }
 
-    public takeDamage(int damage, Entity attacker = null, List<DamageType> damageTypes = []) {
+    public int takeDamage(int damage, Entity attacker = null, List<DamageType> damageTypes = []) {
 
         int resistance = resistances.intersect(damageTypes).size()
         int weakness = weaknesses.intersect(damageTypes).size()
@@ -88,6 +88,7 @@ class Fighter {
             }
 
         }
+        return damage
     }
 
     public def addHealth(int amount) {
@@ -135,8 +136,10 @@ class Fighter {
 
 
             if (damage > 0) {
-                MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE, [owner, target]
-                target.fighter.takeDamage(damage, owner, damageTypes)
+                int actualDamage = target.fighter.takeDamage(damage, owner, damageTypes)
+                MessageLog.send "${owner.name} attacks ${target.name} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
+
+
                 //other effects?
                 // if (owner.faction == Faction.EVIL) {
                 //   target.fighter.infect(1)

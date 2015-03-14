@@ -19,7 +19,9 @@ public class Healing implements Spell {
 
             MessageLog.send("Your wounds seal up.", SColor.GREEN)
             caster.fighter.addHealth(level + MatUtils.d(HEAL_AMOUNT + level))
-            caster.fighter.addToxicity(2);
+
+            // TODO: implement toxicity
+            // caster.fighter.addToxicity(2);
             return true
         }
 

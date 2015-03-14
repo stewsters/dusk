@@ -57,8 +57,8 @@ class ItemFunctions {
             MessageLog.send("${enemy.name} is too far to strike.", SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
+            int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
+            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
             return true
         }
     }
@@ -86,8 +86,9 @@ class ItemFunctions {
 
                                     if(it.fighter) {
                                         int damage = MatUtils.getIntInRange(10, 20)
-                                        it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
-                                        MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+                                        int actualDamage = it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+
+                                        MessageLog.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
                                     }
                                 }
                                 //TODO: immolate on impact
@@ -173,10 +174,10 @@ class ItemFunctions {
                         target: new Point2i(dx, dy),
                         onImpact: { Entity caster, int x, int y ->
 
-                            MessageLog.send("The ${enemy.name} colides!", SColor.RED, [owner, caster])
+                            MessageLog.send("The ${enemy.name} collides!", SColor.RED, [owner, caster])
 
                             caster.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
-                                enemy.fighter.takeDamage(1, caster, [DamageType.FIRE])
+                                enemy.fighter.takeDamage(1, caster, [DamageType.BASH])
                             }
                             //TODO: immolate on impact
                             return false

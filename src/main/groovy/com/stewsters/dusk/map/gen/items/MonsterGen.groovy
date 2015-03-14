@@ -218,6 +218,8 @@ class MonsterGen {
         weaknessCount.times {
             weaknesses.add(MatUtils.randVal(DamageType.values()))
         }
+        resistances.unique()
+        weaknesses.unique()
 
         String name = KnightNameGen.generate()
         println name
