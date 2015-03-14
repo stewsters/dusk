@@ -3,9 +3,6 @@ package com.stewsters.dusk.map.gen.name
 import com.stewsters.dusk.flyweight.Gender
 import com.stewsters.util.math.MatUtils
 
-/**
- * Created by stewsters on 3/9/15.
- */
 class KnightNameGen {
 
     public static String generate(Gender gender = null,maxLength = 20) {

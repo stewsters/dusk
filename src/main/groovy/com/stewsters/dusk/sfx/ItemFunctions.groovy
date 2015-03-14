@@ -17,7 +17,7 @@ import squidpony.squidgrid.util.Direction
 
 class ItemFunctions {
 
-    public static final int HEAL_AMOUNT = 10
+    public static final int HEAL_AMOUNT = 20
 
     public static Closure castHeal = { Entity user ->
 
@@ -82,14 +82,16 @@ class ItemFunctions {
                     ai: new Projectile(caster: user, target: new Point2i(enemy.x, enemy.y),
                             onImpact: { Entity caster, int x, int y ->
 
-                                caster.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).findAll{it.fighter}.each {
+                                caster.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).each {
 
-                                    int damage = MatUtils.getIntInRange(10, 20)
-                                    enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
-                                    MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+                                    if(it.fighter) {
+                                        int damage = MatUtils.getIntInRange(10, 20)
+                                        enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+                                        MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${damage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+                                    }
                                 }
                                 //TODO: immolate on impact
-                                 return  true
+                                return true
                             }
                     )
             )
@@ -235,7 +237,6 @@ class ItemFunctions {
         }
         return false
     }
-
 
 
     public static final int STONE_CURSE_RANGE = 10

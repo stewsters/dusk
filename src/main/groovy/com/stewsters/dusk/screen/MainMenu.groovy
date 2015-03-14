@@ -7,9 +7,13 @@ import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.MapStack
+import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
+import com.stewsters.dusk.map.gen.SimpleMapGenerator
+import com.stewsters.dusk.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.map.gen.TestMapGenerator
 import com.stewsters.dusk.sfx.DeathFunctions
+import com.stewsters.util.mapgen.twoDimension.MapGen2d
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -17,9 +21,6 @@ import java.awt.event.KeyEvent
 
 import static java.awt.event.KeyEvent.*
 
-/**
- * Created by stewsters on 1/30/15.
- */
 class MainMenu implements Screen {
     @Override
     void displayOutput(SwingPane display) {
@@ -49,16 +50,17 @@ class MainMenu implements Screen {
             return new CharacterGeneration()
 
         } else if (code == VK_T) {
-            MapGenerator mapGen = new TestMapGenerator();
 
-            MapStack mapStack = new MapStack(10)
+            MapStack mapStack = new MapStack(4)
+            MapGenerator mapgen = new TestMapGenerator();
 
-            10.times {
-                mapStack.levelMaps[it] = mapGen.reGenerate(it)
-            }
+            mapStack.levelMaps[0] = mapgen.reGenerate(0)
+            mapStack.levelMaps[1] = new JailMapGenerator().reGenerate(1)
+            mapStack.levelMaps[2] = new SimpleMapGenerator().reGenerate(2)
+            mapStack.levelMaps[3] = new SurfaceMapGenerator().reGenerate(3)
 
 
-            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: mapGen.playerStartX, y: mapGen.playerStartY,
+            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: mapgen.playerStartX, y: mapgen.playerStartY,
                     ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,
                     ai: new LocalPlayer(),

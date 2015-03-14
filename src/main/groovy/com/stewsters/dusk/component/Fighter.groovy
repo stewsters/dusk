@@ -79,7 +79,7 @@ class Fighter {
                     deathFunction(owner, attacker)
             }
 
-            int range = Math.min((int) (damage / 2), 5)
+            int range = Math.sqrt(damage)
             for (int i = 0; i < damage; i++) {
                 // blood splatter
                 int xPos = MatUtils.getIntInRange(-range, range) + owner.x

@@ -5,12 +5,9 @@ import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 
-/**
- * Created by stewsters on 1/28/15.
- */
 public class Healing implements Spell {
 
-    public static final int HEAL_AMOUNT = 10
+    public static final int HEAL_AMOUNT = 20
 
     @Override
     boolean cast(Entity caster) {

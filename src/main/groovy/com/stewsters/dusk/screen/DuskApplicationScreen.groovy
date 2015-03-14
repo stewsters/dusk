@@ -421,6 +421,10 @@ public class DuskApplicationScreen implements Screen {
             }
         }
 
+        if(player.levelMap.ground[player.x][player.y].tileType == TileType.GAME_WIN){
+            return new WinScreen(player)
+        }
+
         return this;
     }
 

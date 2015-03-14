@@ -1,7 +1,6 @@
 package com.stewsters.dusk.map.gen
 
 import com.stewsters.dusk.flyweight.TileType
-import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.FantasyItemGen
@@ -12,9 +11,6 @@ import com.stewsters.util.math.geom.Rect
 
 class JailMapGenerator implements MapGenerator {
 
-    private static int ROOM_MAX_SIZE = 12
-    private static int ROOM_MIN_SIZE = 6
-    private static int MAX_ROOMS = 20
     private static int MAX_ROOM_MONSTERS = 2
     private static int MAX_ROOM_ITEMS = 2
 
@@ -24,10 +20,10 @@ class JailMapGenerator implements MapGenerator {
     @Override
     public LevelMap reGenerate(int level) {
 
-        int width = 60
-        int height = 60
-        LevelMap map = new LevelMap(width, height);
+        int width = 40
+        int height = 40
 
+        LevelMap map = new LevelMap(width, height);
         map.xSize.times { iX ->
             map.ySize.times { iY ->
                 map.ground[iX][iY] = new Tile(TileType.WALL)
@@ -35,53 +31,52 @@ class JailMapGenerator implements MapGenerator {
         }
 
         List<Rect> rooms = []
-        int num_rooms = 0
+        int roomSize = 6
 
+        for (int roomX = 1; roomX < width - roomSize; roomX += roomSize) {
+            for (int roomY = 1; roomY < height - roomSize; roomY += roomSize) {
 
-        MAX_ROOMS.times { roomNo ->
+                if(MatUtils.boolean)
+                    continue
 
-            int w = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
-            int h = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
-
-            int roomX = MatUtils.getIntInRange(0, (map.xSize - w) - 1)
-            int roomY = MatUtils.getIntInRange(0, (map.ySize - h) - 1)
-
-            Rect newRoom = new Rect(roomX, roomY, w + roomX, h + roomY)
-            boolean failed = false
-            for (Rect otherRoom : rooms) {
-                if (newRoom.intersect(otherRoom))
-                    failed = true
-                break
-            }
-            if (!failed) {
-
-                createRoom(map, newRoom)
-
-                Point2i center = newRoom.center()
-
-                if (num_rooms == 0) {
-                    //set player start
-                    playerStartX = center.x
-                    playerStartY = center.y
-
-                } else {
-                    placeObjects(map, newRoom, level)
-
-                    Point2i lastCenter = rooms[(num_rooms - 1)].center()
-                    Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
-
-                    if (MatUtils.getBoolean()) {
-                        createHTunnel(map, prev.x, center.x, prev.y)
-                        createVTunnel(map, prev.y, center.y, center.x)
-                    } else {
-                        createVTunnel(map, prev.y, center.y, prev.x)
-                        createHTunnel(map, prev.x, center.x, center.y)
-                    }
+                Rect newRoom = new Rect(roomX, roomY, roomSize + roomX, roomSize + roomY)
+                boolean failed = false
+                for (Rect otherRoom : rooms) {
+                    if (newRoom.intersect(otherRoom))
+                        failed = true
+                    break
                 }
-                rooms.add(newRoom)
-                num_rooms++
+                if (!failed) {
+                    rooms.add(newRoom)
+                }
+            }
+        }
+
+        Collections.shuffle rooms
+
+        rooms.eachWithIndex { newRoom, roomNum ->
+            createRoom(map, newRoom)
+
+            Point2i center = newRoom.center()
+
+            if (roomNum == 0) {
+                //set player start
+                playerStartX = center.x
+                playerStartY = center.y
+
             } else {
-                MessageLog.log("failed to place room " + roomNo)
+                placeObjects(map, newRoom, level)
+
+                Point2i lastCenter = rooms[(roomNum - 1)].center()
+                Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
+
+                if (MatUtils.getBoolean()) {
+                    createHTunnel(map, prev.x, center.x, prev.y)
+                    createVTunnel(map, prev.y, center.y, center.x)
+                } else {
+                    createVTunnel(map, prev.y, center.y, prev.x)
+                    createHTunnel(map, prev.x, center.x, center.y)
+                }
             }
         }
 

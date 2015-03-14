@@ -110,30 +110,30 @@ Monsters are a-z A-Z
     @  Player
     a  Armored Hulk
     b
-    c
-    d  dark elves, Dragon
-    e
+    c  craven - a small creature that will run away if injured
+    d
+    e  dark elves
     f
-    g  goblin, Gargoyle
+    g  goblin
     h
     i  imprisoned Spirit
     j
-    k
+    k  knight - These are optional level bosses that tend to hang out near stairways
     l
-    m
+    m  Minotaur - if they see you are range they will try to charge you.
     n
-    o  orc, Ogre
+    o  orc -  Fairly standard
     p  phalanx
     q
     r  rat
-    s  Guardian Statue
+    s  Statue
     t  Troll
     u
     v  vampire
-    w  wolf, warg, white worm
+    w  wolf - They move faster than you
     x
     y
-    z  zombie
+    z
 
 ## Licence ##
     MIT

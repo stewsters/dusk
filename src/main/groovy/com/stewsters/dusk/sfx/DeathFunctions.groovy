@@ -12,7 +12,7 @@ class DeathFunctions {
 
     public static Closure playerDeath = { Entity owner, Entity attacker ->
 
-        MessageLog.send("${owner.name} is dead. Press space to identify items.", SColor.RED, [owner])
+        MessageLog.send("${owner.name} is dead. Press space to continue.", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.faction = null

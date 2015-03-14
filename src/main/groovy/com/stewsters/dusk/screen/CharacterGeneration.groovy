@@ -10,10 +10,10 @@ import com.stewsters.dusk.map.MapStack
 import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
 import com.stewsters.dusk.map.gen.SimpleMapGenerator
+import com.stewsters.dusk.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.map.gen.name.KnightNameGen
 import com.stewsters.dusk.screen.subscreen.ListSelector
 import com.stewsters.dusk.sfx.DeathFunctions
-import com.stewsters.util.name.NameGen
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -21,9 +21,7 @@ import java.awt.event.KeyEvent
 
 import static java.awt.event.KeyEvent.*
 
-/**
- * Created by stewsters on 1/30/15.
- */
+
 class CharacterGeneration implements Screen {
 
     int pointerColumn = 0;
@@ -124,7 +122,7 @@ class CharacterGeneration implements Screen {
 
         MapGenerator jailMapGen = new JailMapGenerator()
         MapGenerator simpleMapGen = new SimpleMapGenerator()
-
+        MapGenerator surfaceMapGen = new SurfaceMapGenerator()
 //        MapGenerator mapGen = new StaticMapGenerator();
 //        MapGenerator mapGen = new TestMapGenerator();
 //        mapGen = new SimpleMapGenerator()
@@ -139,10 +137,10 @@ class CharacterGeneration implements Screen {
                 playerStartX = jailMapGen.playerStartX
                 playerStartY = jailMapGen.playerStartY
 
-            } else if (it < 5) {
-                mapStack.levelMaps[it] = jailMapGen.reGenerate(it)
+            } else if (it < 8) {
+                mapStack.levelMaps[it] =simpleMapGen.reGenerate(it)
             } else {
-                mapStack.levelMaps[it] = simpleMapGen.reGenerate(it)
+                mapStack.levelMaps[it] = surfaceMapGen.reGenerate(it)
             }
         }
 

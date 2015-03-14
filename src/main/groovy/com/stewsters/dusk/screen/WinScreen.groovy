@@ -9,18 +9,18 @@ import java.awt.event.KeyEvent
 import static java.awt.event.KeyEvent.VK_SPACE
 import static java.awt.event.KeyEvent.VK_UNDEFINED
 
-class DeathScreen implements Screen {
+class WinScreen implements Screen {
 
     Entity player;
 
-    DeathScreen(Entity player) {
+    WinScreen(Entity player) {
         this.player = player
     }
 
     @Override
     void displayOutput(SwingPane display) {
 
-        rightJustifiedText(display, 5, "${player.name} is dead")
+        rightJustifiedText(display, 5, "${player.name} has escaped!")
         rightJustifiedText(display, 15, "Push [space] to continue")
     }
 

@@ -30,8 +30,9 @@ public enum TileType {
     DOOR_OPEN('/', SColor.WHITE, SColor.BROWN, false, 0f),
 
     STAIRS_UP('<', SColor.WHITE, SColor.BLACK, false, 0.8f),
-    STAIRS_DOWN('>', SColor.WHITE, SColor.BLACK, false, 0.8f);
+    STAIRS_DOWN('>', SColor.WHITE, SColor.BLACK, false, 0.8f),
 
+    GAME_WIN('_', SColor.GREEN, SColor.DARK_GREEN, false, 0f);
 
     public final boolean blocks;
     public final SColor color;
@@ -54,4 +55,7 @@ public enum TileType {
     public byte id() {
         return (byte) ordinal();
     }
+
+    public static TileType[] grassTypes = {GRASS_SHORT, GRASS_MEDIUM, GRASS_TALL, GRASS_FOLIAGE};
+
 }

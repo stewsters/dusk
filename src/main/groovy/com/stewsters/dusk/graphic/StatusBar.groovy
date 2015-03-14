@@ -64,20 +64,24 @@ class StatusBar {
 
         RenderConfig.leftWindow.times { xPos ->
 
-            int offset = xPos - leftJust
+            try {
+                int offset = xPos - leftJust
 
-            char character
+                char character
 
-            if (offset < 0 || offset >= name.size()) {
-                character = ' '
-            } else {
-                character = name.charAt(offset)
-            }
+                if (offset < 0 || offset >= name.size()) {
+                    character = ' '
+                } else {
+                    character = name.charAt(offset)
+                }
 
-            if (xPos < barWidth) {
-                display.placeCharacter(x + xPos, y, character, SColor.WHITE, barColor)
-            } else {
-                display.placeCharacter(x + xPos, y, character, SColor.WHITE, SColor.BLACK)
+                if (xPos < barWidth) {
+                    display.placeCharacter(x + xPos, y, character, SColor.WHITE, barColor)
+                } else {
+                    display.placeCharacter(x + xPos, y, character, SColor.WHITE, SColor.BLACK)
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+
             }
         }
 

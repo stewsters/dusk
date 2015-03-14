@@ -1,8 +1,6 @@
 package com.stewsters.dusk.screen
 
-/**
- * Created by stewsters on 2/4/15.
- */
+
 public enum ScreenMode {
     PLAYING,
     INVENTORY,
@@ -12,5 +10,4 @@ public enum ScreenMode {
     REMOVE,
     THROW,
     DROP
-
 }

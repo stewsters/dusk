@@ -7,9 +7,6 @@ import com.stewsters.util.math.MatUtils
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
-/**
- * Created by stewsters on 1/28/15.
- */
 @CompileStatic
 class Fireball implements Spell {
 
