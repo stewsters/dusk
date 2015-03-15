@@ -22,7 +22,9 @@ Download the above zip, extract it.  Navigate to the directory and execute
 java -jar dusk-1.0.jar
 ```
 
-## Compile From Sourc##
+If it doesn't work, make sure you have Java 8 installed.  If you don't, you can grab it from http://www.java.com/
+
+## Compile From Source ##
 To compile from source you will need a JDK and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:
 
