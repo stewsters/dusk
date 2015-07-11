@@ -136,9 +136,15 @@ class Fighter {
 
 
             if (damage > 0) {
-                int actualDamage = target.fighter.takeDamage(damage, owner, damageTypes)
-                MessageLog.send "${owner.name} attacks ${target.name} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
 
+                String targetName = target.name
+                int actualDamage = target.fighter.takeDamage(damage, owner, damageTypes)
+
+                if (target.fighter && target.fighter.hp > 0) {
+                    MessageLog.send "${owner.name} attacks ${targetName} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
+                } else {
+                    MessageLog.send "${targetName} has been slain by ${owner.name}", SColor.WHITE, [owner, target]
+                }
 
                 //other effects?
                 // if (owner.faction == Faction.EVIL) {
