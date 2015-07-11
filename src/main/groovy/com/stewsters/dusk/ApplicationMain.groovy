@@ -62,11 +62,24 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        screen = screen.respondToUserInput(e);
+
+
+            screen = screen.respondToUserInput(e);
+
+        repaint();
         if (screen == null) {
             throw new NullPointerException("Screen must always return another one.");
         }
-        repaint();
+
+        while (screen.autoplay()) {
+
+            if(screen.play()){
+                repaint();
+            }
+
+        }
+
+
     }
 
     @Override

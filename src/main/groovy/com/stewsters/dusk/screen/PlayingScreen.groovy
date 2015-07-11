@@ -446,24 +446,30 @@ public class PlayingScreen implements Screen {
         //Run sim
 
         Ai next = levelMap.actors.poll()
-        while (next != null && next != player.ai) {
-
-            if (next.takeTurn())
-                levelMap.actors.add(next)
-
-            next = levelMap.actors.poll()
+        if( next == player.ai) {
+            //next is the player now
+            player.ai.takeTurn()
         }
-
-        //next is the player now
-        player.ai.takeTurn()
-
         levelMap.actors.add next
 
-        Game.passTime()
+    }
 
+    @Override
+    public boolean autoplay() {
+        return levelMap.actors.peek() != player.ai
+    }
+
+    @Override
+    public boolean play() {
+
+        Ai next = levelMap.actors.poll()
+        if (next != null && next.takeTurn()) {
+            levelMap.actors.add(next)
+        }
+
+        Game.passTime()
         levelMap.incrementTurn();
         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
-
     }
 
     public boolean move(Direction dir, boolean shift = false) {

@@ -1,6 +1,15 @@
 # Dusk of a Shattered Kingdom #
 
-This is a traditional roguelike where you are being imprisoned at the bottom of a dungeon and need to escape.
+This is a traditional roguelike where you are being imprisoned at the bottom of a dungeon and need to escape. 
+Note that you will need to go up stairs, which is the opposite of most roguelikes.
+
+## Story ##
+
+The Kingdom of Bador invaded Alumir in 1093.  The defenses of Alumir were betrayed by an order of its knights and the king
+was slain.
+
+You were a citizen loyal to the King of the Fallen Kingdom of Alumir and have been locked away.  You must escape the dungeon
+to free your lands.
 
 
 ## My tools: ##

@@ -9,4 +9,12 @@ public interface Screen {
     public void displayOutput(SwingPane display);
 
     public Screen respondToUserInput(KeyEvent key);
+
+    default public boolean autoplay() {
+        return false;
+    }
+
+    default public boolean play() {
+        return false;
+    }
 }
