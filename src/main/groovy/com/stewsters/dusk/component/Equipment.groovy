@@ -13,16 +13,6 @@ class Equipment {
 
 //    int strengthReq // A soft requirement, but the item is less useful without
 
-    @Deprecated
-    int bonusMaxHp
-
-    @Deprecated
-    int bonusMaxToxicity
-
-    @Deprecated
-    int bonusMaxStamina
-
-
     int accuracyModifier // to hit modifier from this equipment
     IntRange damage
 
@@ -38,10 +28,6 @@ class Equipment {
         slot = params?.slot
 
 //        strengthReq = params?.strengthReq ?: 0
-
-        bonusMaxHp = params?.bonusMaxHp ?: 0
-        bonusMaxToxicity = params?.bonusMaxToxicity ?: 0
-        bonusMaxStamina = params?.bonusMaxStamina ?: 0
 
         accuracyModifier = params?.accuracyModifier ?: 0
         damage = params?.damage ?: null

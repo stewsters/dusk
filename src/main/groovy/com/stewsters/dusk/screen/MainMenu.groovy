@@ -26,8 +26,9 @@ class MainMenu implements Screen {
 
         rightJustifiedText(display, 5, "Dusk of a Shattered Kingdom")
         rightJustifiedText(display, 10, "(N)ew Game")
-        rightJustifiedText(display, 15, "(T)esting Arena")
-        rightJustifiedText(display, 20, "E(x)it Game")
+        rightJustifiedText(display, 15, "E(x)it Game")
+        rightJustifiedText(display, 45, "(T)esting Arena")
+
     }
 
 

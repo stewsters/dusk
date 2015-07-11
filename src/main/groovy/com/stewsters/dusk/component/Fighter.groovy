@@ -170,44 +170,44 @@ class Fighter {
     /* Equipment functions */
 
     public int getMaxHP() {
-        int bonus = 0
-        if (owner.inventory) {
-            bonus += owner.inventory.getAllEquippedEquipment()?.bonusMaxHp.sum() ?: 0
-        }
-        return baseMaxHp + bonus
+//        int bonus = 0
+//        if (owner.inventory) {
+//            bonus += owner.inventory.getAllEquippedEquipment()?.bonusMaxHp.sum() ?: 0
+//        }
+        return baseMaxHp //+ bonus
     }
 
     public int getMaxToxicity() {
-        int bonus = 0
-        if (owner.inventory) {
-            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxToxicity.sum() ?: 0
-        }
-        return baseMaxToxicity + bonus
+//        int bonus = 0
+//        if (owner.inventory) {
+//            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxToxicity.sum() ?: 0
+//        }
+        return baseMaxToxicity //+ bonus
     }
 
     public int getMaxStamina() {
-        int bonus = 0
-        if (owner.inventory) {
-            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxStamina.sum() ?: 0
-        }
-        return baseMaxStamina + bonus
+//        int bonus = 0
+//        if (owner.inventory) {
+//            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxStamina.sum() ?: 0
+//        }
+        return baseMaxStamina //+ bonus
     }
 
 
     public int getAccuracy() {
-        int bonus = 0
-        if (owner.inventory) {
-            bonus += owner.inventory.getAllEquippedEquipment().accuracyModifier.sum() ?: 0
-        }
-        return skillMelee + bonus
+//        int bonus = 0
+//        if (owner.inventory) {
+//            bonus += owner.inventory.getAllEquippedEquipment().accuracyModifier.sum() ?: 0
+//        }
+        return skillMelee //+ bonus
     }
 
     public int getEvasion() {
-        int bonus = 0
-        if (owner.inventory) {
-            bonus += owner.inventory.getAllEquippedEquipment().evasionModifier.sum() ?: 0
-        }
-        return skillEvasion + bonus
+//        int bonus = 0
+//        if (owner.inventory) {
+//            bonus += owner.inventory.getAllEquippedEquipment().evasionModifier.sum() ?: 0
+//        }
+        return skillEvasion //+ bonus
     }
 
     public int getMarksman() {

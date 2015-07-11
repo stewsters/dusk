@@ -267,6 +267,8 @@ public class PlayingScreen implements Screen {
 
                         mapStack.currentLevel++
 
+                        MessageLog.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player] )
+
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
 
@@ -290,6 +292,8 @@ public class PlayingScreen implements Screen {
                         levelMap.remove(player)
 
                         mapStack.currentLevel--
+
+                        MessageLog.send("${player.name} as descended back into the depths.", SColor.RED_BEAN,[player])
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
 
