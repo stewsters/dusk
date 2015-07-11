@@ -120,7 +120,7 @@ class Fighter {
             List<DamageType> damageTypes
 
             if (equipment) {
-                damageRange = equipment?.damage
+                damageRange = equipment?.damage ?: 0..0
                 damageTypes = equipment?.damageTypes
             } else {
                 damageRange = unarmedDamage

@@ -44,10 +44,10 @@ class Equipment {
         bonusMaxStamina = params?.bonusMaxStamina ?: 0
 
         accuracyModifier = params?.accuracyModifier ?: 0
-        damage = params?.damage ?: 0..0
+        damage = params?.damage ?: null
 
         evasionModifier = params?.evasionModifier ?: 0
-        armor = params?.armor ?: 0..0
+        armor = params?.armor ?: null
 
         damageTypes = params?.damageTypes ?: []
     }
