@@ -135,6 +135,12 @@ public class PlayingScreen implements Screen {
             }
         }
 
+        //Depth
+        //Render bottom key reminder
+
+        String text = "Level ${mapStack.currentLevel + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab"
+        display.placeHorizontalString(1, RenderConfig.mapScreenHeight - 2, text)
+
         //done rendering this frame
     }
 
@@ -267,7 +273,7 @@ public class PlayingScreen implements Screen {
 
                         mapStack.currentLevel++
 
-                        MessageLog.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player] )
+                        MessageLog.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player])
 
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
@@ -293,7 +299,7 @@ public class PlayingScreen implements Screen {
 
                         mapStack.currentLevel--
 
-                        MessageLog.send("${player.name} as descended back into the depths.", SColor.RED_BEAN,[player])
+                        MessageLog.send("${player.name} as descended back into the depths.", SColor.RED_BEAN, [player])
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
 
@@ -450,7 +456,7 @@ public class PlayingScreen implements Screen {
         //Run sim
 
         Ai next = levelMap.actors.poll()
-        if( next == player.ai) {
+        if (next == player.ai) {
             //next is the player now
             player.ai.takeTurn()
         }
