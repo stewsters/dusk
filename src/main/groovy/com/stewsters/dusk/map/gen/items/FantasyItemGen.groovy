@@ -147,7 +147,7 @@ class FantasyItemGen {
                 return new Entity(map: map, x: x, y: y,
                         ch: '!', color: SColor.AZURE,
                         name: 'Healing Potion',
-                        description: "Restores health at the cost of toxicity buildup",
+                        description: "Restores health.",
                         itemComponent: new Item(useFunction: ItemFunctions.castHeal)
                 )
 

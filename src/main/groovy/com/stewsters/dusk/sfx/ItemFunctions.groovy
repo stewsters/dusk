@@ -27,7 +27,7 @@ class ItemFunctions {
         } else {
             MessageLog.send("Your wounds seal up.", SColor.LIGHT_VIOLET)
             user.fighter.addHealth(HEAL_AMOUNT)
-            user.fighter.addToxicity(2);
+//            user.fighter.addToxicity(2);
             return true
         }
     }
