@@ -11,7 +11,7 @@ public enum DamageType {
     IRON("Iron"),
     FIRE("Fire");
 
-    String name;
+    public final String name;
 
     DamageType(String name) {
         this.name = name;

@@ -10,10 +10,19 @@ public interface Screen {
 
     public Screen respondToUserInput(KeyEvent key);
 
+
+    /**
+     * Should we keep going, or wait for player input?
+     */
     default public boolean autoplay() {
         return false;
     }
 
+    /**
+     * Runs the next character's turn
+     *
+     * @return whethor we need to repaint the screen
+     */
     default public boolean play() {
         return false;
     }

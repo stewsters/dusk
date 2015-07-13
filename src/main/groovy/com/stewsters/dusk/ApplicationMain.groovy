@@ -1,18 +1,18 @@
-package com.stewsters.dusk;
+package com.stewsters.dusk
 
-import com.stewsters.dusk.main.RenderConfig;
-import com.stewsters.dusk.screen.Screen;
-import squidpony.squidcolor.SColor;
-import squidpony.squidcolor.SColorFactory;
-import squidpony.squidgrid.gui.awt.event.SGMouseListener;
-import squidpony.squidgrid.gui.swing.SwingPane;
+import com.stewsters.dusk.main.RenderConfig
+import com.stewsters.dusk.screen.Screen
+import squidpony.squidcolor.SColor
+import squidpony.squidcolor.SColorFactory
+import squidpony.squidgrid.gui.awt.event.SGMouseListener
+import squidpony.squidgrid.gui.swing.SwingPane
 
-import javax.swing.*;
-import javax.swing.event.MouseInputListener;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
+import javax.swing.*
+import javax.swing.event.MouseInputListener
+import java.awt.*
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
+import java.awt.event.MouseEvent
 
 public class ApplicationMain extends JFrame implements KeyListener, MouseInputListener {
 
@@ -60,11 +60,12 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
     /*
      * KEYBOARD
      */
+
     @Override
     public void keyPressed(KeyEvent e) {
 
 
-            screen = screen.respondToUserInput(e);
+        screen = screen.respondToUserInput(e);
 
         repaint();
         if (screen == null) {
@@ -73,8 +74,8 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
 
         while (screen.autoplay()) {
 
-            if(screen.play()){
-                repaint();
+            if (screen.play()) {
+                 repaint();
             }
 
         }
@@ -90,10 +91,10 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
     public void keyTyped(KeyEvent e) {
     }
 
-
     /*
      * MOUSE
      */
+
     @Override
     public void mouseClicked(MouseEvent e) {
 

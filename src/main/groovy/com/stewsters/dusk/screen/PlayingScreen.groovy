@@ -199,8 +199,8 @@ public class PlayingScreen implements Screen {
     @Override
     Screen respondToUserInput(KeyEvent e) {
 
-        int a = ((char) 'A')
-        int z = ((char) 'Z')
+        int a = Character.getNumericValue('A' as char)
+        int z = Character.getNumericValue('Z' as char)
 
         int code = e.getExtendedKeyCode();
 
@@ -444,7 +444,7 @@ public class PlayingScreen implements Screen {
             }
         }
 
-        if (player.levelMap.ground[player.x][player.y].tileType == TileType.GAME_WIN) {
+        if (player.levelMap.isType(player.x, player.y, TileType.GAME_WIN)) {
             return new WinScreen(player)
         }
 
@@ -459,6 +459,9 @@ public class PlayingScreen implements Screen {
         if (next == player.ai) {
             //next is the player now
             player.ai.takeTurn()
+            levelMap.incrementTurn();
+            shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+
         }
         levelMap.actors.add next
 
@@ -478,8 +481,10 @@ public class PlayingScreen implements Screen {
         }
 
         Game.passTime()
-        levelMap.incrementTurn();
-        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+
+
+
+        return true
     }
 
     public boolean move(Direction dir, boolean shift = false) {
