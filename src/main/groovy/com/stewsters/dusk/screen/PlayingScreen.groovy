@@ -199,9 +199,6 @@ public class PlayingScreen implements Screen {
     @Override
     Screen respondToUserInput(KeyEvent e) {
 
-        int a = Character.getNumericValue('A' as char)
-        int z = Character.getNumericValue('Z' as char)
-
         int code = e.getExtendedKeyCode();
 
         // if ExtendedKeyCode is VK_UNDEFINED (0) use normal keycode
@@ -286,7 +283,10 @@ public class PlayingScreen implements Screen {
                         levelMap.add(player)
 
                         shadowCaster2d = new ShadowCaster2d(levelMap);
-//                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
+
+                        levelMap.incrementTurn();
+                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+
                         stepSim()
                     }
                     break
@@ -309,7 +309,10 @@ public class PlayingScreen implements Screen {
                         levelMap.add(player)
 
                         shadowCaster2d = new ShadowCaster2d(levelMap);
-//                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
+
+                        levelMap.incrementTurn();
+                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+
                         stepSim()
                     }
                     break
@@ -340,6 +343,8 @@ public class PlayingScreen implements Screen {
 
             }
         } else if (screenMode == ScreenMode.INVENTORY) {
+            int a = 65
+            int z = 90
             if (code == VK_ESCAPE) {
                 selectedItem = -1
                 screenMode = ScreenMode.PLAYING

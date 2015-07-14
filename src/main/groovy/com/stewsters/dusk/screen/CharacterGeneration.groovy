@@ -6,6 +6,7 @@ import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Gender
 import com.stewsters.dusk.flyweight.Priority
+import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.flyweight.SocialClass
 import com.stewsters.dusk.magic.Fireball
 import com.stewsters.dusk.magic.Healing
@@ -170,6 +171,21 @@ class CharacterGeneration implements Screen {
 
         player.spellbook.spells.add(new Fireball())
         player.spellbook.spells.add(new Healing())
+
+
+        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,
+                ch: '[', color: SColor.DARK_BLUE,
+                name: 'Tattered Rags',
+                description: "Rags covered in filth.",
+                equipment: new Equipment(
+                        slot: Slot.CHEST,
+                        armor: (0..1)
+                )
+        )
+        player.inventory.pickUp(defaultArmor)
+
+
+
 
         player.ai.owner = player
         return new PlayingScreen(mapStack, player)

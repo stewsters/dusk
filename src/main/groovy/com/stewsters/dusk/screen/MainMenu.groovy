@@ -69,7 +69,7 @@ class MainMenu implements Screen {
                     quiver: new Quiver(),
                     spellbook: new Spellbook(),
                     fighter: new Fighter(
-                            hp: 10,
+                            hp: 30,
                             stamina: 10,
                             toxicity: 10,
                             melee: 1,
