@@ -85,7 +85,7 @@ public class Inventory {
             y++
         }
 
-        if (y != 0 && y != items.size() - 1) {
+        if (y != 0 && y != items.size()) {
             display.placeHorizontalString(RenderConfig.screenWidth - RenderConfig.inventoryWidth, y + RenderConfig.inventoryY, "     ---", SColor.GRAY, null)
             y++
         }
