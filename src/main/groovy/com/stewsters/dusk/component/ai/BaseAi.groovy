@@ -12,7 +12,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 abstract class BaseAi implements Ai {
 
-    Entity owner
+    protected Entity owner
     private float[][] light
     protected int lightLastCalculated = 0
     protected int sightRange = 20
@@ -126,8 +126,8 @@ abstract class BaseAi implements Ai {
                 int originalX = x + worldLowX
                 int originalY = y + worldLowY
 
-                if (originalX >= 0 && originalX < owner.levelMap.widthInTiles
-                        && originalY >= 0 && originalY < owner.levelMap.heightInTiles) {
+                if (originalX >= 0 && originalX < owner.levelMap.getXSize()
+                        && originalY >= 0 && originalY < owner.levelMap.getYSize()) {
                     resistances[x][y] = owner.levelMap.getOpacity(originalX, originalY)
                 } else {
                     resistances[x][y] = 1f
@@ -152,12 +152,12 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public int getGameTurn() {
+    public Integer getGameTurn() {
         return gameTurn
     }
 
     @Override
-    void setGameTurn(int gameTurn) {
+    void setGameTurn(Integer gameTurn) {
         this.gameTurn = gameTurn
     }
 
@@ -170,6 +170,16 @@ abstract class BaseAi implements Ai {
 //    List<Entity> findVisibleEnemies(int maxRange) {
 //        return null
 //    }
+
+    @Override
+    Entity getOwner() {
+        return owner
+    }
+
+    @Override
+    void setOwner(Entity owner) {
+        this.owner=owner
+    }
 
 
 }

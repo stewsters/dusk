@@ -506,7 +506,7 @@ public class PlayingScreen implements Screen {
             int y = player.y + dir.deltaY
 
             //check for legality of move based solely on map boundary
-            if (x >= 0 && x < levelMap.getWidthInTiles() && y >= 0 && y < levelMap.getHeightInTiles()) {
+            if (x >= 0 && x < levelMap.getXSize() && y >= 0 && y < levelMap.getYSize()) {
                 player.moveOrAttack(dir.deltaX, dir.deltaY)
                 //TODO: run can have issues with not stepping
             }
@@ -516,7 +516,7 @@ public class PlayingScreen implements Screen {
         int y = player.y + dir.deltaY
 
         //check for legality of move based solely on map boundary
-        if (x >= 0 && x < levelMap.getWidthInTiles() && y >= 0 && y < levelMap.getHeightInTiles()) {
+        if (x >= 0 && x < levelMap.getXSize() && y >= 0 && y < levelMap.getYSize()) {
             return player.moveOrAttack(dir.deltaX, dir.deltaY)
         }
 

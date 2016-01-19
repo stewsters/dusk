@@ -41,7 +41,7 @@ class SurfaceMapGenerator implements MapGenerator {
             map.ySize.times { y ->
                 if (!map.ground[x][y].tileType.blocks) {
 
-                    int tDist = MatUtils.manhattanDistance(x, y, (int) (map.getWidthInTiles() / 2), (int) (map.getHeightInTiles() / 2))
+                    int tDist = MatUtils.manhattanDistance(x, y, (int) (map.getXSize() / 2), (int) (map.getYSize() / 2))
                     if (tDist < distToCenter) {
                         distToCenter = tDist
                         tX = x

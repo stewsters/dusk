@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'application'
 
 mainClassName = 'com.stewsters.dusk.main.DuskApplicationMain'
-version = 1.0
+version = 1.1
 
 repositories {
     jcenter()
@@ -11,20 +11,20 @@ repositories {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use the latest groovy 2.x version for building this library
-    compile 'org.codehaus.groovy:groovy-all:2.4.0'
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
 
     compile 'com.squidpony:squidlib:1.95.1'
-    compile 'com.stewsters.util:stewsters-util:0.10'
+    compile 'com.stewsters.util:stewsters-util:0.12'
 
     compile 'commons-io:commons-io:2.4'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.apache.commons:commons-lang3:3.4'
 
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.5'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.5'
 
     // We use the awesome Spock testing and specification framework
-    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
-    testCompile 'junit:junit:4.11'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'junit:junit:4.12'
 }
 
 
