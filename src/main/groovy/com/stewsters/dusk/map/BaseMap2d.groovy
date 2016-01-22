@@ -1,8 +1,6 @@
 package com.stewsters.dusk.map
 
 import com.stewsters.dusk.flyweight.TileType
-import com.stewsters.util.pathing.twoDimention.shared.Mover2d
-import com.stewsters.util.pathing.twoDimention.shared.PathNode2d
 import com.stewsters.util.pathing.twoDimention.shared.TileBasedMap2d
 
 public class BaseMap2d implements TileBasedMap2d {
@@ -16,14 +14,6 @@ public class BaseMap2d implements TileBasedMap2d {
         this.ySize = height;
 
         ground = new Tile[width][height];
-
-//        for (int x = 0; x < width; x++) {
-//            for (int y = 0; y < height; y++) {
-//
-//                ground[x][y] = baseType;
-//            }
-//        }
-
     }
 
     public boolean outsideMap(int x, int y) {
@@ -45,25 +35,6 @@ public class BaseMap2d implements TileBasedMap2d {
 
     }
 
-    @Override
-    public boolean isBlocked(Mover2d mover, PathNode2d pathNode) {
-        return ground[pathNode.x][pathNode.y].isBlocked;
-    }
-
-    @Override
-    public boolean isBlocked(Mover2d mover, int x, int y) {
-
-        if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
-            return true;
-        }
-
-        if (ground[x][y].isBlocked) {
-            return true;
-        }
-
-        return ground[x][y].isBlocked;
-    }
-
     public boolean isBlocked(int x, int y) {
 
         if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
@@ -77,12 +48,7 @@ public class BaseMap2d implements TileBasedMap2d {
         return ground[x][y].isBlocked;
     }
 
-    @Override
-    public float getCost(Mover2d mover, int sx, int sy, int tx, int ty) {
-        return 1;
-    }
-
-    public boolean isType(int x, int y, TileType tileType){
+    public boolean isType(int x, int y, TileType tileType) {
 
         if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
             return false;

@@ -308,9 +308,9 @@ public class PlayingScreen implements Screen {
                         player.y = dest.y
                         levelMap.add(player)
 
-                        shadowCaster2d = new ShadowCaster2d(levelMap);
+                        shadowCaster2d = new ShadowCaster2d(levelMap)
 
-                        levelMap.incrementTurn();
+                        levelMap.incrementTurn()
                         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
 
                         stepSim()

@@ -14,7 +14,7 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.5'
 
     compile 'com.squidpony:squidlib:1.95.1'
-    compile 'com.stewsters.util:stewsters-util:0.12'
+    compile 'com.stewsters.util:stewsters-util:0.13'
 
     compile 'commons-io:commons-io:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
