@@ -26,6 +26,8 @@ import static squidpony.squidgrid.util.Direction.*
 
 public class PlayingScreen implements Screen {
 
+    private static final int a = VK_A
+    private static final int z = VK_Z
 
     public MapStack mapStack
 
@@ -73,23 +75,6 @@ public class PlayingScreen implements Screen {
         nearbyEntities.each {
             linesTaken += renderStats(display, linesTaken, it)
         }
-
-        // UI Stuff - render stats
-//        StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.maxHP ?: 1, SColor.RED)
-//        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.maxStamina ?: 1, SColor.YELLOW)
-//        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.toxicity ?: 0, player?.fighter?.maxToxicity ?: 1, SColor.GREEN)
-
-//        int numPeople = levelMap.actors.count { it.fighter && it.faction }
-//        int humans = levelMap.actors.count({ it.faction == Faction.GOOD }) ?: 0
-//        int zombies = levelMap.actors.count({ it.faction == Faction.EVIL }) ?: 0
-//        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', humans, numPeople ?: 0)
-//        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', zombies, numPeople ?: 0)
-
-//        int maxAmmo = player?.inventory?.maxAmmo ?: 1
-//        [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex { AmmoType ammoType, Integer i ->
-//            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType) ?: 0, maxAmmo)
-//        }
-
 
         MessageLog.render(display, player)
 
@@ -343,8 +328,7 @@ public class PlayingScreen implements Screen {
 
             }
         } else if (screenMode == ScreenMode.INVENTORY) {
-            int a = 65
-            int z = 90
+
             if (code == VK_ESCAPE) {
                 selectedItem = -1
                 screenMode = ScreenMode.PLAYING

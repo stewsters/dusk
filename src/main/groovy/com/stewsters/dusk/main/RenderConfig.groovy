@@ -31,7 +31,6 @@ public class RenderConfig {
     public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE);
     public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE);
 
-    public static float lightForce = 3f; //controls how far the light will spread
     public static float lightTintPercentage = 0.02f; //0 to 1
 
     public static LOSSolver los;
@@ -52,15 +51,10 @@ public class RenderConfig {
 
 
     //Messaging sizes
-    public static final int messageX = 42;
-    public static final int messageY = 11;
     public static final int messageHeight = 3;
-    public static final int messageWidth = 19;
 
-    public static final int surroundingX = 62;
     public static final int surroundingY = 42;
     public static final int surroundingHeight = 5;
-    public static final int surroundingWidth = 35;
 
 
     // Inventory screens should start just below the message log.

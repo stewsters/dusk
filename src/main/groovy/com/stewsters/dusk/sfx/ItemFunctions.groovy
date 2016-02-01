@@ -196,8 +196,8 @@ class ItemFunctions {
 
     public static Closure castMapping = { Entity user ->
 
-        for (int x = 0; x < user.levelMap.widthInTiles; x++) {
-            for (int y = 0; y < user.levelMap.heightInTiles; y++) {
+        for (int x = 0; x < user.levelMap.getXSize(); x++) {
+            for (int y = 0; y < user.levelMap.getYSize(); y++) {
                 if (!user.levelMap.ground[x][y].tileType.blocks)
                     user.levelMap.ground[x][y].isExplored = true
             }

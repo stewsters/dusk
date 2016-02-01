@@ -47,7 +47,6 @@ public class DuskApplicationMain {
         } catch (IOException ex) {
 //            don't do anything if it failed, the default Java icon will be used
         }
-//        app.setDefaultLookAndFeelDecorated(true);
 
         app.dispose()
 
