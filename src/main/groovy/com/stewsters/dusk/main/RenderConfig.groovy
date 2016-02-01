@@ -1,10 +1,10 @@
-package com.stewsters.dusk.main;
+package com.stewsters.dusk.main
 
-import squidpony.squidcolor.SColor;
-import squidpony.squidcolor.SColorFactory;
-import squidpony.squidgrid.fov.LOSSolver;
-import squidpony.squidgrid.fov.RadiusStrategy;
-import squidpony.squidgrid.fov.TranslucenceWrapperFOV;
+import squidpony.squidcolor.SColor
+import squidpony.squidcolor.SColorFactory
+import squidpony.squidgrid.fov.LOSSolver
+import squidpony.squidgrid.fov.RadiusStrategy
+import squidpony.squidgrid.fov.TranslucenceWrapperFOV
 
 /**
  * This file just really stores some configs
@@ -14,17 +14,17 @@ public class RenderConfig {
 
     public static def config
 
-    public static void loadConfig(){
+    public static void loadConfig() {
         File propertiesFile = new File('assets/settings.props');
         config = new ConfigSlurper().parse(propertiesFile.text)
 
-        screenWidth = config?.graphics?.width
-        screenHeight = config?.graphics?.height
+        screenWidth = config?.graphics?.width ?: 120
+        screenHeight = config?.graphics?.height ?: 60
     }
 
     //total
-    public static int screenWidth = 120;
-    public static int screenHeight = 60;
+    public static int screenWidth;
+    public static int screenHeight;
 
 
     public static SColor litNear = SColorFactory.asSColor(SColor.WHITE);
@@ -43,19 +43,15 @@ public class RenderConfig {
     public static final int windowRadiusX = 20;
     public static final int windowRadiusY = 20;
 
-
-
     // for game window
     public static final int mapScreenWidth = 100;
     public static final int mapScreenHeight = 60;
-
 
     //Messaging sizes
     public static final int messageHeight = 3;
 
     public static final int surroundingY = 42;
     public static final int surroundingHeight = 5;
-
 
     // Inventory screens should start just below the message log.
     public static final int inventoryY = messageHeight;
