@@ -25,6 +25,9 @@ abstract class BaseAi implements Ai {
 
     @Override
     public Set<Entity> findAllVisibleEnemies(int maxDistance) {
+        if (!owner.faction) return null
+
+        calculateSight()
 
         int lowX = owner.x - maxDistance
         int highX = owner.x + maxDistance
@@ -32,8 +35,17 @@ abstract class BaseAi implements Ai {
         int highY = owner.y + maxDistance
 
         return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
-            entity.fighter && owner.owner.faction.hates(entity.faction) &&
-                    owner.owner.distanceTo(entity) < maxDistance
+            if (entity.fighter && owner.owner.faction.hates(entity.faction) && owner.owner.distanceTo(entity) < maxDistance) {
+                int lightX = entity.x - lowX
+                int lightY = entity.y - lowY
+
+                //TODO: this goes out of bounds.  Use advanced lighting?
+                if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
+                    return true
+                }
+            }
+            return false
+
         }
     }
 
@@ -52,11 +64,8 @@ abstract class BaseAi implements Ai {
 
         int maxDistance = Integer.MAX_VALUE
 
-//        if (owner.faction==Faction.GOOD)
-//            println "zomg"
-
         for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
-            if (entity.fighter && entity.faction && owner.faction.hates(entity.faction)) {
+            if (entity.fighter && owner.faction?.hates(entity.faction)) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
 
@@ -161,16 +170,6 @@ abstract class BaseAi implements Ai {
         this.gameTurn = gameTurn
     }
 
-//    @Override
-//    float[][] getLight() {
-//        return light
-//    }
-
-//    @Override
-//    List<Entity> findVisibleEnemies(int maxRange) {
-//        return null
-//    }
-
     @Override
     Entity getOwner() {
         return owner
@@ -178,7 +177,7 @@ abstract class BaseAi implements Ai {
 
     @Override
     void setOwner(Entity owner) {
-        this.owner=owner
+        this.owner = owner
     }
 
 
