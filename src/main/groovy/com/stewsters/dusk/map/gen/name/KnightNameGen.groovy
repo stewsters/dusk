@@ -5,7 +5,7 @@ import com.stewsters.util.math.MatUtils
 
 class KnightNameGen {
 
-    public static String generate(Gender gender = null,maxLength = 20) {
+    public static String generate(Gender gender = null, maxLength = 20) {
 
 
         if (!gender)
@@ -46,7 +46,7 @@ class KnightNameGen {
             String country = MatUtils.rand([
                     "Alumir", "Bador",
                     "the East", "the West", "the North", "the South",
-                    "the Sea", "the Mist","the Mountains"
+                    "the Sea", "the Mist", "the Mountains"
             ])
 
             String tempName = "$name of $country"

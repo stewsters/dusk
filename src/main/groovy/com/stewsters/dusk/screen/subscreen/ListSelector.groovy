@@ -13,7 +13,7 @@ public class ListSelector<T> {
     public ListSelector(String title, List<T> options) {
         this.title = title
         this.options = options
-        selectedIndex = MatUtils.getIntInRange(0,options.size()-1)
+        selectedIndex = MatUtils.getIntInRange(0, options.size() - 1)
     }
 
 
@@ -26,7 +26,7 @@ public class ListSelector<T> {
             if (options[selectedIndex] == option) {
                 foreColor = colSelected ? SColor.DARK_BLUE : SColor.WHITE
                 rearColor = colSelected ? SColor.WHITE : SColor.BLACK
-            } else{
+            } else {
                 foreColor = SColor.GRAY
                 rearColor = SColor.BLACK
             }

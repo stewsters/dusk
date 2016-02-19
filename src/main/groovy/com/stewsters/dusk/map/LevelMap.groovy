@@ -171,8 +171,8 @@ public class LevelMap extends BaseLitMap2d {
     public Point2i findATile(TileType tileType) {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
-                if(ground[x][y].tileType == tileType){
-                    return new Point2i(x,y)
+                if (ground[x][y].tileType == tileType) {
+                    return new Point2i(x, y)
                 }
             }
         }

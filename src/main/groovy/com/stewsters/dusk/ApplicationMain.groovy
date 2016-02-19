@@ -75,7 +75,7 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
         while (screen.autoplay()) {
 
             if (screen.play()) {
-                 repaint();
+                repaint();
             }
 
         }

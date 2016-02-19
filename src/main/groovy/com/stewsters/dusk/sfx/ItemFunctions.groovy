@@ -54,7 +54,7 @@ class ItemFunctions {
             MessageLog.send('No enemy is visible to strike.', SColor.RED, [user])
             return false
         } else if (user.distanceTo(enemy) > LIGHTNING_RANGE) {
-            MessageLog.send("${enemy.name} is too far to strike.", SColor.RED, [user])
+            MessageLog.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
             return false
         } else {
             int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
@@ -63,7 +63,9 @@ class ItemFunctions {
         }
     }
 
-    public static final int FIREBALL_DAMAGE = 20
+    public static final int FIREBALL_MIN_DAMAGE = 10
+    public static final int FIREBALL_MAX_DAMAGE = 20
+
 
     public static Closure castFireball = { Entity user ->
 
@@ -84,8 +86,8 @@ class ItemFunctions {
 
                                 caster.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).each {
 
-                                    if(it.fighter) {
-                                        int damage = MatUtils.getIntInRange(10, 20)
+                                    if (it.fighter) {
+                                        int damage = MatUtils.getIntInRange(FIREBALL_MIN_DAMAGE, FIREBALL_MAX_DAMAGE)
                                         int actualDamage = it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
 
                                         MessageLog.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
@@ -156,7 +158,7 @@ class ItemFunctions {
         Set<Entity> enemies = user.ai.findAllVisibleEnemies(WRATH_RANGE)
 
         if (!enemies) {
-            MessageLog.send('No enemy is close enough to thrown.', SColor.RED, [user])
+            MessageLog.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [user])
             return false
         } else {
             enemies.each { enemy ->
@@ -286,108 +288,6 @@ class ItemFunctions {
             return true
         }
     }
-
-//    //GUNS
-//    private static final int BERRETA_GUN_BONUS = 4
-//    private static final int BERRETA_MAX_RANGE = 10
-//    public static Closure gunBerreta = { Entity user ->
-//        //find closest target
-//        Entity enemy = user.ai.findClosestVisibleEnemy(BERRETA_MAX_RANGE)
-//        if (!enemy) {
-//            MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
-//            return false
-//        } else {
-//            //enemy defense and range vs your skillMarksman and gun bonus
-//            int range = user.distanceTo(enemy)
-//            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + BERRETA_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.evasion + range)
-//
-//            String message
-//            if (user.quiver && user.quiver.useAmmo(AmmoType.pistol)) {
-//                message = "${user.name} fires a round at ${enemy.name}."
-//                user.levelMap.makeNoise(user.x, user.y, 1000)
-//
-//                if (damage > 0) {
-//                    message += " and the damage is ${damage} hit points."
-//                    enemy.fighter.takeDamage(damage)
-//                } else {
-//                    message += " and missed."
-//                }
-//            } else {
-//                message = "${user.name} doesnt have ammo."
-//            }
-//            MessageLog.send(message, SColor.LIGHT_BLUE, [user, enemy])
-//
-//            return true
-//        }
-//    }
-//
-//    private static final int AR15_GUN_BONUS = 6
-//    private static final int AR15_MAX_RANGE = 15
-//    public static Closure gunAR15 = { Entity user ->
-//        //find closest target
-//        Entity enemy = user.ai.findClosestVisibleEnemy(AR15_MAX_RANGE)
-//        if (!enemy) {
-//            MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
-//            return false
-//        } else {
-//            //enemy defense and range vs your skillMarksman and gun bonus
-//            int range = user.distanceTo(enemy)
-//            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + AR15_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.evasion + range)
-//
-//            String message
-//            if (user.quiver && user.quiver.useAmmo(AmmoType.rifle)) {
-//                message = "${user.name} fires a round at ${enemy.name}"
-//                user.levelMap.makeNoise(user.x, user.y, 1000)
-//
-//                if (damage > 0) {
-//                    message += " and the damage is ${damage} hit points."
-//                    enemy.fighter.takeDamage(damage)
-//                } else {
-//                    message += " and missed."
-//                }
-//            } else {
-//                message = "${user.name} doesnt have ammo."
-//            }
-//
-//            MessageLog.send(message, SColor.LIGHT_BLUE, [user, enemy])
-//
-//            return true
-//        }
-//    }
-//
-//
-//    private static final int PUMP_GUN_BONUS = 10
-//    private static final int PUMP_MAX_RANGE = 4
-//    public static Closure gunPumpShotGun = { Entity user ->
-//        //find closest target
-//        Entity enemy = user.ai.findClosestVisibleEnemy(PUMP_MAX_RANGE)
-//        if (!enemy) {
-//            MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
-//            return false
-//        } else {
-//            //enemy defense and range vs your skillMarksman and gun bonus
-//            int range = user.distanceTo(enemy)
-//            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + PUMP_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.evasion + range)
-//
-//            String message
-//            if (user.quiver && user.quiver.useAmmo(AmmoType.shotgun)) {
-//                message = "${user.name} fires a round at ${enemy.name}"
-//                user.levelMap.makeNoise(user.x, user.y, 1000)
-//
-//                if (damage > 0) {
-//                    message += " and the damage is ${damage} hit points."
-//                    enemy.fighter.takeDamage(damage)
-//                } else {
-//                    message += " and missed."
-//                }
-//            } else {
-//                message = "${user.name} doesnt have ammo."
-//            }
-//            MessageLog.send(message, SColor.LIGHT_BLUE, [user, enemy])
-//
-//            return true
-//        }
-//    }
 
     public static Closure rifleAmmoBox = { Entity user ->
         int quantity = MatUtils.getIntInRange(12, 20)

@@ -59,7 +59,7 @@ public class Entity {
 
         priority = params.priority ?: Priority.ITEM
 
-        if(params.description)
+        if (params.description)
             description = params.description
 
         if (params.fighter) {
@@ -170,7 +170,7 @@ public class Entity {
     }
 
 
-    public boolean  moveTowards(int targetX, int targetY) {
+    public boolean moveTowards(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
 

@@ -26,7 +26,7 @@ public class Tile {
         tileType.color
     }
 
-    public SColor getBackground(){
+    public SColor getBackground() {
         tileType.background
     }
 

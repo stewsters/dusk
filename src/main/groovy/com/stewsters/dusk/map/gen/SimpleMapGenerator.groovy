@@ -1,21 +1,16 @@
 package com.stewsters.dusk.map.gen
 
-import com.stewsters.dusk.component.Fighter
-import com.stewsters.dusk.component.ai.BasicOpponent
-import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.Faction
-import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.FantasyItemGen
 import com.stewsters.dusk.map.gen.items.MonsterGen
-import com.stewsters.dusk.sfx.DeathFunctions
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
-import squidpony.squidcolor.SColor
+
+import static com.stewsters.util.math.MatUtils.d
 
 class SimpleMapGenerator implements MapGenerator {
 /* 4*4
@@ -68,7 +63,23 @@ class SimpleMapGenerator implements MapGenerator {
             }
             if (!failed) {
 
-                createRoom(map, newRoom)
+                switch (d(10)) {
+
+                    case 1:
+                        MapGenUtils.pillarRoom(map, newRoom, d(3) + 1,
+                                d(6) == 0 ? TileType.WATER_SHALLOW : TileType.WALL,
+                                TileType.FLOOR_STONE, MatUtils.boolean ? TileType.WATER_SHALLOW : null)
+                        break
+
+                    case 2:
+                        MapGenUtils.digPool(map, newRoom, TileType.WATER_SHALLOW, TileType.WATER_DEEP)
+                        break
+
+                    default:
+                        createRoom(map, newRoom)
+                        break
+                }
+
 
                 Point2i center = newRoom.center()
 

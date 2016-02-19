@@ -1,19 +1,13 @@
 package com.stewsters.dusk.screen
 
-import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.main.RenderConfig
 import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.VK_ESCAPE
-import static java.awt.event.KeyEvent.VK_L
-import static java.awt.event.KeyEvent.VK_SPACE
-import static java.awt.event.KeyEvent.VK_UNDEFINED
-import static java.awt.event.KeyEvent.VK_X
+import static java.awt.event.KeyEvent.*
 
 class EscapeScreen implements Screen {
-
 
 
     PlayingScreen playingScreen
@@ -49,11 +43,10 @@ class EscapeScreen implements Screen {
         }
         if (code == VK_X) {
             return new MainMenu()
-        }
-        else if(code==VK_ESCAPE){
+        } else if (code == VK_ESCAPE) {
             return playingScreen
-        }else if(code==VK_L){
-           return new LevelupScreen(playingScreen)
+        } else if (code == VK_L) {
+            return new LevelupScreen(playingScreen)
         }
 
         return this

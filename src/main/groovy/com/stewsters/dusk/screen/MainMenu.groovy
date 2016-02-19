@@ -7,11 +7,7 @@ import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.MapStack
-import com.stewsters.dusk.map.gen.JailMapGenerator
-import com.stewsters.dusk.map.gen.MapGenerator
-import com.stewsters.dusk.map.gen.SimpleMapGenerator
-import com.stewsters.dusk.map.gen.SurfaceMapGenerator
-import com.stewsters.dusk.map.gen.TestMapGenerator
+import com.stewsters.dusk.map.gen.*
 import com.stewsters.dusk.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane

@@ -36,7 +36,7 @@ class JailMapGenerator implements MapGenerator {
         for (int roomX = 1; roomX < width - roomSize; roomX += roomSize) {
             for (int roomY = 1; roomY < height - roomSize; roomY += roomSize) {
 
-                if(MatUtils.boolean)
+                if (MatUtils.boolean)
                     continue
 
                 Rect newRoom = new Rect(roomX, roomY, roomSize + roomX, roomSize + roomY)

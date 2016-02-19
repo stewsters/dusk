@@ -148,25 +148,25 @@ public class Inventory {
 
         if (item?.equipment?.damageTypes) {
             i++
-            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, item?.equipment?.damageTypes?.name?.join(", ") ?: "")
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, item?.equipment?.damageTypes?.name?.join(", ") ?: "")
             i++
         }
 
         if (item?.equipment?.damage) {
-            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage.from} - ${item?.equipment?.damage.to}" )
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage.from} - ${item?.equipment?.damage.to}")
             i++
         }
         if (item?.equipment?.armor) {
-            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, "Armor: ${item?.equipment?.armor.from} - ${item?.equipment?.armor.to}" )
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Armor: ${item?.equipment?.armor.from} - ${item?.equipment?.armor.to}")
             i++
         }
 
         if (item?.equipment?.accuracyModifier) {
-            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, "Accuracy: ${item?.equipment?.accuracyModifier}" )
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Accuracy: ${item?.equipment?.accuracyModifier}")
             i++
         }
         if (item?.equipment?.evasionModifier) {
-            display.placeHorizontalString(xStart,  RenderConfig.inventoryY + i, "Evasion: ${item?.equipment?.evasionModifier}" )
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Evasion: ${item?.equipment?.evasionModifier}")
             i++
         }
 

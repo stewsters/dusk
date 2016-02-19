@@ -39,7 +39,6 @@ abstract class BaseAi implements Ai {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
 
-                //TODO: this goes out of bounds.  Use advanced lighting?
                 if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
                     return true
                 }
