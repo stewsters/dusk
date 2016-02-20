@@ -1,6 +1,8 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.graphic.MessageLog
+import squidpony.squidcolor.SColor
 
 public trait Spell {
 
@@ -25,7 +27,7 @@ public trait Spell {
 
 
     public boolean cast(Entity castor) {
-
+        MessageLog.send("The spell does something unknown.", SColor.GREEN)
     };
 
 }

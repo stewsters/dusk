@@ -178,4 +178,12 @@ public class LevelMap extends BaseLitMap2d {
         }
         return null
     }
+
+    public void setExplored(int x, int y, boolean isExplored) {
+        ground[x][y].isExplored = isExplored
+    }
+
+    public TileType getTileType(int x, int y) {
+        return ground[x][y].tileType
+    }
 }

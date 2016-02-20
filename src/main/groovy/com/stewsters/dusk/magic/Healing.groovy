@@ -17,13 +17,16 @@ public class Healing implements Spell {
             return false
         } else {
 
-            MessageLog.send("Your wounds seal up.", SColor.GREEN)
+            MessageLog.send("Your wounds seal up.", SColor.GREEN, [caster])
             caster.fighter.addHealth(level + MatUtils.d(HEAL_AMOUNT + level))
 
-            // TODO: implement toxicity
-            // caster.fighter.addToxicity(2);
             return true
         }
 
+    }
+
+    @Override
+    public String getDescription() {
+        "Heals $level + d(${HEAL_AMOUNT + level}) damage."
     }
 }

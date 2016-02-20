@@ -9,7 +9,9 @@ public enum DamageType {
     WOOD("Wood"),
     SILVER("Silver"),
     IRON("Iron"),
-    FIRE("Fire");
+    FIRE("Fire"),
+    LIGHTNING("Lightning");
+    ;
 
     public final String name;
 

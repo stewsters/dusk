@@ -1,18 +1,20 @@
 package com.stewsters.dusk.magic
 
+import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.DamageType
+import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
 class Fireball implements Spell {
 
-    public static final int FIREBALL_DAMAGE = 6
-    public static final int FIREBALL_RANGE = 3
-
+    public static final int FIREBALL_MIN_DAMAGE = 10
+    public static final int FIREBALL_MAX_DAMAGE = 20
 
     @Override
     public boolean cast(Entity caster) {
@@ -24,15 +26,32 @@ class Fireball implements Spell {
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED, [caster])
             return false
-        } else if (caster.distanceTo(enemy) > FIREBALL_RANGE + level) {
-            MessageLog.send(enemy.name + ' is too far to strike.', SColor.RED, [caster])
-            return false
         } else {
-            int damage = MatUtils.d(FIREBALL_DAMAGE + level) + level
 
-            int actualDamage = enemy.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+            int dx = MatUtils.limit(enemy.x - caster.x, -1, 1)
+            int dy = MatUtils.limit(enemy.y - caster.y, -1, 1)
 
-            MessageLog.send("Flame envelopes ${enemy.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
+            //TODO: create a fireball in the direction of the opponent.
+            new Entity(map: caster.levelMap, x: caster.x + dx, y: caster.y + dy,
+                    ch: '*', name: 'Fireball', color: SColor.BLOOD_RED, blocks: false, priority: Priority.OPPONENT,
+                    ai: new Projectile(caster: caster, target: new Point2i(enemy.x, enemy.y),
+                            onImpact: { Entity fireball, int x, int y ->
+
+                                fireball.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).each {
+
+                                    if (it.fighter) {
+                                        int damage = MatUtils.getIntInRange(FIREBALL_MIN_DAMAGE, FIREBALL_MAX_DAMAGE)
+                                        int actualDamage = it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
+
+                                        MessageLog.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
+                                    }
+                                }
+                                //TODO: immolate on impact
+                                return true
+                            }
+                    )
+            )
+
             return true
         }
     }

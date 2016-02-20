@@ -10,6 +10,8 @@ import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.flyweight.SocialClass
 import com.stewsters.dusk.magic.Fireball
 import com.stewsters.dusk.magic.Healing
+import com.stewsters.dusk.magic.LightningStrike
+import com.stewsters.dusk.magic.Mapping
 import com.stewsters.dusk.map.MapStack
 import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
@@ -171,6 +173,8 @@ class CharacterGeneration implements Screen {
 
         player.spellbook.spells.add(new Fireball())
         player.spellbook.spells.add(new Healing())
+        player.spellbook.spells.add(new LightningStrike())
+        player.spellbook.spells.add(new Mapping())
 
 
         Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,

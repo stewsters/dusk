@@ -27,7 +27,7 @@ class ItemFunctions {
         } else {
             MessageLog.send("Your wounds seal up.", SColor.LIGHT_VIOLET)
             user.fighter.addHealth(HEAL_AMOUNT)
-//            user.fighter.addToxicity(2);
+
             return true
         }
     }
@@ -44,27 +44,16 @@ class ItemFunctions {
         }
     }
 
-    public static final int LIGHTNING_DAMAGE = 20
-    public static final int LIGHTNING_RANGE = 5
+    public static Closure castMapping = { Entity user ->
 
-    public static Closure castLightning = { Entity user ->
-
-        Entity enemy = user.ai.findClosestVisibleEnemy()
-        if (!enemy) {
-            MessageLog.send('No enemy is visible to strike.', SColor.RED, [user])
-            return false
-        } else if (user.distanceTo(enemy) > LIGHTNING_RANGE) {
-            MessageLog.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
-            return false
-        } else {
-            int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
-            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
-            return true
+        for (int x = 0; x < user.levelMap.getXSize(); x++) {
+            for (int y = 0; y < user.levelMap.getYSize(); y++) {
+                if (!user.levelMap.ground[x][y].tileType.blocks)
+                    user.levelMap.ground[x][y].isExplored = true
+            }
         }
+        return true
     }
-
-    public static final int FIREBALL_MIN_DAMAGE = 10
-    public static final int FIREBALL_MAX_DAMAGE = 20
 
 
     public static Closure castFireball = { Entity user ->
@@ -104,6 +93,26 @@ class ItemFunctions {
     }
 
 
+    public static final int LIGHTNING_DAMAGE = 20
+    public static final int LIGHTNING_RANGE = 5
+
+    public static Closure castLightning = { Entity user ->
+
+        Entity enemy = user.ai.findClosestVisibleEnemy()
+        if (!enemy) {
+            MessageLog.send('No enemy is visible to strike.', SColor.RED, [user])
+            return false
+        } else if (user.distanceTo(enemy) > LIGHTNING_RANGE) {
+            MessageLog.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
+            return false
+        } else {
+            int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
+            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
+            return true
+        }
+    }
+
+
     public static final int DOMINATION_RANGE = 3
     public static Closure castDomination = { Entity user ->
         Entity enemy = user.ai.findClosestVisibleEnemy()
@@ -130,7 +139,7 @@ class ItemFunctions {
 
 //        Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemies) {
-            MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user, enemy])
+            MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user])
             return false
         } else {
 
@@ -196,16 +205,6 @@ class ItemFunctions {
 
     }
 
-    public static Closure castMapping = { Entity user ->
-
-        for (int x = 0; x < user.levelMap.getXSize(); x++) {
-            for (int y = 0; y < user.levelMap.getYSize(); y++) {
-                if (!user.levelMap.ground[x][y].tileType.blocks)
-                    user.levelMap.ground[x][y].isExplored = true
-            }
-        }
-        return true
-    }
 
     public static Closure castSummoning = { Entity user ->
 
