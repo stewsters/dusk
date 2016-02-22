@@ -14,16 +14,21 @@ public class Wrath implements Spell {
 
     public static final int WRATH_RANGE = 10
 
+    public Wrath() {
+        name = "Wrath"
+        key = 'w'
+    }
+
     @Override
     boolean cast(Entity caster) {
 
-        Set<Entity> enemies =caster.ai.findAllVisibleEnemies(WRATH_RANGE)
+        Set<Entity> enemies = caster.ai.findAllVisibleEnemies(WRATH_RANGE)
 
         if (!enemies) {
             MessageLog.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [caster])
             return false
         } else {
-            enemies.each {Entity enemy ->
+            enemies.each { Entity enemy ->
 
                 float xSlope = enemy.x - caster.x
                 float ySlope = enemy.y - caster.y

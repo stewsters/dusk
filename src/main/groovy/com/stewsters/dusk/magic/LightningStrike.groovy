@@ -13,6 +13,11 @@ class LightningStrike implements Spell {
     public static final int LIGHTNING_RANGE = 5
 
 
+    public LightningStrike() {
+        name = "Lightning Strike"
+        key = 'l'
+    }
+
     @Override
     public boolean cast(Entity caster) {
 

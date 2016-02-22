@@ -9,6 +9,11 @@ public class Healing implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
+    public Healing() {
+        name = "Healing"
+        key = 'h'
+    }
+
     @Override
     boolean cast(Entity caster) {
 

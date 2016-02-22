@@ -10,6 +10,12 @@ import squidpony.squidgrid.util.Direction
 @CompileStatic
 public class HostileSummoning implements Spell {
 
+
+    public HostileSummoning() {
+        name = "Hostile Summoning"
+        key = 'o'
+    }
+
     @Override
     boolean cast(Entity caster) {
 

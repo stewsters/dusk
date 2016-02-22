@@ -3,11 +3,7 @@ package com.stewsters.dusk.screen
 import com.stewsters.dusk.component.*
 import com.stewsters.dusk.component.ai.LocalPlayer
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.Faction
-import com.stewsters.dusk.flyweight.Gender
-import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.flyweight.Slot
-import com.stewsters.dusk.flyweight.SocialClass
+import com.stewsters.dusk.flyweight.*
 import com.stewsters.dusk.magic.Fireball
 import com.stewsters.dusk.magic.Healing
 import com.stewsters.dusk.magic.LightningStrike
@@ -171,10 +167,10 @@ class CharacterGeneration implements Screen {
                         deathFunction: DeathFunctions.playerDeath)
         )
 
-        player.spellbook.spells.add(new Fireball())
-        player.spellbook.spells.add(new Healing())
-        player.spellbook.spells.add(new LightningStrike())
-        player.spellbook.spells.add(new Mapping())
+        player.spellbook.spells.addAll([new Fireball(),
+                                        new Healing(),
+                                        new LightningStrike(),
+                                        new Mapping()])
 
 
         Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,

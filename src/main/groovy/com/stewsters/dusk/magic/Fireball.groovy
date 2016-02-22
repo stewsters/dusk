@@ -16,6 +16,12 @@ class Fireball implements Spell {
     public static final int FIREBALL_MIN_DAMAGE = 10
     public static final int FIREBALL_MAX_DAMAGE = 20
 
+    public Fireball() {
+        name = "Fireball"
+        key = 'f'
+    }
+
+
     @Override
     public boolean cast(Entity caster) {
 

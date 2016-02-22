@@ -1,7 +1,6 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.graphic.MessageLog
 import groovy.transform.CompileStatic
@@ -11,6 +10,11 @@ import squidpony.squidcolor.SColor
 class StoneCurse implements Spell {
 
     public static final int STONE_CURSE_RANGE = 10
+
+    public StoneCurse() {
+        name = "Stone Curse"
+        key = 't'
+    }
 
     @Override
     public boolean cast(Entity caster) {

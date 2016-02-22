@@ -10,6 +10,13 @@ import squidpony.squidgrid.util.Direction
 @CompileStatic
 public class Summoning implements Spell {
 
+
+    public Summoning() {
+        name = "Summoning"
+        key = 's'
+    }
+
+
     @Override
     boolean cast(Entity caster) {
 

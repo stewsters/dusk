@@ -13,6 +13,10 @@ public class Confusion implements Spell {
     public static final int CONFUSE_RANGE = 10
     public static final int CONFUSE_NUM_TURNS = 20
 
+    public Confusion() {
+        name = "Confusion"
+        key = 'c'
+    }
 
     @Override
     boolean cast(Entity caster) {

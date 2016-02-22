@@ -10,6 +10,11 @@ public class Domination implements Spell {
 
     public static final int DOMINATION_RANGE = 3
 
+    public Domination() {
+        name = "Domination"
+        key = 'd'
+    }
+
     @Override
     boolean cast(Entity caster) {
 

@@ -8,6 +8,11 @@ public class Mapping implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
+    public Mapping() {
+        name = "Mapping"
+        key = 'm'
+    }
+
     @Override
     boolean cast(Entity caster) {
 
