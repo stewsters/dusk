@@ -3,15 +3,17 @@ package com.stewsters.dusk.magic
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
+@CompileStatic
 public class Healing implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
     public Healing() {
         name = "Healing"
-        key = 'h'
+        key = 'h' as char
     }
 
     @Override

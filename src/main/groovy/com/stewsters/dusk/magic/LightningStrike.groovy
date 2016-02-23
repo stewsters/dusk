@@ -15,7 +15,7 @@ class LightningStrike implements Spell {
 
     public LightningStrike() {
         name = "Lightning Strike"
-        key = 'l'
+        key = 'l' as char
     }
 
     @Override

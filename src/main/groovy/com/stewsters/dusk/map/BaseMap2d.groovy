@@ -2,7 +2,9 @@ package com.stewsters.dusk.map
 
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.util.pathing.twoDimention.shared.TileBasedMap2d
+import groovy.transform.CompileStatic
 
+@CompileStatic
 public class BaseMap2d implements TileBasedMap2d {
 
     protected final int xSize;

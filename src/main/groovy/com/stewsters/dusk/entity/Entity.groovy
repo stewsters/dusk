@@ -132,7 +132,7 @@ public class Entity {
         int newX = dx + x
         int newY = dy + y
 
-        if (x < 0 || x >= levelMap.xSize || y < 0 || y >= levelMap.ySize) {
+        if (x < 0 || x >= levelMap.getXSize() || y < 0 || y >= levelMap.getYSize()) {
             return false;
         }
 
@@ -272,6 +272,7 @@ public class Entity {
     }
 
     boolean throwItemById(int i) {
+        //TODO: throw
         false
     }
 

@@ -12,7 +12,7 @@ public class Domination implements Spell {
 
     public Domination() {
         name = "Domination"
-        key = 'd'
+        key = 'd' as char
     }
 
     @Override

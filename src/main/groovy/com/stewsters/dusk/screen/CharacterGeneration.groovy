@@ -4,10 +4,7 @@ import com.stewsters.dusk.component.*
 import com.stewsters.dusk.component.ai.LocalPlayer
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.*
-import com.stewsters.dusk.magic.Fireball
-import com.stewsters.dusk.magic.Healing
-import com.stewsters.dusk.magic.LightningStrike
-import com.stewsters.dusk.magic.Mapping
+import com.stewsters.dusk.magic.*
 import com.stewsters.dusk.map.MapStack
 import com.stewsters.dusk.map.gen.JailMapGenerator
 import com.stewsters.dusk.map.gen.MapGenerator
@@ -167,10 +164,19 @@ class CharacterGeneration implements Screen {
                         deathFunction: DeathFunctions.playerDeath)
         )
 
-        player.spellbook.spells.addAll([new Fireball(),
-                                        new Healing(),
-                                        new LightningStrike(),
-                                        new Mapping()])
+        player.spellbook.spells.addAll([
+                new Cleanse(),
+                new Confusion(),
+                new Domination(),
+                new Fireball(),
+                new Healing(),
+                new HostileSummoning(),
+                new LightningStrike(),
+                new Mapping(),
+                new StoneCurse(),
+                new Summoning(),
+                new Wrath()
+        ])
 
 
         Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,

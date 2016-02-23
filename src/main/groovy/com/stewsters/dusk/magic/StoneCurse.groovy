@@ -13,7 +13,7 @@ class StoneCurse implements Spell {
 
     public StoneCurse() {
         name = "Stone Curse"
-        key = 't'
+        key = 't' as char
     }
 
     @Override

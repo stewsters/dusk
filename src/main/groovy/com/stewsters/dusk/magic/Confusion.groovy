@@ -15,7 +15,7 @@ public class Confusion implements Spell {
 
     public Confusion() {
         name = "Confusion"
-        key = 'c'
+        key = 'c' as char
     }
 
     @Override

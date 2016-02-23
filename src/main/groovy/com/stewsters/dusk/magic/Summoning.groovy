@@ -13,7 +13,7 @@ public class Summoning implements Spell {
 
     public Summoning() {
         name = "Summoning"
-        key = 's'
+        key = 's' as char
     }
 
 

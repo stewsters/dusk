@@ -13,7 +13,7 @@ public class HostileSummoning implements Spell {
 
     public HostileSummoning() {
         name = "Hostile Summoning"
-        key = 'o'
+        key = 'o' as char
     }
 
     @Override

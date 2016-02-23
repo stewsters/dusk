@@ -10,7 +10,7 @@ public class Mapping implements Spell {
 
     public Mapping() {
         name = "Mapping"
-        key = 'm'
+        key = 'm' as char
     }
 
     @Override

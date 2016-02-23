@@ -16,7 +16,7 @@ public class Wrath implements Spell {
 
     public Wrath() {
         name = "Wrath"
-        key = 'w'
+        key = 'w' as char
     }
 
     @Override
@@ -32,10 +32,9 @@ public class Wrath implements Spell {
 
                 float xSlope = enemy.x - caster.x
                 float ySlope = enemy.y - caster.y
-                float dist = Math.sqrt(xSlope * xSlope + ySlope * ySlope)
-                int dx = enemy.x + xSlope / dist * WRATH_RANGE
-                int dy = enemy.y + ySlope / dist * WRATH_RANGE
-
+                float dist = (float) Math.sqrt(xSlope * xSlope + ySlope * ySlope)
+                int dx = (int) (enemy.x + xSlope / dist * WRATH_RANGE)
+                int dy = (int) (enemy.y + ySlope / dist * WRATH_RANGE)
 
                 Ai oldAI = enemy.ai
                 enemy.levelMap.actors.remove(oldAI)
