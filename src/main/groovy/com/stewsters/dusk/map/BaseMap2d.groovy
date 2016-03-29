@@ -43,10 +43,6 @@ public class BaseMap2d implements TileBasedMap2d {
             return true;
         }
 
-        if (ground[x][y].isBlocked) {
-            return true;
-        }
-
         return ground[x][y].isBlocked;
     }
 

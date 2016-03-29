@@ -17,11 +17,10 @@ abstract class BaseAi implements Ai {
     protected int lightLastCalculated = 0
     protected int sightRange = 20
 
-    //TODO: fix this
     protected int speed = 10
     protected int gameTurn
 
-    Point2i lastNoise;
+    protected Point2i lastNoise;
 
     @Override
     public Set<Entity> findAllVisibleEnemies(int maxDistance) {

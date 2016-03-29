@@ -2,6 +2,7 @@ package com.stewsters.dusk.entity
 
 import com.stewsters.dusk.component.*
 import com.stewsters.dusk.component.ai.Ai
+import com.stewsters.dusk.component.mover.DuskMover2d
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.graphic.MessageLog
@@ -23,6 +24,10 @@ public class Entity {
     public boolean blocks
     public int x
     public int y
+
+    public int xSize
+    public int ySize
+
     public char ch
     public SColor color
 
@@ -37,6 +42,8 @@ public class Entity {
     public Quiver quiver
     public String description
 
+    public DuskMover2d mover
+
     /**
      * LevelMap map, int x, int y, char ch, String name, def color,
      blocks = false, Fighter fighter = null, Ai ai = null, Faction faction = null,
@@ -49,6 +56,9 @@ public class Entity {
 
         x = params.x ?: 0
         y = params.y ?: 0
+
+        xSize = params.xSize ?: 1
+        ySize = params.ySize ?: 1
 
         ch = (params.ch ?: '@') as char
         name = params.name ?: 'Unnamed'
@@ -65,6 +75,8 @@ public class Entity {
         if (params.fighter) {
             fighter = params.fighter
             fighter.owner = this
+
+            mover = new DuskMover2d(params.map, xSize, ySize)
         }
 
         if (params.ai) {
@@ -119,7 +131,7 @@ public class Entity {
         int newX = xDif + x
         int newY = yDif + y
 
-        if (!(levelMap.isBlocked(newX, newY))) {
+        if (mover.canTraverse(x, y, newX, newY)) {
             x = newX
             y = newY
             levelMap.update(this);
@@ -132,13 +144,16 @@ public class Entity {
         int newX = dx + x
         int newY = dy + y
 
-        if (x < 0 || x >= levelMap.getXSize() || y < 0 || y >= levelMap.getYSize()) {
+        if (x < 0 || x > levelMap.getXSize() - xSize || y < 0 || y > levelMap.getYSize() - ySize) {
             return false;
         }
 
-        HashSet<Entity> entities
         if (inventory || fighter) {
-            entities = levelMap.getEntitiesAtLocation(newX, newY)
+            HashSet<Entity> entities
+            if (xSize > 1 || ySize > 1)
+                entities = levelMap.getEntitiesBetween(newX, newY, newX + xSize - 1, newY + ySize - 1)
+            else
+                entities = levelMap.getEntitiesAtLocation(newX, newY)
 
             if (fighter) {
                 Entity target = entities.find {
