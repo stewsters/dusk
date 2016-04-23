@@ -69,14 +69,14 @@ public class Entity {
 
         priority = params.priority ?: Priority.ITEM
 
+        mover = new DuskMover2d(this)
+
         if (params.description)
             description = params.description
 
         if (params.fighter) {
             fighter = params.fighter
             fighter.owner = this
-
-            mover = new DuskMover2d(params.map, xSize, ySize)
         }
 
         if (params.ai) {

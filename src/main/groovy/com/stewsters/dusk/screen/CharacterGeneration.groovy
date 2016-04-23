@@ -147,7 +147,7 @@ class CharacterGeneration implements Screen {
 
         Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel],
                 x: playerStartX, y: playerStartY,
-                xSize: 1,ySize: 2,
+                xSize: 1, ySize: 1,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
                 priority: Priority.PLAYER, faction: Faction.GOOD,
                 ai: new LocalPlayer(),

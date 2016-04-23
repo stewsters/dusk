@@ -116,6 +116,7 @@ class MonsterGen {
             case ("Minotaur"):
 
                 return new Entity(map: map, x: x, y: y,
+                        xSize: 2, ySize: 2,
                         ch: 'm', name: 'Minotaur', color: SColor.LAWN_GREEN, blocks: true,
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new ChargerAi(),
                         fighter: new Fighter(hp: 20, stamina: 8, melee: 5, evasion: -2,
@@ -154,6 +155,7 @@ class MonsterGen {
             case ("Troll"):
 
                 return new Entity(map: map, x: x, y: y,
+                        xSize: 2, ySize: 2,
                         ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(12),
                         fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
@@ -184,6 +186,7 @@ class MonsterGen {
                 //TODO: slow, add armor
 
                 return new Entity(map: map, x: x, y: y,
+                        xSize: 2, ySize: 2,
                         ch: 'A', name: 'Armored Hulk', color: SColor.LIGHT_GRAY, blocks: true,
                         priority: Priority.OPPONENT, faction: Faction.EVIL, ai: new BasicOpponent(15),
                         fighter: new Fighter(hp: 20, stamina: 8, melee: 4, evasion: -2,
