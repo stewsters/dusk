@@ -7,9 +7,9 @@ import groovy.transform.CompileStatic
 @CompileStatic
 public class BaseMap2d implements TileBasedMap2d {
 
-    protected final int xSize;
-    protected final int ySize;
-    protected Tile[][] ground;
+    public final int xSize;
+    public final int ySize;
+    public Tile[][] ground;
 
     public BaseMap2d(int width, int height) {
         this.xSize = width;

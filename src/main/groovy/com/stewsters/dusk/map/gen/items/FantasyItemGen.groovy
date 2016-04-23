@@ -14,12 +14,13 @@ class FantasyItemGen {
 
     //TODO: add the ability to choose to generate a category, ie weapon, armor, scroll,
 
-//    public static final List<Map>
+
+    // PLAN: so you will have a chance to add certain items at certain levels.  whenever one appears, the
+    // probability of another is cut by 1/2
 
     public static final List<Map> spawnPerLevel = [
             [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
-            //Gambesan
             [name: "Chain Hauberk", rarity: 10, startLevel: 3, endLevel: 6],
             [name: "Coat of Plates", rarity: 5, startLevel: 6, endLevel: 9],
 
@@ -34,13 +35,6 @@ class FantasyItemGen {
             [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Scroll of Testing", rarity: 0, startLevel: 0, endLevel: 9],
             [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
-
-            // Scrolls to level up?
-            // Scroll of Health
-            // Scroll of
-
-            // Scroll of Raise Dead
-            // Scroll of Kill
 
             // slash
             [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
@@ -230,7 +224,7 @@ class FantasyItemGen {
                 )
                 break
 
-        // Slash
+            // Slash
             case "Hand Axe":
                 DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 

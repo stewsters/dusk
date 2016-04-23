@@ -9,7 +9,7 @@ import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 
-class JailMapGenerator implements MapGenerator {
+class JailMapGenerator extends BaseMapGenerator implements MapGenerator {
 
     private static int MAX_ROOM_MONSTERS = 2
     private static int MAX_ROOM_ITEMS = 2
@@ -24,8 +24,8 @@ class JailMapGenerator implements MapGenerator {
         int height = 40
 
         LevelMap map = new LevelMap(width, height);
-        map.xSize.times { iX ->
-            map.ySize.times { iY ->
+        map.getXSize().times { iX ->
+            map.getYSize().times { iY ->
                 map.ground[iX][iY] = new Tile(TileType.WALL)
             }
         }
@@ -65,7 +65,7 @@ class JailMapGenerator implements MapGenerator {
                 playerStartY = center.y
 
             } else {
-                placeObjects(map, newRoom, level)
+                placeObjects(map, newRoom, level,MAX_ROOM_MONSTERS,MAX_ROOM_ITEMS)
 
                 Point2i lastCenter = rooms[(roomNum - 1)].center()
                 Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
@@ -117,29 +117,4 @@ class JailMapGenerator implements MapGenerator {
         }
     }
 
-    private static void placeObjects(LevelMap map, Rect room, int level) {
-
-        int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
-
-        numMonsters.times {
-            int x = MatUtils.getIntInRange(room.x1, room.x2)
-            int y = MatUtils.getIntInRange(room.y1, room.y2)
-
-            if (!map.isBlocked(x, y)) {
-                MonsterGen.getRandomMonsterByLevel(map, x, y, level)
-            }
-        }
-
-        //now items
-        int numItems = MatUtils.getIntInRange(0, MAX_ROOM_ITEMS)
-        numItems.times {
-            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
-            if (!map.isBlocked(x, y)) {
-
-                FantasyItemGen.getRandomItemByLevel(map, x, y, level)
-//                FantasyItemGen.getRandomItem(map, x, y)
-            }
-        }
-    }
 }
