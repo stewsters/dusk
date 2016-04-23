@@ -209,38 +209,57 @@ class ItemFunctions {
     }
 
 
-    public static Closure castSummoning = { Entity user ->
+    public static Closure castSummoning = { Entity caster ->
 
-        def directions = Direction.OUTWARDS as List
+        List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        for (Direction dir : directions) {
-            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
-                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x , caster.y , MatUtils.getIntInRange(1, 9))
 
-                summon.ai.gameTurn = user.ai.gameTurn + 1
+        for (Direction dir : directions) {
+            int x = caster.x + dir.deltaX * summon.xSize
+            int y = caster.y + dir.deltaY * summon.ySize
+
+            if (summon.mover.canOccupy(x, y)) {
+                summon.x = x
+                summon.y = y
+                summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.GOOD
+
+                caster.levelMap.update(summon);
                 return true
             }
         }
+        caster.levelMap.remove(summon);
+
         return false
     }
 
-    public static Closure castHostileSummoning = { Entity user ->
+    public static Closure castHostileSummoning = { Entity caster ->
 
-        def directions = Direction.OUTWARDS as List
+        List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        for (Direction dir : directions) {
-            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
-                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x , caster.y , MatUtils.getIntInRange(1, 9))
 
-                summon.ai.gameTurn = user.ai.gameTurn + 1
+        for (Direction dir : directions) {
+            int x = caster.x + dir.deltaX * summon.xSize
+            int y = caster.y + dir.deltaY * summon.ySize
+
+            if (summon.mover.canOccupy(x, y)) {
+                summon.x = x
+                summon.y = y
+                summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.EVIL
+
+                caster.levelMap.update(summon);
                 return true
             }
         }
+        caster.levelMap.remove(summon);
+
         return false
+
     }
 
 
