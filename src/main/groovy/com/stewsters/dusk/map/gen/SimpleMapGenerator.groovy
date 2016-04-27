@@ -4,7 +4,6 @@ import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.graphic.MessageLog
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
-import com.stewsters.dusk.map.gen.items.FantasyItemGen
 import com.stewsters.dusk.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
@@ -12,7 +11,7 @@ import com.stewsters.util.math.geom.Rect
 
 import static com.stewsters.util.math.MatUtils.d
 
-class SimpleMapGenerator implements MapGenerator {
+class SimpleMapGenerator extends BaseMapGenerator implements MapGenerator {
 /* 4*4
         ++++
         +..+
@@ -36,8 +35,8 @@ class SimpleMapGenerator implements MapGenerator {
         int height = 60
         LevelMap map = new LevelMap(width, height);
 
-        map.xSize.times { iX ->
-            map.ySize.times { iY ->
+        map.getXSize().times { iX ->
+            map.getYSize().times { iY ->
                 map.ground[iX][iY] = new Tile(TileType.WALL)
             }
         }
@@ -46,7 +45,7 @@ class SimpleMapGenerator implements MapGenerator {
         int num_rooms = 0
 
 
-        MAX_ROOMS.times { roomNo ->
+        MAX_ROOMS.times { int roomNo ->
 
             int w = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
             int h = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
@@ -89,7 +88,7 @@ class SimpleMapGenerator implements MapGenerator {
                     playerStartY = center.y
 
                 } else {
-                    placeObjects(map, newRoom, level)
+                    placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
 
                     Point2i lastCenter = rooms[(num_rooms - 1)].center()
                     Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
@@ -116,7 +115,7 @@ class SimpleMapGenerator implements MapGenerator {
 
         if (level > 0) {
             map.ground[playerStartX][playerStartY].tileType = TileType.STAIRS_DOWN
-        }//TODO: starting
+        }
         return map
     }
 
@@ -145,29 +144,4 @@ class SimpleMapGenerator implements MapGenerator {
         }
     }
 
-    private static void placeObjects(LevelMap map, Rect room, int level) {
-
-        int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
-
-        numMonsters.times {
-            int x = MatUtils.getIntInRange(room.x1, room.x2)
-            int y = MatUtils.getIntInRange(room.y1, room.y2)
-
-            if (!map.isBlocked(x, y)) {
-                MonsterGen.getRandomMonsterByLevel(map, x, y, level)
-            }
-        }
-
-        //now items
-        int numItems = MatUtils.getIntInRange(0, MAX_ROOM_ITEMS)
-        numItems.times {
-            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
-            if (!map.isBlocked(x, y)) {
-
-                FantasyItemGen.getRandomItemByLevel(map, x, y, level)
-
-            }
-        }
-    }
 }

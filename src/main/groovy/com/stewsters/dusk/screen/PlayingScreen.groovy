@@ -263,8 +263,6 @@ public class PlayingScreen implements Screen {
                         player.levelMap = levelMap
                         player.x = dest.x
                         player.y = dest.y
-
-
                         levelMap.add(player)
 
                         shadowCaster2d = new ShadowCaster2d(levelMap);

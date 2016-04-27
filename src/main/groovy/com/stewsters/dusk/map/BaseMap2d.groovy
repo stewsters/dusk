@@ -2,12 +2,14 @@ package com.stewsters.dusk.map
 
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.util.pathing.twoDimention.shared.TileBasedMap2d
+import groovy.transform.CompileStatic
 
+@CompileStatic
 public class BaseMap2d implements TileBasedMap2d {
 
-    protected final int xSize;
-    protected final int ySize;
-    protected Tile[][] ground;
+    public final int xSize;
+    public final int ySize;
+    public Tile[][] ground;
 
     public BaseMap2d(int width, int height) {
         this.xSize = width;
@@ -38,10 +40,6 @@ public class BaseMap2d implements TileBasedMap2d {
     public boolean isBlocked(int x, int y) {
 
         if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
-            return true;
-        }
-
-        if (ground[x][y].isBlocked) {
             return true;
         }
 

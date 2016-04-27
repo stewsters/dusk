@@ -12,8 +12,6 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 public class LevelMap extends BaseLitMap2d {
 
-    //Treeset would gaurantee only one in at a time
-
     public PriorityQueue<Ai> actors // need to cut down this visibility
     private IntervalKDTree2d<Entity> spatialHash
     private HashSet<Entity> entityTemp;
@@ -34,7 +32,7 @@ public class LevelMap extends BaseLitMap2d {
     public void add(Entity e) {
         if (e.ai)
             actors.add(e.ai)
-        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + 0.25, e.y + 0.25, e)
+        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
     }
 
     public void remove(Entity e) {
@@ -46,7 +44,7 @@ public class LevelMap extends BaseLitMap2d {
 
     void update(Entity e) {
         spatialHash.remove(e)
-        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + 0.25, e.y + 0.25, e)
+        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
     }
 
     public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
@@ -72,11 +70,11 @@ public class LevelMap extends BaseLitMap2d {
     }
 
     @Override
-    public boolean isBlocked(int x, int y) {
+    public boolean isBlocked(int x, int y, Entity ignore = null) {
 
         if (super.isBlocked(x, y))
             return true;
-        for (Entity entity : getEntitiesAtLocation(x, y)) {
+        for (Entity entity : getEntitiesAtLocation(x, y) - ignore) {
             if (entity.blocks)
                 return true
         }
@@ -149,11 +147,15 @@ public class LevelMap extends BaseLitMap2d {
 
                     SColor cellLight = SColorFactory.fromPallet("dark", light);
                     SColor objectLight = SColorFactory.blend(entity.color, cellLight, getTint(0f));
-                    display.placeCharacter(screenPositionX, screenPositionY, entity.ch, objectLight);
+
+                    for (int x = 0; x < entity.xSize; x++) {
+                        for (int y = 0; y < entity.ySize; y++) {
+                            display.placeCharacter(screenPositionX + x, screenPositionY + y, entity.ch, objectLight);
+                        }
+                    }
                 }
             }
         }
-
     }
 
 /**

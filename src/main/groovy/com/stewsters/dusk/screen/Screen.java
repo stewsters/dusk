@@ -6,15 +6,15 @@ import java.awt.event.KeyEvent;
 
 
 public interface Screen {
-    public void displayOutput(SwingPane display);
+    void displayOutput(SwingPane display);
 
-    public Screen respondToUserInput(KeyEvent key);
+    Screen respondToUserInput(KeyEvent key);
 
 
     /**
      * Should we keep going, or wait for player input?
      */
-    default public boolean autoplay() {
+    default boolean autoplay() {
         return false;
     }
 
@@ -23,7 +23,7 @@ public interface Screen {
      *
      * @return whethor we need to repaint the screen
      */
-    default public boolean play() {
+    default boolean play() {
         return false;
     }
 }

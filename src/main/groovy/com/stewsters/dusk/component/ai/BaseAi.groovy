@@ -13,15 +13,14 @@ import groovy.transform.CompileStatic
 abstract class BaseAi implements Ai {
 
     protected Entity owner
-    private float[][] light
+    protected float[][] light
     protected int lightLastCalculated = 0
     protected int sightRange = 20
 
-    //TODO: fix this
     protected int speed = 10
     protected int gameTurn
 
-    Point2i lastNoise;
+    protected Point2i lastNoise;
 
     @Override
     public Set<Entity> findAllVisibleEnemies(int maxDistance) {
@@ -29,17 +28,21 @@ abstract class BaseAi implements Ai {
 
         calculateSight()
 
-        int lowX = owner.x - maxDistance
-        int highX = owner.x + maxDistance
-        int lowY = owner.y - maxDistance
-        int highY = owner.y + maxDistance
+        int lowXDist = owner.x - maxDistance
+        int highXDist = owner.x + maxDistance
+        int lowYDist = owner.y - maxDistance
+        int highYDist = owner.y + maxDistance
 
-        return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
-            if (entity.fighter && owner.owner.faction.hates(entity.faction) && owner.owner.distanceTo(entity) < maxDistance) {
+        int lowX = owner.x - sightRange
+        int lowY = owner.y - sightRange
+
+        return owner.levelMap.getEntitiesBetween(lowXDist, lowYDist, highXDist, highYDist).findAll { Entity entity ->
+
+            if (entity.fighter && this.owner.faction?.hates(entity.faction) && this.owner.distanceTo(entity) < maxDistance) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
 
-                if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
+                if (lightX >= 0 && lightX < this.light.length && lightY >= 0 && lightY < this.light[0].length && this.light[lightX][lightY] > 0f) {
                     return true
                 }
             }

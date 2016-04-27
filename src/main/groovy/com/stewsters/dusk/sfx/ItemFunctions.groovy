@@ -44,17 +44,20 @@ class ItemFunctions {
         }
     }
 
-    public static Closure castMapping = { Entity user ->
+    public static Closure castMapping = { Entity caster ->
 
-        for (int x = 0; x < user.levelMap.getXSize(); x++) {
-            for (int y = 0; y < user.levelMap.getYSize(); y++) {
-                if (!user.levelMap.ground[x][y].tileType.blocks)
-                    user.levelMap.ground[x][y].isExplored = true
+        for (int x = 0; x < caster.levelMap.getXSize(); x++) {
+            for (int y = 0; y < caster.levelMap.getYSize(); y++) {
+                if (!caster.levelMap.getTileType(x, y).blocks)
+                    caster.levelMap.setExplored(x, y, true)
             }
         }
         return true
     }
 
+
+    public static final int FIREBALL_MIN_DAMAGE = 10
+    public static final int FIREBALL_MAX_DAMAGE = 20
 
     public static Closure castFireball = { Entity user ->
 
@@ -185,7 +188,7 @@ class ItemFunctions {
                         target: new Point2i(dx, dy),
                         onImpact: { Entity caster, int x, int y ->
 
-                            MessageLog.send("The ${enemy.name} collides!", SColor.RED, [owner, caster])
+                            MessageLog.send("The ${enemy.name} collides!", SColor.RED, [user, caster])
 
                             caster.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
                                 enemy.fighter.takeDamage(1, caster, [DamageType.BASH])
@@ -206,38 +209,57 @@ class ItemFunctions {
     }
 
 
-    public static Closure castSummoning = { Entity user ->
+    public static Closure castSummoning = { Entity caster ->
 
-        def directions = Direction.OUTWARDS as List
+        List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        for (Direction dir : directions) {
-            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
-                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
-                summon.ai.gameTurn = user.ai.gameTurn + 1
+        for (Direction dir : directions) {
+            int x = caster.x + dir.deltaX * summon.xSize
+            int y = caster.y + dir.deltaY * summon.ySize
+
+            if (summon.mover.canOccupy(x, y)) {
+                summon.x = x
+                summon.y = y
+                summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.GOOD
+
+                caster.levelMap.update(summon);
                 return true
             }
         }
+        caster.levelMap.remove(summon);
+
         return false
     }
 
-    public static Closure castHostileSummoning = { Entity user ->
+    public static Closure castHostileSummoning = { Entity caster ->
 
-        def directions = Direction.OUTWARDS as List
+        List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        for (Direction dir : directions) {
-            if (!user.levelMap.isBlocked(user.x + dir.deltaX, user.y + dir.deltaY)) {
-                def summon = MonsterGen.getRandomMonsterByLevel(user.levelMap, user.x + dir.deltaX, user.y + dir.deltaY, MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
-                summon.ai.gameTurn = user.ai.gameTurn + 1
+        for (Direction dir : directions) {
+            int x = caster.x + dir.deltaX * summon.xSize
+            int y = caster.y + dir.deltaY * summon.ySize
+
+            if (summon.mover.canOccupy(x, y)) {
+                summon.x = x
+                summon.y = y
+                summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.EVIL
+
+                caster.levelMap.update(summon);
                 return true
             }
         }
+        caster.levelMap.remove(summon);
+
         return false
+
     }
 
 
@@ -271,7 +293,7 @@ class ItemFunctions {
     public static Closure cleanse = { Entity user ->
         //removes toxicity from the system.
         user.fighter.toxicity = 0
-        MessageLog.send("${user.name} is cleansed.", [user])
+        MessageLog.send("${user.name} is cleansed.", SColor.GREEN_BAMBOO, [user])
         return true
     }
 

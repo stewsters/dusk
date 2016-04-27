@@ -11,7 +11,6 @@ public enum DamageType {
     IRON("Iron"),
     FIRE("Fire"),
     LIGHTNING("Lightning");
-    ;
 
     public final String name;
 

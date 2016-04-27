@@ -31,7 +31,8 @@ public trait Spell {
     public Character getKey() {
         key
     }
-    public void setKey(Character c){
+
+    public void setKey(Character c) {
         key = c
     }
 

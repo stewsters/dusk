@@ -18,7 +18,7 @@ class Fireball implements Spell {
 
     public Fireball() {
         name = "Fireball"
-        key = 'f'
+        key = 'f' as char
     }
 
 
@@ -64,7 +64,7 @@ class Fireball implements Spell {
 
     @Override
     public String getDescription() {
-        "Fires a ball of fire to envelope a target no more than ${FIREBALL_DAMAGE + level} spaces away for ${level + 1} to ${FIREBALL_DAMAGE + level + level} damage."
+        "Fires a ball of fire at the nearest target for ${FIREBALL_MIN_DAMAGE} to ${FIREBALL_MAX_DAMAGE} damage."
     }
 
 
