@@ -6,7 +6,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 public class ListSelector<T> {
 
-    private title
+    private String title
     private int selectedIndex = 0
     private List<T> options
 
@@ -19,7 +19,7 @@ public class ListSelector<T> {
 
     public void render(SwingPane display, int xMin, int yMin, boolean colSelected) {
         display.placeHorizontalString(xMin, yMin, title)
-        options.eachWithIndex { T option, int i ->
+        options.eachWithIndex { T option, Integer i ->
 
             SColor foreColor
             SColor rearColor

@@ -25,7 +25,7 @@ class DeathScreen implements Screen {
     }
 
 
-    void rightJustifiedText(SwingPane display, int y, String txt) {
+    static void rightJustifiedText(SwingPane display, int y, String txt) {
         int startX = RenderConfig.screenWidth - txt.length() - 1
         display.placeHorizontalString(startX, y, txt)
     }

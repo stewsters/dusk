@@ -21,7 +21,7 @@ public interface Screen {
     /**
      * Runs the next character's turn
      *
-     * @return whethor we need to repaint the screen
+     * @return whether we need to repaint the screen
      */
     default boolean play() {
         return false;

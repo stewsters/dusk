@@ -18,16 +18,12 @@ public class World {
 
     private static int maxLoadedChunks = 10;
 
-    private HashMap<String, Chunk> loadedChunks;
-    private WorldGenerator worldGenerator;
+    private final HashMap<String, Chunk> loadedChunks;
+    private final WorldGenerator worldGenerator;
 
     public World() {
         loadedChunks = new HashMap<>();
         worldGenerator = new WorldGenerator();
-    }
-
-    public void update() {
-
     }
 
     private static int getPrecise(long globalCoord) {

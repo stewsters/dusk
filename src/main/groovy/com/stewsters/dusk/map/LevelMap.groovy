@@ -69,7 +69,6 @@ public class LevelMap extends BaseLitMap2d {
 
     }
 
-    @Override
     public boolean isBlocked(int x, int y, Entity ignore = null) {
 
         if (super.isBlocked(x, y))

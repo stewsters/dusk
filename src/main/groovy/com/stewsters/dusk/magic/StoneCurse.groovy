@@ -26,18 +26,16 @@ class StoneCurse implements Spell {
         } else if (caster.distanceTo(enemy) > STONE_CURSE_RANGE) {
             MessageLog.send("${enemy.name} is too far to curse.", SColor.RED, [caster])
             return false
-        } else {
-            MessageLog.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [caster, enemy])
-
-            enemy.levelMap.remove(enemy)
-
-            return new Entity(map: caster.levelMap, x: enemy.x, y: enemy.y,
-                    ch: 'S', name: "Statue of ${enemy.name}", color: SColor.WHITE_MOUSE, blocks: true,
-                    priority: Priority.ITEM
-            )
-
-            return true
         }
+        MessageLog.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [caster, enemy])
+
+        enemy.levelMap.remove(enemy)
+
+        return new Entity(map: caster.levelMap, x: enemy.x, y: enemy.y,
+                ch: 'S', name: "Statue of ${enemy.name}", color: SColor.WHITE_MOUSE, blocks: true,
+                priority: Priority.ITEM
+        )
+
     }
 
     @Override

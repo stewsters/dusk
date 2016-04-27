@@ -11,19 +11,10 @@ class Item {
     boolean useOnPickup
     boolean autoPickup
 
-    @Deprecated
-    int minRange
-
-    @Deprecated
-    int maxRange
-
     public Item(params) {
         useFunction = params?.useFunction
         useOnPickup = params?.useOnPickup
         autoPickup = params?.autoPickup
-
-        minRange = params?.minRange ?: 1
-        maxRange = params?.minRange ?: 1
     }
 
     /**

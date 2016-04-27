@@ -129,7 +129,7 @@ class Fighter {
 
             int damage = MatUtils.getIntInRange(damageRange.from, damageRange.to)
 
-            target.inventory?.getAllEquippedEquipment().each {
+            target.inventory?.getAllEquippedEquipment()?.each {
                 if (it.armor)
                     damage -= MatUtils.getIntInRange(it.armor.from, it.armor.to)
             }

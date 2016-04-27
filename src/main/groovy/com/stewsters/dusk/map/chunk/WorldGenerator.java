@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class WorldGenerator {
 
     private final static Logger log = Logger.getLogger(WorldGenerator.class.getName());
-    OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
+    final OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
 
     public byte[][] generate(long chunkX, long chunkY) {
 

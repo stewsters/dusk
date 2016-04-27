@@ -6,7 +6,7 @@ public enum AmmoType {
     shotgun("12 gauge");
 
 
-    String technicalName;
+    final String technicalName;
 
     AmmoType(String technicalName) {
         this.technicalName = technicalName;

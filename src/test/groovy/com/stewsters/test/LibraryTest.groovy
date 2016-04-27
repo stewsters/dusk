@@ -8,6 +8,6 @@ class LibraryTest extends Specification {
         when:
         def fish = true
         then:
-        fish == true
+        fish
     }
 }

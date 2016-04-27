@@ -5,7 +5,7 @@ public enum Race {
     ELF("elf"),
     DWARF("dwarf");
 
-    String name;
+    final String name;
 
     Race(String name) {
         this.name = name;

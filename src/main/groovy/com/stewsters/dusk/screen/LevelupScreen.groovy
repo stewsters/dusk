@@ -38,7 +38,7 @@ class LevelupScreen implements Screen {
         //TODO: marksman, you know, after there are bows or something
 
         display.placeHorizontalString(x, y, "HP: " + playingScreen?.player?.fighter?.baseMaxHp)
-        y++
+//        y++
 
 //        rightJustifiedText(display, 5, "[L]evel Up")
 //        rightJustifiedText(display, 15, "[Escape] to continue")
@@ -49,7 +49,7 @@ class LevelupScreen implements Screen {
     }
 
 
-    void rightJustifiedText(SwingPane display, int y, String txt) {
+    static void rightJustifiedText(SwingPane display, int y, String txt) {
         int startX = RenderConfig.screenWidth - txt.length() - 1
         display.placeHorizontalString(startX, y, txt)
     }

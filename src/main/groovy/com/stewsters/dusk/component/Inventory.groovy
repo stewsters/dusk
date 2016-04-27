@@ -151,11 +151,11 @@ public class Inventory {
         }
 
         if (item?.equipment?.damage) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage.from} - ${item?.equipment?.damage.to}")
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage?.from} - ${item?.equipment?.damage?.to}")
             i++
         }
         if (item?.equipment?.armor) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Armor: ${item?.equipment?.armor.from} - ${item?.equipment?.armor.to}")
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Armor: ${item?.equipment?.armor?.from} - ${item?.equipment?.armor?.to}")
             i++
         }
 

@@ -45,7 +45,7 @@ class TestMapGenerator implements MapGenerator {
         /**
          * Items
          */
-        FantasyItemGen.spawnPerLevel*.name.eachWithIndex { String name, int i ->
+        FantasyItemGen.spawnPerLevel*.name.eachWithIndex { String name, Integer i ->
             FantasyItemGen.createFromName(map, playerStartX - 1, playerStartY + i, name)
         }
 

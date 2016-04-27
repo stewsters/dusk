@@ -43,7 +43,7 @@ class CityMapGenerator implements MapGenerator {
         playerStartX = width / 2
         playerStartY = height / 2
 
-        List<Intersection> intersections = []
+        ArrayList<Intersection> intersections = []
         intersections.add new Intersection(material, playerStartX, playerStartY)
 
         int maxAttempts = 100
@@ -369,20 +369,15 @@ class CityMapGenerator implements MapGenerator {
     private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
     private static void addItems(LevelMap map, Rect room) {
 
-        try {
-            int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
-            numItems.times {
+        int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
+        numItems.times {
 
-                int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-                int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
-                if (!map.isBlocked(x, y)) {
-                    RandomItemGen.placeRandomItem(map, x, y)
-                }
+            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+            if (!map.isBlocked(x, y)) {
+                RandomItemGen.placeRandomItem(map, x, y)
             }
-        } catch (Exception e) {
-            println "d"
         }
-
 
     }
 

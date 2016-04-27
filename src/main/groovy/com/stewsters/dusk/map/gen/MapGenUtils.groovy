@@ -5,9 +5,6 @@ import com.stewsters.dusk.map.LevelMap
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 
-/**
- * Created by stewsters on 2/18/16.
- */
 class MapGenUtils {
 
     public static void digPool(LevelMap map, Rect room, TileType shallow, TileType deep) {

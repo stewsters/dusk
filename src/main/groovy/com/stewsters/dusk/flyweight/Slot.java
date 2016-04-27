@@ -9,7 +9,7 @@ public enum Slot {
     LEGS("legs"),
     HEAD("head");
 
-    public String name;
+    public final String name;
 
     Slot(String name) {
         this.name = name;

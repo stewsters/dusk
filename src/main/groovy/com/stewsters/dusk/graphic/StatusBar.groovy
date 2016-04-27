@@ -62,9 +62,8 @@ class StatusBar {
 
         int leftJust = (20 - name.size()) / 2
 
-        RenderConfig.leftWindow.times { xPos ->
+        RenderConfig.leftWindow.times { int xPos ->
 
-            try {
                 int offset = xPos - leftJust
 
                 char character
@@ -80,9 +79,7 @@ class StatusBar {
                 } else {
                     display.placeCharacter(x + xPos, y, character, SColor.WHITE, SColor.BLACK)
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
 
-            }
         }
 
 //        display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
