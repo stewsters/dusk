@@ -214,7 +214,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x , caster.y , MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -240,7 +240,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x , caster.y , MatUtils.getIntInRange(1, 9))
+        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize

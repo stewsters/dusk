@@ -3,7 +3,6 @@ package com.stewsters.dusk.map.gen
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
-import com.stewsters.dusk.map.gen.items.FantasyItemGen
 import com.stewsters.dusk.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
@@ -65,7 +64,7 @@ class JailMapGenerator extends BaseMapGenerator implements MapGenerator {
                 playerStartY = center.y
 
             } else {
-                placeObjects(map, newRoom, level,MAX_ROOM_MONSTERS,MAX_ROOM_ITEMS)
+                placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
 
                 Point2i lastCenter = rooms[(roomNum - 1)].center()
                 Point2i prev = new Point2i(lastCenter.x, lastCenter.y)

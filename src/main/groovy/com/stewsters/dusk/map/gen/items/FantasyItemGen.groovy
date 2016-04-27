@@ -14,7 +14,6 @@ class FantasyItemGen {
 
     //TODO: add the ability to choose to generate a category, ie weapon, armor, scroll,
 
-
     // PLAN: so you will have a chance to add certain items at certain levels.  whenever one appears, the
     // probability of another is cut by 1/2
 
