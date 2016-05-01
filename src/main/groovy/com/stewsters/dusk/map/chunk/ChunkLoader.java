@@ -35,7 +35,7 @@ public class ChunkLoader {
 
             for (int x = 0; x < Chunk.chunkSize; x++) {
 
-                System.arraycopy( bytes, x * Chunk.chunkSize, data[x], 0, Chunk.chunkSize);
+                System.arraycopy(bytes, x * Chunk.chunkSize, data[x], 0, Chunk.chunkSize);
 
 //                for (int y = 0; y < Chunk.chunkSize; y++) {
 //                    data[x][y] = bytes[x * Chunk.chunkSize + y];

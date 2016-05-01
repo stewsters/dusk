@@ -47,7 +47,7 @@ class MonsterGen {
 
         Map<String, Integer> spawnChances = [:]
 
-        spawnPerLevel.findAll { it.startLevel <= level && it.endLevel >= level }.each {Map it->
+        spawnPerLevel.findAll { it.startLevel <= level && it.endLevel >= level }.each { Map it ->
             spawnChances[it.name] = it.rarity
         }
 

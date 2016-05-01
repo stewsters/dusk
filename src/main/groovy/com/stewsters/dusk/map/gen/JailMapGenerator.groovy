@@ -8,7 +8,7 @@ import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 
-class JailMapGenerator extends BaseMapGenerator implements MapGenerator {
+class JailMapGenerator implements MapGenerator {
 
     private static int MAX_ROOM_MONSTERS = 2
     private static int MAX_ROOM_ITEMS = 2
@@ -64,7 +64,7 @@ class JailMapGenerator extends BaseMapGenerator implements MapGenerator {
                 playerStartY = center.y
 
             } else {
-                placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
+                MapGenUtils.placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
 
                 Point2i lastCenter = rooms[(roomNum - 1)].center()
                 Point2i prev = new Point2i(lastCenter.x, lastCenter.y)

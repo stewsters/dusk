@@ -11,7 +11,7 @@ import com.stewsters.util.math.geom.Rect
 
 import static com.stewsters.util.math.MatUtils.d
 
-class SimpleMapGenerator extends BaseMapGenerator implements MapGenerator {
+class SimpleMapGenerator implements MapGenerator {
 /* 4*4
         ++++
         +..+
@@ -88,7 +88,7 @@ class SimpleMapGenerator extends BaseMapGenerator implements MapGenerator {
                     playerStartY = center.y
 
                 } else {
-                    placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
+                    MapGenUtils.placeObjects(map, newRoom, level, MAX_ROOM_MONSTERS, MAX_ROOM_ITEMS)
 
                     Point2i lastCenter = rooms[(num_rooms - 1)].center()
                     Point2i prev = new Point2i(lastCenter.x, lastCenter.y)

@@ -115,37 +115,24 @@ class CharacterGeneration implements Screen {
 
     private Screen startGame() {
 
-        MapStack mapStack = new MapStack(10)
+        MapStack mapStack = new MapStack(1, 1, 10)
 
         MapGenerator jailMapGen = new JailMapGenerator()
         MapGenerator simpleMapGen = new SimpleMapGenerator()
         MapGenerator surfaceMapGen = new SurfaceMapGenerator()
-//        MapGenerator mapGen = new StaticMapGenerator();
-//        MapGenerator mapGen = new TestMapGenerator();
-//        mapGen = new SimpleMapGenerator()
-//        MapGenerator mapGen = new CityMapGenerator()
 
+        mapStack.levelMaps[0][0][0] = jailMapGen.reGenerate(0)
+        int playerStartX = jailMapGen.playerStartX
+        int playerStartY = jailMapGen.playerStartY
 
-        int playerStartX, playerStartY
-        10.times {
-
-            if (it == 0) {
-                mapStack.levelMaps[it] = jailMapGen.reGenerate(it)
-                playerStartX = jailMapGen.playerStartX
-                playerStartY = jailMapGen.playerStartY
-
-            } else if (it < 8) {
-                mapStack.levelMaps[it] = simpleMapGen.reGenerate(it)
-            } else {
-                mapStack.levelMaps[it] = surfaceMapGen.reGenerate(it)
-            }
+        8.times {
+            mapStack.levelMaps[0][0][it + 1] = simpleMapGen.reGenerate(it + 1)
         }
+        mapStack.levelMaps[0][0][9] = surfaceMapGen.reGenerate(9)
 
         String name = KnightNameGen.generate(genderSelect.selected)
 
-
-
-        Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentLevel],
+        Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
                 x: playerStartX, y: playerStartY,
                 xSize: 1, ySize: 1,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
@@ -182,8 +169,7 @@ class CharacterGeneration implements Screen {
                 new Wrath()
         ])
 
-
-        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: playerStartX, y: playerStartY,
+        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ], x: playerStartX, y: playerStartY,
                 ch: '[', color: SColor.DARK_BLUE,
                 name: 'Tattered Rags',
                 description: "Rags covered in filth.",
@@ -192,16 +178,10 @@ class CharacterGeneration implements Screen {
                         armor: (0..1)
                 )
         )
+
         player.inventory.pickUp(defaultArmor)
-
-
-
-
         player.ai.owner = player
         return new PlayingScreen(mapStack, player)
 
-
     }
-
-
 }

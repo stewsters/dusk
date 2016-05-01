@@ -223,7 +223,7 @@ class FantasyItemGen {
                 )
                 break
 
-            // Slash
+        // Slash
             case "Hand Axe":
                 DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
