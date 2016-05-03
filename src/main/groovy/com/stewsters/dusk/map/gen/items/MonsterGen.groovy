@@ -35,10 +35,9 @@ class MonsterGen {
             // Puddi
             // Scavenger -  ScavengerAI
             // Unseen - flee if injured
-            // Bile Beast
+            // Bile Beast - spits terrain that damages you
             // Blink Bat- These are annoying
             // Zombie - slow
-            // Minotaur - Charger
             // Fallen Beast
     ]
 

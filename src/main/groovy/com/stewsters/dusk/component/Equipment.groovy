@@ -7,11 +7,12 @@ import com.stewsters.dusk.graphic.MessageLog
 import squidpony.squidcolor.SColor
 
 class Equipment {
+
     Entity owner
     Slot slot
     boolean isEquipped = false
 
-//    int strengthReq // A soft requirement, but the item is less useful without
+    //    int strengthReq // A soft requirement, but the item is less useful without
 
     int accuracyModifier // to hit modifier from this equipment
     IntRange damage
@@ -22,7 +23,6 @@ class Equipment {
     List<DamageType> damageTypes
 
     //TODO: magic, identification
-
 
     public Equipment(Map params) {
         slot = params?.slot

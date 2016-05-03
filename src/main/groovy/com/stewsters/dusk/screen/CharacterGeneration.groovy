@@ -172,7 +172,7 @@ class CharacterGeneration implements Screen {
         Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
                 x: playerStartX, y: playerStartY,
                 ch: '[', color: SColor.DARK_BLUE,
-                name: 'Tattered Rags',
+                name: "Prisoner's Rags",
                 description: "Rags covered in filth.",
                 equipment: new Equipment(
                         slot: Slot.CHEST,
