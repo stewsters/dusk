@@ -6,9 +6,9 @@ public class MapStack {
     public int currentY
     public int currentZ
 
-    int xSize
-    int ySize
-    int zSize
+    public final int xSize
+    public final int ySize
+    public final int zSize
 
     public LevelMap[][][] levelMaps
 
@@ -19,7 +19,6 @@ public class MapStack {
         this.zSize = zSize
 
         levelMaps = new LevelMap[xSize][ySize][zSize]
-
 
         currentX = 0
         currentY = 0

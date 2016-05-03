@@ -56,7 +56,8 @@ class MainMenu implements Screen {
             mapStack.levelMaps[0][0][3] = new SurfaceMapGenerator().reGenerate(3)
 
 
-            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ], x: mapgen.playerStartX, y: mapgen.playerStartY,
+            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+                    x: mapgen.playerStartX, y: mapgen.playerStartY,
                     ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,
                     ai: new LocalPlayer(),

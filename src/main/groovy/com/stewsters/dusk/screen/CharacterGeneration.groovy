@@ -169,7 +169,8 @@ class CharacterGeneration implements Screen {
                 new Wrath()
         ])
 
-        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ], x: playerStartX, y: playerStartY,
+        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+                x: playerStartX, y: playerStartY,
                 ch: '[', color: SColor.DARK_BLUE,
                 name: 'Tattered Rags',
                 description: "Rags covered in filth.",
