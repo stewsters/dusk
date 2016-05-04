@@ -30,10 +30,6 @@ class BasicOpponent extends BaseAi implements Ai {
 
                 if (MatUtils.boolean) {
                     owner.randomMovement()
-                } else {
-                    if (lastNoise) {
-                        owner.moveTowardsAndAttack(lastNoise.x, lastNoise.y)
-                    }
                 }
             }
         }

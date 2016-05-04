@@ -20,8 +20,6 @@ abstract class BaseAi implements Ai {
     protected int speed = 10
     protected int gameTurn
 
-    protected Point2i lastNoise;
-
     @Override
     public Set<Entity> findAllVisibleEnemies(int maxDistance) {
         if (!owner.faction) return null
@@ -149,17 +147,6 @@ abstract class BaseAi implements Ai {
         //manually set the radius to equal the force
         light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.windowRadiusX, RenderConfig.windowRadiusY, 10f, 0.3f, RenderConfig.strat);
         lightLastCalculated = Game.gameTurn
-    }
-
-    @Override
-    public void hearNoise(int x, int y) {
-        if (lastNoise) {
-            println "heard noise"
-            lastNoise.x = x;
-            lastNoise.y = y;
-        } else {
-            lastNoise = new Point2i(x, y)
-        }
     }
 
     @Override

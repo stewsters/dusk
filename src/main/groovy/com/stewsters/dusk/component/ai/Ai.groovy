@@ -21,7 +21,7 @@ public interface Ai {
 
     public void calculateSight()
 
-    public void hearNoise(int x, int y)
+//    public void hearNoise(int x, int y)
 
     public Integer getGameTurn()
 

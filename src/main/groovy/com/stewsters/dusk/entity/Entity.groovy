@@ -156,12 +156,14 @@ public class Entity {
                 entities = levelMap.getEntitiesAtLocation(newX, newY)
 
             if (fighter) {
-                Entity target = entities.find {
+                Set<Entity> target = entities.findAll{
                     it.fighter && faction?.hates(it?.faction)
                 }
 
                 if (target) {
-                    fighter.attack(target)
+                    target.each{
+                        fighter.attack(it)
+                    }
                     return true
                 }
             }
