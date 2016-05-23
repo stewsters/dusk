@@ -56,17 +56,6 @@ public class LevelMap extends BaseLitMap2d {
         return spatialHash.getValues(lowX - 0.5, lowY - 0.5, highX + 0.5, highY + 0.5, entityTemp)
     }
 
-//    public void makeNoise(int x, int y, int noise) {
-//
-//        int noiseSquare = noise * noise
-//
-//        getEntitiesBetween(x - noise, y - noise, x + noise, y + noise).each {
-//            if (it.ai && ((it.x - x) * (it.x - x)) + ((it.y - y) * (it.y - y)) < noiseSquare) {
-//                it.ai.hearNoise(x, y)
-//            }
-//        }
-//
-//    }
 
     public boolean isBlocked(int x, int y, Entity ignore = null) {
 
