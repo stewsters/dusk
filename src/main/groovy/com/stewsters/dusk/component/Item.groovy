@@ -25,7 +25,7 @@ class Item {
 
         if (owner.equipment) {
             owner.equipment.toggleEquip(user)
-            return false
+            return true
         } else if (useFunction) {
             return useFunction(user)
         } else {
