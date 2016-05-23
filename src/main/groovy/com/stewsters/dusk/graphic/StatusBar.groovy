@@ -52,7 +52,8 @@ class StatusBar {
         display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
     }
 
-    public static void renderTextBar(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {
+    public
+    static void renderTextBar(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {
 
         double ratio = (double) value / (double) maximum
         int barWidth = (int) Math.ceil(ratio * (double) totalWidth)
@@ -62,27 +63,24 @@ class StatusBar {
 
         int leftJust = (20 - name.size()) / 2
 
-        RenderConfig.leftWindow.times { xPos ->
+        RenderConfig.leftWindow.times { int xPos ->
 
-            try {
-                int offset = xPos - leftJust
+            int offset = xPos - leftJust
 
-                char character
+            char character
 
-                if (offset < 0 || offset >= name.size()) {
-                    character = ' '
-                } else {
-                    character = name.charAt(offset)
-                }
-
-                if (xPos < barWidth) {
-                    display.placeCharacter(x + xPos, y, character, SColor.WHITE, barColor)
-                } else {
-                    display.placeCharacter(x + xPos, y, character, SColor.WHITE, SColor.BLACK)
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-
+            if (offset < 0 || offset >= name.size()) {
+                character = ' '
+            } else {
+                character = name.charAt(offset)
             }
+
+            if (xPos < barWidth) {
+                display.placeCharacter(x + xPos, y, character, SColor.WHITE, barColor)
+            } else {
+                display.placeCharacter(x + xPos, y, character, SColor.WHITE, SColor.BLACK)
+            }
+
         }
 
 //        display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")

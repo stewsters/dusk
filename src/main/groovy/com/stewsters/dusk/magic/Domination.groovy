@@ -25,12 +25,9 @@ public class Domination implements Spell {
         } else if (caster.distanceTo(enemy) > DOMINATION_RANGE) {
             MessageLog.send("${enemy.name} is too far to dominate.", SColor.RED, [caster])
             return false
-        } else {
-            MessageLog.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [caster, enemy])
-            enemy.faction = caster.faction
-            return true
         }
-
+        MessageLog.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [caster, enemy])
+        enemy.faction = caster.faction
         return true
 
     }

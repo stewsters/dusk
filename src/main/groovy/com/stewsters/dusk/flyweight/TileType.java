@@ -38,7 +38,7 @@ public enum TileType {
     public final SColor color;
     public final SColor background;
     public final char character;
-    public float opacity;
+    public final float opacity;
 
     public static TileType[] lookup = TileType.values();
 

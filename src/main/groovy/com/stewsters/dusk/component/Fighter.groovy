@@ -19,7 +19,6 @@ class Fighter {
     int baseMaxStamina
     int stamina // used to make attacks and sprint
 
-
     List<DamageType> resistances
     List<DamageType> weaknesses
 
@@ -27,18 +26,14 @@ class Fighter {
     int skillMelee   //strength with melee weapons
     int skillEvasion //make it harder to hit - evasion
     int skillMarksman // attack bonus with ranged weapons
-
     int experience
 
     //  armor depends on equipment
     IntRange unarmedDamage
     List<DamageType> unarmedDamageTypes
 
-    // Level
-    // Experience
-
-
     Closure deathFunction
+    // TODO: Level, Experience
 
     public Fighter(params) {
 
@@ -129,7 +124,7 @@ class Fighter {
 
             int damage = MatUtils.getIntInRange(damageRange.from, damageRange.to)
 
-            target.inventory?.getAllEquippedEquipment().each {
+            target.inventory?.getAllEquippedEquipment()?.each {
                 if (it.armor)
                     damage -= MatUtils.getIntInRange(it.armor.from, it.armor.to)
             }
@@ -157,14 +152,6 @@ class Fighter {
         } else {
             MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
         }
-    }
-
-
-    public int levelUp() {
-        skillMelee++
-        skillEvasion++
-        skillMarksman++
-        hp += 5
     }
 
     /* Equipment functions */

@@ -6,7 +6,7 @@ public enum SocialClass {
     PRIEST("priest"),
     POACHER("poacher");
 
-    String name;
+    final String name;
 
     SocialClass(String name) {
         this.name = name;

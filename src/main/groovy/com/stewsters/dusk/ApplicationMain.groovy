@@ -43,13 +43,13 @@ public class ApplicationMain extends JFrame implements KeyListener, MouseInputLi
 
     public void repaint() {
 
-        clear(display);
+        clear();
         screen.displayOutput(display);
         display.refresh();
         super.repaint();
     }
 
-    public void clear(SwingPane display) {
+    public void clear() {
         for (int x = 0; x < RenderConfig.screenWidth; x++) {
             for (int y = 0; y < RenderConfig.screenHeight; y++) {
                 display.clearCell(x, y);

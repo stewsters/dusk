@@ -15,7 +15,7 @@ class BasicOpponent extends BaseAi implements Ai {
 
     public boolean takeTurn() {
         if (!owner)
-            return //you died this turn, sorry bro
+            return true//you died this turn, sorry bro
         if (!active) {
 
             if (owner.levelMap.ground[owner.x][owner.y].isExplored)
@@ -30,10 +30,6 @@ class BasicOpponent extends BaseAi implements Ai {
 
                 if (MatUtils.boolean) {
                     owner.randomMovement()
-                } else {
-                    if (lastNoise) {
-                        owner.moveTowardsAndAttack(lastNoise.x, lastNoise.y)
-                    }
                 }
             }
         }

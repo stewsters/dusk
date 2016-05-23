@@ -22,8 +22,8 @@ public class MessageLog {
 
     public static void render(SwingPane display, Entity player = null) {
 
-        (RenderConfig.leftWindow..RenderConfig.screenWidth - 1).each { x ->
-            (0..RenderConfig.messageHeight).each { y ->
+        (RenderConfig.leftWindow..RenderConfig.screenWidth - 1).each { int x ->
+            (0..RenderConfig.messageHeight).each { int y ->
                 display.clearCell(x, y)
             }
         }
@@ -37,7 +37,7 @@ public class MessageLog {
             displayedMessages = gameMessages
         }
 
-        displayedMessages.eachWithIndex { Message msg, int index ->
+        displayedMessages.eachWithIndex { Message msg, Integer index ->
             display.placeHorizontalString(RenderConfig.leftWindow + 1, index, msg.message, msg.color, SColor.BLACK)
         }
 

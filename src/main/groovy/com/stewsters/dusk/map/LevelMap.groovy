@@ -43,8 +43,7 @@ public class LevelMap extends BaseLitMap2d {
 
 
     void update(Entity e) {
-        spatialHash.remove(e)
-        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
+        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.ySize - 0.75, e)
     }
 
     public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
@@ -57,25 +56,13 @@ public class LevelMap extends BaseLitMap2d {
         return spatialHash.getValues(lowX - 0.5, lowY - 0.5, highX + 0.5, highY + 0.5, entityTemp)
     }
 
-    public void makeNoise(int x, int y, int noise) {
 
-        int noiseSquare = noise * noise
-
-        getEntitiesBetween(x - noise, y - noise, x + noise, y + noise).each {
-            if (it.ai && ((it.x - x) * (it.x - x)) + ((it.y - y) * (it.y - y)) < noiseSquare) {
-                it.ai.hearNoise(x, y)
-            }
-        }
-
-    }
-
-    @Override
     public boolean isBlocked(int x, int y, Entity ignore = null) {
 
         if (super.isBlocked(x, y))
             return true;
-        for (Entity entity : getEntitiesAtLocation(x, y) - ignore) {
-            if (entity.blocks)
+        for (Entity entity : getEntitiesAtLocation(x, y)) {
+            if (entity != ignore && entity.blocks)
                 return true
         }
 

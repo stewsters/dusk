@@ -35,10 +35,9 @@ class MonsterGen {
             // Puddi
             // Scavenger -  ScavengerAI
             // Unseen - flee if injured
-            // Bile Beast
+            // Bile Beast - spits terrain that damages you
             // Blink Bat- These are annoying
             // Zombie - slow
-            // Minotaur - Charger
             // Fallen Beast
     ]
 
@@ -47,7 +46,7 @@ class MonsterGen {
 
         Map<String, Integer> spawnChances = [:]
 
-        spawnPerLevel.findAll { it.startLevel <= level && it.endLevel >= level }.each {
+        spawnPerLevel.findAll { it.startLevel <= level && it.endLevel >= level }.each { Map it ->
             spawnChances[it.name] = it.rarity
         }
 

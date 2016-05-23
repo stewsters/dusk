@@ -28,7 +28,7 @@ class MainMenu implements Screen {
     }
 
 
-    void rightJustifiedText(SwingPane display, int y, String txt) {
+    static void rightJustifiedText(SwingPane display, int y, String txt) {
         int startX = RenderConfig.screenWidth - txt.length() - 1
         display.placeHorizontalString(startX, y, txt)
     }
@@ -47,16 +47,17 @@ class MainMenu implements Screen {
 
         } else if (code == VK_T) {
 
-            MapStack mapStack = new MapStack(4)
+            MapStack mapStack = new MapStack(1, 1, 4)
             MapGenerator mapgen = new TestMapGenerator();
 
-            mapStack.levelMaps[0] = mapgen.reGenerate(0)
-            mapStack.levelMaps[1] = new JailMapGenerator().reGenerate(1)
-            mapStack.levelMaps[2] = new SimpleMapGenerator().reGenerate(2)
-            mapStack.levelMaps[3] = new SurfaceMapGenerator().reGenerate(3)
+            mapStack.levelMaps[0][0][0] = mapgen.reGenerate(0)
+            mapStack.levelMaps[0][0][1] = new JailMapGenerator().reGenerate(1)
+            mapStack.levelMaps[0][0][2] = new SimpleMapGenerator().reGenerate(2)
+            mapStack.levelMaps[0][0][3] = new SurfaceMapGenerator().reGenerate(3)
 
 
-            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentLevel], x: mapgen.playerStartX, y: mapgen.playerStartY,
+            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+                    x: mapgen.playerStartX, y: mapgen.playerStartY,
                     ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,
                     ai: new LocalPlayer(),

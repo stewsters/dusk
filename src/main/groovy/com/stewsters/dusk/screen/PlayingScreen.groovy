@@ -49,7 +49,7 @@ public class PlayingScreen implements Screen {
     }
 
     public LevelMap getLevelMap() {
-        mapStack.levelMaps[mapStack.currentLevel]
+        mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ]
     }
 
 
@@ -123,7 +123,7 @@ public class PlayingScreen implements Screen {
         //Depth
         //Render bottom key reminder
 
-        String text = "Level ${mapStack.currentLevel + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab"
+        String text = "Level ${mapStack.currentZ + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab"
         display.placeHorizontalString(1, RenderConfig.mapScreenHeight - 2, text)
 
         //done rendering this frame
@@ -247,13 +247,13 @@ public class PlayingScreen implements Screen {
                     if (fire()) stepSim() //use a bow or spell
                     break;
                 case VK_COMMA:
-                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps.length - 1 > mapStack.currentLevel) {
+                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps[0][0].length - 1 > mapStack.currentZ) {
 
                         // Ascend
-                        Point2i dest = mapStack.levelMaps[mapStack.currentLevel + 1].findATile(TileType.STAIRS_DOWN)
+                        Point2i dest = mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ + 1].findATile(TileType.STAIRS_DOWN)
                         levelMap.remove(player)
 
-                        mapStack.currentLevel++
+                        mapStack.currentZ++
 
                         MessageLog.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player])
 
@@ -275,12 +275,12 @@ public class PlayingScreen implements Screen {
                     break
                 case VK_PERIOD:
 
-                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_DOWN) && mapStack.currentLevel > 0) {
+                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_DOWN) && mapStack.currentZ > 0) {
                         // Descend
-                        Point2i dest = mapStack.levelMaps[mapStack.currentLevel - 1].findATile(TileType.STAIRS_UP)
+                        Point2i dest = mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ - 1].findATile(TileType.STAIRS_UP)
                         levelMap.remove(player)
 
-                        mapStack.currentLevel--
+                        mapStack.currentZ--
 
                         MessageLog.send("${player.name} as descended back into the depths.", SColor.RED_BEAN, [player])
 

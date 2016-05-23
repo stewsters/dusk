@@ -18,13 +18,18 @@ class FantasyItemGen {
     // probability of another is cut by 1/2
 
     public static final List<Map> spawnPerLevel = [
+
             [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
+
+            // Armor
             [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
             [name: "Chain Hauberk", rarity: 10, startLevel: 3, endLevel: 6],
             [name: "Coat of Plates", rarity: 5, startLevel: 6, endLevel: 9],
 
+            // Pots
             [name: "Healing Potion", rarity: 10, startLevel: 0, endLevel: 9],
 
+            // Scrolls
             [name: "Scroll of Fireball", rarity: 30, startLevel: 0, endLevel: 9],
             [name: "Scroll of Lightning", rarity: 20, startLevel: 0, endLevel: 9],
             [name: "Scroll of Domination", rarity: 10, startLevel: 0, endLevel: 9],
@@ -35,6 +40,7 @@ class FantasyItemGen {
             [name: "Scroll of Testing", rarity: 0, startLevel: 0, endLevel: 9],
             [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
 
+            // Weapons
             // slash
             [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
             [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
@@ -72,14 +78,6 @@ class FantasyItemGen {
     public static Entity createFromName(LevelMap map, int x, int y, String name) {
         switch (name) {
 
-//            case ("Quiver"):
-//                return new Entity(map: map, pos: new Point2i(x, y),
-//                        glyph: [character: 'r', color: SColor.SILVER.name],
-//                        name: "Quiver",
-//                        item: new Item(useFunction: ItemFunctions.rifleAmmoBox)
-//                )
-//
-//                break;
             case ("Gold"):
                 int gp = MatUtils.d(20);
 
@@ -223,7 +221,7 @@ class FantasyItemGen {
                 )
                 break
 
-            // Slash
+        // Slash
             case "Hand Axe":
                 DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 

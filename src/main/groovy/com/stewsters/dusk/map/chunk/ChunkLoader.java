@@ -34,9 +34,12 @@ public class ChunkLoader {
             }
 
             for (int x = 0; x < Chunk.chunkSize; x++) {
-                for (int y = 0; y < Chunk.chunkSize; y++) {
-                    data[x][y] = bytes[x * Chunk.chunkSize + y];
-                }
+
+                System.arraycopy(bytes, x * Chunk.chunkSize, data[x], 0, Chunk.chunkSize);
+
+//                for (int y = 0; y < Chunk.chunkSize; y++) {
+//                    data[x][y] = bytes[x * Chunk.chunkSize + y];
+//                }
             }
 
         } catch (FileNotFoundException e) {
@@ -62,9 +65,12 @@ public class ChunkLoader {
 
             byte[] bytes = new byte[Chunk.chunkSize * Chunk.chunkSize];
             for (int x = 0; x < Chunk.chunkSize; x++) {
-                for (int y = 0; y < Chunk.chunkSize; y++) {
-                    bytes[x * Chunk.chunkSize + y] = chunk.data[x][y];
-                }
+                System.arraycopy(chunk.data[x], 0, bytes, x * Chunk.chunkSize, Chunk.chunkSize);
+
+//                for (int y = 0; y < Chunk.chunkSize; y++) {
+//                    bytes[x * Chunk.chunkSize + y] = chunk.data[x][y];
+//
+//                }
             }
             IOUtils.write(bytes, fileInputStream);
 

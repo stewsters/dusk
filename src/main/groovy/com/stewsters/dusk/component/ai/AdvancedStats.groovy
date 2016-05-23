@@ -45,9 +45,9 @@ public class AdvancedStats extends BaseAi implements Ai {
                 weapon = owner.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
                 if (weapon) {
                     item = weapon.owner.itemComponent
-                    if (item) {
-                        optimalRange = (item.minRange + item.maxRange) / 2
-                    }
+//                    if (item) {
+//                        optimalRange = (item.minRange + item.maxRange) / 2
+//                    }
                 }
             }
 
@@ -138,9 +138,9 @@ public class AdvancedStats extends BaseAi implements Ai {
     boolean canAttack(int targetRange, Item item) {
         //todo: los?  we select based on view, so it may not matter
 
-        if (item && item.minRange >= targetRange && item.maxRange <= targetRange) {
-            return true
-        }
+//        if (item && item.minRange >= targetRange && item.maxRange <= targetRange) {
+//            return true
+//        }
         return targetRange <= 1 //melee
     }
 
