@@ -83,9 +83,11 @@ public class PlayingScreen implements Screen {
 
             switch (screenMode) {
                 case screenMode.APPLY:
-                    player.inventory.render(display, "Push (a-z) for more info. Esc to Cancel",)
+                    player.inventory.render(display, "Push (a-z) for more info. Esc to Cancel")
                     break
-
+                case screenMode.CAST:
+                    player.spellbook.render(display, "Cast What?")
+                    break
                 case screenMode.DROP:
                     player.inventory.render(display, "Drop what? (a-z), Esc to Cancel")
                     break
@@ -317,6 +319,9 @@ public class PlayingScreen implements Screen {
                 case VK_D:
                     screenMode = ScreenMode.DROP
                     break;
+                case VK_Z:
+                    screenMode = ScreenMode.CAST
+                    break;
                 case VK_ESCAPE:
                     return new EscapeScreen(this)
                     break
@@ -425,6 +430,15 @@ public class PlayingScreen implements Screen {
                 screenMode = ScreenMode.PLAYING
             } else if (code >= a && code <= z) {
                 if (player.dropItemById(code - a)) {
+                    screenMode = ScreenMode.PLAYING
+                    stepSim()
+                }
+            }
+        } else if (screenMode == ScreenMode.CAST) {
+            if (code == VK_ESCAPE) {
+                screenMode = ScreenMode.PLAYING
+            } else if (code >= a && code <= z) {
+                if (player.spellbook.castSpell((char)code)) {
                     screenMode = ScreenMode.PLAYING
                     stepSim()
                 }

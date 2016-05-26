@@ -109,6 +109,7 @@ public class Entity {
 
         if (params.spellbook) {
             spellbook = params.spellbook
+            spellbook.owner = this
         }
 
         if (params.quiver) {

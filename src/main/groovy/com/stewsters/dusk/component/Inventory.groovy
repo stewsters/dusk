@@ -68,7 +68,7 @@ public class Inventory {
         owner.inventory.items.clear()
     }
 
-    public render(SwingPane display, String header) {
+    public void render(SwingPane display, String header) {
         for (int x = 0; x < RenderConfig.inventoryWidth; x++) {
             for (int y = 0; y < Math.min(RenderConfig.inventoryMaxHeight, items.size()) + 1 + (header ? 1 : 0); y++) {
                 display.clearCell(x + RenderConfig.screenWidth - RenderConfig.inventoryWidth, y + RenderConfig.inventoryY)

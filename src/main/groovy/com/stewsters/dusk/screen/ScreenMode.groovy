@@ -9,5 +9,6 @@ public enum ScreenMode {
     EQUIP,
     REMOVE,
     THROW,
-    DROP
+    DROP,
+    CAST
 }
