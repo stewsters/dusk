@@ -15,6 +15,9 @@ class Projectile extends BaseAi implements Ai {
         target = params.target
         onImpact = params.onImpact
 
+        if (params.speed)
+            speed = params.speed
+
         if (oldAI)
             gameTurn = oldAI.gameTurn
         else if (caster && caster.ai) {
@@ -43,11 +46,13 @@ class Projectile extends BaseAi implements Ai {
                 restore()
                 return false
             }
+            gameTurn += speed
             return true
 
         } else {
             //collision
             if (onImpact(dx, dy)) {
+                gameTurn += speed
                 return false
             }
 
@@ -56,6 +61,7 @@ class Projectile extends BaseAi implements Ai {
 
             return false
         }
+
     }
 
     private onImpact(int dx, int dy) {

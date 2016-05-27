@@ -40,7 +40,7 @@ class Fireball implements Spell {
             //TODO: create a fireball in the direction of the opponent.
             new Entity(map: caster.levelMap, x: caster.x + dx, y: caster.y + dy,
                     ch: '*', name: 'Fireball', color: SColor.BLOOD_RED, blocks: false, priority: Priority.OPPONENT,
-                    ai: new Projectile(caster: caster, target: new Point2i(enemy.x, enemy.y),
+                    ai: new Projectile(caster: caster, speed: 5, target: new Point2i(enemy.x, enemy.y),
                             onImpact: { Entity fireball, int x, int y ->
 
                                 fireball.levelMap.getEntitiesBetween(x - 1, y - 1, x + 1, y + 1).each {

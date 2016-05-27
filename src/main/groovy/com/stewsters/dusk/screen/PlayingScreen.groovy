@@ -136,39 +136,39 @@ public class PlayingScreen implements Screen {
 
         int linesTaken = 0
 
-        if (entity.ch) {
+        if (entity.ch && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "${entity.ch}: ${entity.name}")
             linesTaken++
         }
 
-        if (entity?.fighter?.hp) {
+        if (entity?.fighter?.hp && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Health", entity?.fighter?.hp ?: 0, entity?.fighter?.maxHP ?: 1, SColor.DARK_BLUE)
             linesTaken++
         }
-        if (entity?.fighter?.stamina) {
+        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Stamina", entity?.fighter?.stamina ?: 0, entity?.fighter?.maxStamina ?: 1, SColor.BLUE_VIOLET)
             linesTaken++
         }
-        if (entity?.fighter?.toxicity) {
+        if (entity?.fighter?.toxicity && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Toxicity", entity?.fighter?.toxicity ?: 0, entity?.fighter?.maxToxicity ?: 1, SColor.DARK_RED)
             linesTaken++
         }
 
-        if (entity?.fighter?.weaknesses) {
+        if (entity?.fighter?.weaknesses && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
             linesTaken++
         }
-        if (entity?.fighter?.resistances) {
+        if (entity?.fighter?.resistances && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
             linesTaken++
         }
 
         //if player, show money
-        if (entity == player) {
+        if (entity == player && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             //money
             display.placeHorizontalString(0, verticalOffset + linesTaken, "Gold:${player?.purse?.gold ?: 0}")
             linesTaken++
-        } else if (entity.faction == Faction.GOOD) {
+        } else if (entity.faction == Faction.GOOD && RenderConfig.screenHeight > verticalOffset+linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "(Ally)")
             linesTaken++
         }

@@ -28,7 +28,7 @@ public class Spellbook {
         Integer y = 0
         spells.sort { it.name }.each { Spell spell ->
 
-            String out = "${spell.key} ${spell.name}"
+            String out = "${spell.key}) ${spell.name}"
             display.placeHorizontalString(RenderConfig.screenWidth - RenderConfig.inventoryWidth, y + RenderConfig.inventoryY, out)
             y++
         }

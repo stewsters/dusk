@@ -56,7 +56,6 @@ class ChargerAi extends BaseAi implements Ai {
                 chargeDest = new Point2i(enemy.x + dx, enemy.y + dy)
             }
         }
-        //if we have a gun, and they are getting too close, shoot them
         else if (owner.inventory) {
 
             //if we are standing on an item and we have room, pick it up
