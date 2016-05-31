@@ -125,7 +125,7 @@ public class PlayingScreen implements Screen {
         //Depth
         //Render bottom key reminder
 
-        String text = "Level ${mapStack.currentZ + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab"
+        String text = "Level ${mapStack.currentZ + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab (M)agic"
         display.placeHorizontalString(1, RenderConfig.mapScreenHeight - 2, text)
 
         //done rendering this frame
@@ -319,7 +319,7 @@ public class PlayingScreen implements Screen {
                 case VK_D:
                     screenMode = ScreenMode.DROP
                     break;
-                case VK_Z:
+                case VK_M:
                     screenMode = ScreenMode.CAST
                     break;
                 case VK_ESCAPE:
