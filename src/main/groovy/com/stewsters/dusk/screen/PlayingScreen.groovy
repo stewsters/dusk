@@ -155,11 +155,11 @@ public class PlayingScreen implements Screen {
         }
 
         if (entity?.fighter?.weaknesses && RenderConfig.screenHeight > verticalOffset+linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
+            display.placeHorizontalString(0, verticalOffset + linesTaken, "wkn:" + entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
             linesTaken++
         }
         if (entity?.fighter?.resistances && RenderConfig.screenHeight > verticalOffset+linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
+            display.placeHorizontalString(0, verticalOffset + linesTaken, "res:" + entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
             linesTaken++
         }
 
