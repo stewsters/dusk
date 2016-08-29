@@ -8,8 +8,8 @@ import com.stewsters.dusk.flyweight.AmmoType
 import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.gen.items.MonsterGen
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import squidpony.squidcolor.SColor

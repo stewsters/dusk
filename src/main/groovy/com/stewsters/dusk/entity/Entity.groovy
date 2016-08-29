@@ -5,8 +5,8 @@ import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.component.mover.DuskMover2d
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.LevelMap
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 

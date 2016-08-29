@@ -6,12 +6,9 @@ import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.game.Game
-import com.stewsters.dusk.system.render.MessageLogSystem
-import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.MapStack
-import com.stewsters.dusk.system.render.LeftStatBarSystem
-import com.stewsters.dusk.system.render.MapRenderSystem
+import com.stewsters.dusk.system.render.*
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
 import squidpony.squidcolor.SColor
@@ -57,10 +54,10 @@ public class PlayingScreen implements Screen {
     void displayOutput(SwingPane display) {
 
         // Render the map
-        MapRenderSystem.render(levelMap, display, player)
+        MapRenderSystem.render(display, levelMap, player)
 
         // Render the UI
-        LeftStatBarSystem.render(levelMap, display, player)
+        LeftStatBarSystem.render(display, levelMap, player)
 
         MessageLogSystem.render(display, player)
 
@@ -100,19 +97,10 @@ public class PlayingScreen implements Screen {
                     break
             }
         }
-        def names = (levelMap.getEntitiesAtLocation(player.x, player.y) - player).sort { Entity entity -> entity.priority }.name
 
-        names.eachWithIndex { String name, Integer i ->
-            if (i < RenderConfig.surroundingHeight) {
-                display.placeHorizontalString(RenderConfig.mapScreenWidth + RenderConfig.leftWindow, RenderConfig.surroundingY + i, name)
-            }
-        }
+        ItemsStandingOnRenderSystem.render(display, levelMap, player)
 
-        //Depth
-        //Render bottom key reminder
-
-        String text = "Level ${mapStack.currentZ + 1}    (I)nventory (A)pply (E)quip (R)emove (D)rop (G)rab (M)agic"
-        display.placeHorizontalString(1, RenderConfig.mapScreenHeight - 2, text)
+        BottomBarRenderSystem.render(display, mapStack.currentZ)
 
         //done rendering this frame
     }

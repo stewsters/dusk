@@ -1,10 +1,10 @@
 package com.stewsters.dusk.map.gen
 
 import com.stewsters.dusk.flyweight.TileType
-import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.MonsterGen
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect

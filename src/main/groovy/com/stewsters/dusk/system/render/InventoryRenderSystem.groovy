@@ -4,7 +4,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 class InventoryRenderSystem {
 
-    public void run(SwingPane display){
+    public void run(SwingPane display) {
 
     }
 }

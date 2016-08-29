@@ -3,7 +3,6 @@ package com.stewsters.dusk.system.render
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.LevelMap
 import squidpony.squidcolor.SColor
@@ -11,7 +10,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 class LeftStatBarSystem {
 
-    public static void render(LevelMap levelMap, SwingPane display, Entity player) {
+    public static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
         int linesTaken = 0
 

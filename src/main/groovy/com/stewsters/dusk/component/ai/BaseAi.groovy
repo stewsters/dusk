@@ -3,7 +3,6 @@ package com.stewsters.dusk.component.ai
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.game.Game
 import com.stewsters.dusk.main.RenderConfig
-import com.stewsters.util.math.Point2i
 import groovy.transform.CompileStatic
 
 /**
@@ -135,7 +134,7 @@ abstract class BaseAi implements Ai {
                 int originalX = x + worldLowX
                 int originalY = y + worldLowY
 
-                if (owner.levelMap.contains(originalX,originalY)) {
+                if (owner.levelMap.contains(originalX, originalY)) {
                     resistances[x][y] = owner.levelMap.getOpacity(originalX, originalY)
                 } else {
                     resistances[x][y] = 1f

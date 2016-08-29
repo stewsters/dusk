@@ -55,8 +55,7 @@ class ChargerAi extends BaseAi implements Ai {
 
                 chargeDest = new Point2i(enemy.x + dx, enemy.y + dy)
             }
-        }
-        else if (owner.inventory) {
+        } else if (owner.inventory) {
 
             //if we are standing on an item and we have room, pick it up
             if (owner.inventory.isFull()) {

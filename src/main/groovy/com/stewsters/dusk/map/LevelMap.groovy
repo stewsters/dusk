@@ -3,12 +3,8 @@ package com.stewsters.dusk.map
 import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.TileType
-import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.spatial.IntervalKDTree2d
-import squidpony.squidcolor.SColor
-import squidpony.squidcolor.SColorFactory
-import squidpony.squidgrid.gui.swing.SwingPane
 
 public class LevelMap extends BaseLitMap2d {
 
@@ -68,7 +64,6 @@ public class LevelMap extends BaseLitMap2d {
 
         return false
     }
-
 
     // This is used to find up and down stairs
     public Point2i findATile(TileType tileType) {
