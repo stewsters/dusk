@@ -3,16 +3,14 @@ package com.stewsters.dusk.screen
 import com.stewsters.dusk.component.Equipment
 import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.flyweight.Faction
-import com.stewsters.dusk.flyweight.Priority
 import com.stewsters.dusk.flyweight.Slot
 import com.stewsters.dusk.flyweight.TileType
 import com.stewsters.dusk.game.Game
-import com.stewsters.dusk.graphic.MessageLog
-import com.stewsters.dusk.graphic.StatusBar
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.MapStack
+import com.stewsters.dusk.system.render.LeftStatBarSystem
 import com.stewsters.dusk.system.render.MapRenderSystem
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
@@ -38,14 +36,11 @@ public class PlayingScreen implements Screen {
 
     private int selectedItem = -1
 
-    MapRenderSystem mapRenderSystem;
 
     public PlayingScreen(MapStack mapStack, Entity player) {
 
         this.mapStack = mapStack;
         this.player = player;
-
-        mapRenderSystem = new MapRenderSystem()
 
         shadowCaster2d = new ShadowCaster2d(levelMap);
         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
@@ -62,26 +57,12 @@ public class PlayingScreen implements Screen {
     void displayOutput(SwingPane display) {
 
         // Render the map
-        mapRenderSystem.run(levelMap, display, player)
+        MapRenderSystem.render(levelMap, display, player)
 
         // Render the UI
+        LeftStatBarSystem.render(levelMap, display, player)
 
-        //Left Bar
-        int linesTaken = 0 //renderStats(display, 0, player)
-
-        List<Entity> nearbyEntities = new ArrayList<Entity>(levelMap.getEntitiesBetween(player.x - 10, player.y - 10, player.x + 10, player.y + 10).findAll {
-            levelMap.getLight(it.x, it.y) > 0
-        })
-
-        nearbyEntities.sort {
-            return Math.abs(player.x - it.x) + Math.abs(player.y - it.y) - ((float) it.priority.ordinal() / Priority.values().size())
-        }
-
-        nearbyEntities.each {
-            linesTaken += renderStats(display, linesTaken, it)
-        }
-
-        MessageLog.render(display, player)
+        MessageLogSystem.render(display, player)
 
         //render inventory
         if (player.inventory) {
@@ -136,57 +117,6 @@ public class PlayingScreen implements Screen {
         //done rendering this frame
     }
 
-
-    public int renderStats(SwingPane display, int verticalOffset, Entity entity) {
-
-        int linesTaken = 0
-
-        if (entity.ch && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "${entity.ch}: ${entity.name}")
-            linesTaken++
-        }
-
-        if (entity?.fighter?.hp && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Health", entity?.fighter?.hp ?: 0, entity?.fighter?.maxHP ?: 1, SColor.DARK_BLUE)
-            linesTaken++
-        }
-        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Stamina", entity?.fighter?.stamina ?: 0, entity?.fighter?.maxStamina ?: 1, SColor.BLUE_VIOLET)
-            linesTaken++
-        }
-        if (entity?.fighter?.toxicity && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Toxicity", entity?.fighter?.toxicity ?: 0, entity?.fighter?.maxToxicity ?: 1, SColor.DARK_RED)
-            linesTaken++
-        }
-
-        if (entity?.fighter?.weaknesses && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "wkn:" + entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
-            linesTaken++
-        }
-        if (entity?.fighter?.resistances && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "res:" + entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
-            linesTaken++
-        }
-
-        //if player, show money
-        if (entity == player && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            //money
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "Gold:${player?.purse?.gold ?: 0}")
-            linesTaken++
-        } else if (entity.faction == Faction.GOOD && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "(Ally)")
-            linesTaken++
-        }
-//        else if(entity.ai.currentState) {
-//            display.placeHorizontalString(0, verticalOffset + linesTaken, entity.ai.currentState)
-//            linesTaken++
-//        }
-
-
-        if (linesTaken > 0)
-            linesTaken++
-        return linesTaken
-    }
 
     @Override
     Screen respondToUserInput(KeyEvent e) {
@@ -262,7 +192,7 @@ public class PlayingScreen implements Screen {
 
                         mapStack.currentZ++
 
-                        MessageLog.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player])
+                        MessageLogSystem.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player])
 
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
@@ -289,7 +219,7 @@ public class PlayingScreen implements Screen {
 
                         mapStack.currentZ--
 
-                        MessageLog.send("${player.name} as descended back into the depths.", SColor.RED_BEAN, [player])
+                        MessageLogSystem.send("${player.name} as descended back into the depths.", SColor.RED_BEAN, [player])
 
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
 
@@ -510,7 +440,7 @@ public class PlayingScreen implements Screen {
             //check for legality of move based solely on map boundary
             if (levelMap.contains(x, y)) {
                 player.moveOrAttack(dir.deltaX, dir.deltaY)
-                //TODO: run can have issues with not stepping
+                //TODO: render can have issues with not stepping
             }
         }
 
@@ -518,7 +448,7 @@ public class PlayingScreen implements Screen {
         int y = player.y + dir.deltaY
 
         //check for legality of move based solely on map boundary
-        if (levelMap.contains(x,y)) {
+        if (levelMap.contains(x, y)) {
             return player.moveOrAttack(dir.deltaX, dir.deltaY)
         }
         return false;
@@ -533,10 +463,10 @@ public class PlayingScreen implements Screen {
                 weapon.owner.itemComponent.useHeldItem(player)
                 return true
             } else {
-                MessageLog.send("Find a weapon first.", SColor.RED, [player])
+                MessageLogSystem.send("Find a weapon first.", SColor.RED, [player])
             }
         } else {
-            MessageLog.send("You can't use weapons.", SColor.RED, [player])
+            MessageLogSystem.send("You can't use weapons.", SColor.RED, [player])
         }
 
 

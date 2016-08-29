@@ -1,7 +1,7 @@
 package com.stewsters.dusk.component.ai
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 
@@ -27,7 +27,7 @@ class ConfusedOpponent extends BaseAi implements Ai {
             return true
         } else {
             restore()
-            MessageLog.send("The ${owner.name} is no longer confused!", SColor.RED, [owner, castor])
+            MessageLogSystem.send("The ${owner.name} is no longer confused!", SColor.RED, [owner, castor])
             gameTurn += speed
             return false
         }

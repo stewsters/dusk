@@ -43,19 +43,13 @@ public class DuskApplicationMain {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 
         try {
-            app.setIconImage(ImageIO.read(new File("./assets/icon.png")));
+            app.setIconImage(ImageIO.read(new File("assets/icon.png")));
         } catch (IOException ex) {
 //            don't do anything if it failed, the default Java icon will be used
             println("could not find icon")
         }
 
         app.dispose()
-
-        //fullscreen
-//        app.setExtendedState(Frame.MAXIMIZED_BOTH)
-//        app.setUndecorated(true)
-//        http://docs.oracle.com/javase/tutorial/extra/fullscreen/index.html
-
         app.setVisible(true);
         app.requestFocusInWindow()
 

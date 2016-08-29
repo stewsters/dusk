@@ -3,7 +3,7 @@ package com.stewsters.dusk.component
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Slot
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import squidpony.squidcolor.SColor
 
 class Equipment {
@@ -53,13 +53,13 @@ class Equipment {
             oldEquipment.dequip(holder)
 
         isEquipped = true
-        MessageLog.send("Equipped ${owner.name}", SColor.WHITE, [holder])
+        MessageLogSystem.send("Equipped ${owner.name}", SColor.WHITE, [holder])
     }
 
     void dequip(Entity holder) {
         if (isEquipped) {
             isEquipped = false
-            MessageLog.send("Dequipped ${owner.name} from ${slot.name}", SColor.WHITE, [holder])
+            MessageLogSystem.send("Dequipped ${owner.name} from ${slot.name}", SColor.WHITE, [holder])
         }
 
     }

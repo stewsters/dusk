@@ -3,7 +3,7 @@ package com.stewsters.dusk.component
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Slot
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 
@@ -136,9 +136,9 @@ class Fighter {
                 int actualDamage = target.fighter.takeDamage(damage, owner, damageTypes)
 
                 if (target.fighter && target.fighter.hp > 0) {
-                    MessageLog.send "${owner.name} attacks ${targetName} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
+                    MessageLogSystem.send "${owner.name} attacks ${targetName} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
                 } else {
-                    MessageLog.send "${targetName} has been slain by ${owner.name}", SColor.WHITE, [owner, target]
+                    MessageLogSystem.send "${targetName} has been slain by ${owner.name}", SColor.WHITE, [owner, target]
                 }
 
                 //other effects?
@@ -147,10 +147,10 @@ class Fighter {
                 // }
 
             } else {
-                MessageLog.send "${owner.name}'s attack deflects off ${target.name}.", SColor.WHITE, [owner, target]
+                MessageLogSystem.send "${owner.name}'s attack deflects off ${target.name}.", SColor.WHITE, [owner, target]
             }
         } else {
-            MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
+            MessageLogSystem.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
         }
     }
 

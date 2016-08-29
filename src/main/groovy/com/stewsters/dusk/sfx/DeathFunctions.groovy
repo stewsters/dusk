@@ -4,7 +4,7 @@ import com.stewsters.dusk.component.ai.BasicOpponent
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import squidpony.squidcolor.SColor
 
 class DeathFunctions {
@@ -12,7 +12,7 @@ class DeathFunctions {
 
     public static Closure playerDeath = { Entity owner, Entity attacker ->
 
-        MessageLog.send("${owner.name} is dead. Press space to continue.", SColor.RED, [owner])
+        MessageLogSystem.send("${owner.name} is dead. Press space to continue.", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.faction = null
@@ -28,7 +28,7 @@ class DeathFunctions {
 
 
     public static Closure opponentDeath = { Entity owner, Entity attacker ->
-        MessageLog.send("${owner.name} is dead!", SColor.RED, [owner])
+        MessageLogSystem.send("${owner.name} is dead!", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.blocks = false
@@ -45,7 +45,7 @@ class DeathFunctions {
 
 
     public static Closure bossDeath = { Entity owner, Entity attacker ->
-        MessageLog.send("${attacker.name} has slain ${owner.name}.", SColor.RED, [owner])
+        MessageLogSystem.send("${attacker.name} has slain ${owner.name}.", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.blocks = false
@@ -65,7 +65,7 @@ class DeathFunctions {
 
 
     public static Closure zombify = { Entity owner, Entity attacker ->
-        MessageLog.send("${owner.name} is changing!", SColor.RED, [owner])
+        MessageLogSystem.send("${owner.name} is changing!", SColor.RED, [owner])
         owner.faction = Faction.EVIL
         owner.ch = 'z'
         owner.color = SColor.GREEN_BAMBOO

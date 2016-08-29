@@ -5,7 +5,7 @@ import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.component.mover.DuskMover2d
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
@@ -52,7 +52,6 @@ public class Entity {
      */
 
     public Entity(Map params) {
-
 
         x = params.x ?: 0
         y = params.y ?: 0
@@ -260,7 +259,7 @@ public class Entity {
 
     public boolean grab() {
         if (!inventory) {
-            MessageLog.send("${name} can't hold items.", SColor.WHITE, [this])
+            MessageLogSystem.send("${name} can't hold items.", SColor.WHITE, [this])
             return false
         }
 
@@ -284,7 +283,7 @@ public class Entity {
             levelMap.add(item)
             return true
         } else {
-            MessageLog.send("${name} has nothing to drop.", SColor.WHITE, [this])
+            MessageLogSystem.send("${name} has nothing to drop.", SColor.WHITE, [this])
             return false
         }
 

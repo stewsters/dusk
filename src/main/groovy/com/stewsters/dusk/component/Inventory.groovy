@@ -2,7 +2,7 @@ package com.stewsters.dusk.component
 
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Slot
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.util.math.MatUtils
 import org.apache.commons.lang3.text.WordUtils
@@ -19,7 +19,7 @@ public class Inventory {
     public boolean pickUp(Entity item) {
 
         if (items.size() >= capacity) {
-            MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
+            MessageLogSystem.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
 
         } else {
 
@@ -37,7 +37,7 @@ public class Inventory {
             }
 
             item.levelMap.remove(item)
-            MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
+            MessageLogSystem.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
 
             return true
         }

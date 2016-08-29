@@ -1,7 +1,7 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
@@ -42,7 +42,7 @@ public trait Spell {
 
 
     public boolean cast(Entity castor) {
-        MessageLog.send("The spell does something unknown.", SColor.GREEN)
+        MessageLogSystem.send("The spell does something unknown.", SColor.GREEN)
         return false;
     }
 

@@ -3,7 +3,7 @@ package com.stewsters.dusk.magic
 import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.component.ai.ConfusedOpponent
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
@@ -25,7 +25,7 @@ public class Confusion implements Spell {
 
 //        Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemies) {
-            MessageLog.send('No enemy is close enough to confused.', SColor.RED, [caster])
+            MessageLogSystem.send('No enemy is close enough to confused.', SColor.RED, [caster])
             return false
         } else {
 
@@ -38,7 +38,7 @@ public class Confusion implements Spell {
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
 
-                MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
+                MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
             }
 
             return true

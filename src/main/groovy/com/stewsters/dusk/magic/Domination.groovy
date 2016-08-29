@@ -1,7 +1,7 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
@@ -20,13 +20,13 @@ public class Domination implements Spell {
 
         Entity enemy = caster.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to dominate.', SColor.RED)
+            MessageLogSystem.send('No enemy is close enough to dominate.', SColor.RED)
             return false
         } else if (caster.distanceTo(enemy) > DOMINATION_RANGE) {
-            MessageLog.send("${enemy.name} is too far to dominate.", SColor.RED, [caster])
+            MessageLogSystem.send("${enemy.name} is too far to dominate.", SColor.RED, [caster])
             return false
         }
-        MessageLog.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [caster, enemy])
+        MessageLogSystem.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [caster, enemy])
         enemy.faction = caster.faction
         return true
 

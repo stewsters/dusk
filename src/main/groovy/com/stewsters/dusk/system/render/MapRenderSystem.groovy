@@ -10,7 +10,7 @@ import squidpony.squidgrid.gui.swing.SwingPane;
 
 public class MapRenderSystem {
 
-    public void run(LevelMap levelMap, SwingPane display, Entity player) {
+    public static void render(LevelMap levelMap, SwingPane display, Entity player) {
 
         int left = player.x - (RenderConfig.mapScreenWidth / 2)
         int top = player.y - (RenderConfig.mapScreenHeight / 2)

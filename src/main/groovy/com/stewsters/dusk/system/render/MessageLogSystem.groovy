@@ -1,12 +1,13 @@
-package com.stewsters.dusk.graphic
+package com.stewsters.dusk.system.render
 
 import com.stewsters.dusk.entity.Entity
+import com.stewsters.dusk.graphic.Message
 import com.stewsters.dusk.main.RenderConfig
 import org.apache.commons.lang3.text.WordUtils
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
-public class MessageLog {
+public class MessageLogSystem {
 
 
     private static LinkedList<Message> gameMessages = []

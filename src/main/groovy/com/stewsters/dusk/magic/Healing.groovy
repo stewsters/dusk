@@ -1,7 +1,7 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
@@ -20,11 +20,11 @@ public class Healing implements Spell {
     boolean cast(Entity caster) {
 
         if (caster.fighter.hp == caster.fighter.maxHP) {
-            MessageLog.send("You are already at full health.", SColor.WHITE, [caster])
+            MessageLogSystem.send("You are already at full health.", SColor.WHITE, [caster])
             return false
         } else {
 
-            MessageLog.send("Your wounds seal up.", SColor.GREEN, [caster])
+            MessageLogSystem.send("Your wounds seal up.", SColor.GREEN, [caster])
             caster.fighter.addHealth(level + MatUtils.d(HEAL_AMOUNT + level))
 
             return true

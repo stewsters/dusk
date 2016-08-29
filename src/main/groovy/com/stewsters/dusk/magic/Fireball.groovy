@@ -4,7 +4,7 @@ import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import groovy.transform.CompileStatic
@@ -30,7 +30,7 @@ class Fireball implements Spell {
 
         Entity enemy = caster.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to strike.', SColor.RED, [caster])
+            MessageLogSystem.send('No enemy is close enough to strike.', SColor.RED, [caster])
             return false
         } else {
 
@@ -49,7 +49,7 @@ class Fireball implements Spell {
                                         int damage = MatUtils.getIntInRange(FIREBALL_MIN_DAMAGE, FIREBALL_MAX_DAMAGE)
                                         int actualDamage = it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
 
-                                        MessageLog.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
+                                        MessageLogSystem.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
                                     }
                                 }
                                 //TODO: immolate on impact

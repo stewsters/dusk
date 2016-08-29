@@ -1,7 +1,7 @@
 package com.stewsters.dusk.component
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import squidpony.squidcolor.SColor
 
 class Item {
@@ -29,7 +29,7 @@ class Item {
         } else if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLog.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }
@@ -38,7 +38,7 @@ class Item {
         if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLog.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }

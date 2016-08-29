@@ -2,7 +2,7 @@ package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
@@ -21,13 +21,13 @@ class StoneCurse implements Spell {
 
         Entity enemy = caster.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to curse.', SColor.RED)
+            MessageLogSystem.send('No enemy is close enough to curse.', SColor.RED)
             return false
         } else if (caster.distanceTo(enemy) > STONE_CURSE_RANGE) {
-            MessageLog.send("${enemy.name} is too far to curse.", SColor.RED, [caster])
+            MessageLogSystem.send("${enemy.name} is too far to curse.", SColor.RED, [caster])
             return false
         }
-        MessageLog.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [caster, enemy])
+        MessageLogSystem.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [caster, enemy])
 
         enemy.levelMap.remove(enemy)
 

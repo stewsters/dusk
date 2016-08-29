@@ -8,7 +8,7 @@ import com.stewsters.dusk.flyweight.AmmoType
 import com.stewsters.dusk.flyweight.DamageType
 import com.stewsters.dusk.flyweight.Faction
 import com.stewsters.dusk.flyweight.Priority
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
@@ -22,10 +22,10 @@ class ItemFunctions {
     public static Closure castHeal = { Entity user ->
 
         if (user.fighter.hp == user.fighter.maxHP) {
-            MessageLog.send("You are already at full health.", SColor.RED, [user])
+            MessageLogSystem.send("You are already at full health.", SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("Your wounds seal up.", SColor.LIGHT_VIOLET)
+            MessageLogSystem.send("Your wounds seal up.", SColor.LIGHT_VIOLET)
             user.fighter.addHealth(HEAL_AMOUNT)
 
             return true
@@ -35,10 +35,10 @@ class ItemFunctions {
     public static final int BANDAGE_HEAL_AMOUNT = 6
     public static Closure bandage = { Entity user ->
         if (user.fighter.hp == user.fighter.maxHP) {
-            MessageLog.send("You aren't bleeding.", SColor.RED, [user])
+            MessageLogSystem.send("You aren't bleeding.", SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("${user.name}'s wounds seal up.", SColor.LIGHT_VIOLET, [user])
+            MessageLogSystem.send("${user.name}'s wounds seal up.", SColor.LIGHT_VIOLET, [user])
             user.fighter.addHealth(BANDAGE_HEAL_AMOUNT)
             return true
         }
@@ -63,7 +63,7 @@ class ItemFunctions {
 
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to strike.', SColor.RED, [user])
+            MessageLogSystem.send('No enemy is close enough to strike.', SColor.RED, [user])
             return false
         } else {
 
@@ -82,7 +82,7 @@ class ItemFunctions {
                                         int damage = MatUtils.getIntInRange(FIREBALL_MIN_DAMAGE, FIREBALL_MAX_DAMAGE)
                                         int actualDamage = it.fighter.takeDamage(damage, caster, [DamageType.FIRE])
 
-                                        MessageLog.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+                                        MessageLogSystem.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
                                     }
                                 }
                                 //TODO: immolate on impact
@@ -103,14 +103,14 @@ class ItemFunctions {
 
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is visible to strike.', SColor.RED, [user])
+            MessageLogSystem.send('No enemy is visible to strike.', SColor.RED, [user])
             return false
         } else if (user.distanceTo(enemy) > LIGHTNING_RANGE) {
-            MessageLog.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
+            MessageLogSystem.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
             return false
         } else {
             int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
-            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
+            MessageLogSystem.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
             return true
         }
     }
@@ -120,13 +120,13 @@ class ItemFunctions {
     public static Closure castDomination = { Entity user ->
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to dominate.', SColor.RED)
+            MessageLogSystem.send('No enemy is close enough to dominate.', SColor.RED)
             return false
         } else if (user.distanceTo(enemy) > DOMINATION_RANGE) {
-            MessageLog.send("${enemy.name} is too far to dominate.", SColor.RED, [user])
+            MessageLogSystem.send("${enemy.name} is too far to dominate.", SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [user, enemy])
+            MessageLogSystem.send("Dark magic takes over ${enemy.name}.", SColor.LIGHT_BLUE, [user, enemy])
             enemy.faction = user.faction
             return true
         }
@@ -142,7 +142,7 @@ class ItemFunctions {
 
 //        Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemies) {
-            MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user])
+            MessageLogSystem.send('No enemy is close enough to confused.', SColor.RED, [user])
             return false
         } else {
 
@@ -155,7 +155,7 @@ class ItemFunctions {
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
 
-                MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
+                MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
             }
 
             return true
@@ -170,7 +170,7 @@ class ItemFunctions {
         Set<Entity> enemies = user.ai.findAllVisibleEnemies(WRATH_RANGE)
 
         if (!enemies) {
-            MessageLog.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [user])
+            MessageLogSystem.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [user])
             return false
         } else {
             enemies.each { enemy ->
@@ -188,7 +188,7 @@ class ItemFunctions {
                         target: new Point2i(dx, dy),
                         onImpact: { Entity caster, int x, int y ->
 
-                            MessageLog.send("The ${enemy.name} collides!", SColor.RED, [user, caster])
+                            MessageLogSystem.send("The ${enemy.name} collides!", SColor.RED, [user, caster])
 
                             caster.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
                                 enemy.fighter.takeDamage(1, caster, [DamageType.BASH])
@@ -200,7 +200,7 @@ class ItemFunctions {
                 )
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
-                MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
+                MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 
             }
             return true
@@ -270,13 +270,13 @@ class ItemFunctions {
 
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
-            MessageLog.send('No enemy is close enough to curse.', SColor.RED)
+            MessageLogSystem.send('No enemy is close enough to curse.', SColor.RED)
             return false
         } else if (user.distanceTo(enemy) > STONE_CURSE_RANGE) {
-            MessageLog.send("${enemy.name} is too far to curse.", SColor.RED, [user])
+            MessageLogSystem.send("${enemy.name} is too far to curse.", SColor.RED, [user])
             return false
         }
-        MessageLog.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [user, enemy])
+        MessageLogSystem.send("${enemy.name} turns into stone.", SColor.BRIGHT_GREEN, [user, enemy])
 
         enemy.levelMap.remove(enemy)
 
@@ -291,7 +291,7 @@ class ItemFunctions {
     public static Closure cleanse = { Entity user ->
         //removes toxicity from the system.
         user.fighter.toxicity = 0
-        MessageLog.send("${user.name} is cleansed.", SColor.GREEN_BAMBOO, [user])
+        MessageLogSystem.send("${user.name} is cleansed.", SColor.GREEN_BAMBOO, [user])
         return true
     }
 
@@ -299,10 +299,10 @@ class ItemFunctions {
     public static final int EAT_STAMINA_BOOST = 4
     public static Closure eat = { Entity user ->
         if (user.fighter.stamina == user.fighter.maxStamina) {
-            MessageLog.send("${user.name} isn't hungry.", SColor.RED, [user])
+            MessageLogSystem.send("${user.name} isn't hungry.", SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET, [user])
+            MessageLogSystem.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET, [user])
             user.fighter.addStamina(EAT_STAMINA_BOOST)
             return true
         }
@@ -312,10 +312,10 @@ class ItemFunctions {
         int quantity = MatUtils.getIntInRange(12, 20)
         if (user.quiver) {
             user.quiver.addAmmo(AmmoType.rifle, quantity)
-            MessageLog.send("${user.name} picked up ${quantity} rounds.")
+            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
             return true
         } else {
-            MessageLog.send("${user.name} has no use for bullets.", SColor.RED, [user])
+            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
             return false
         }
     }
@@ -323,10 +323,10 @@ class ItemFunctions {
         int quantity = MatUtils.getIntInRange(12, 20)
         if (user.quiver) {
             user.quiver.addAmmo(AmmoType.pistol, quantity)
-            MessageLog.send("${user.name} picked up ${quantity} rounds.")
+            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
             return true
         } else {
-            MessageLog.send("${user.name} has no use for bullets.", SColor.RED, [user])
+            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
             return false
         }
     }
@@ -334,10 +334,10 @@ class ItemFunctions {
         int quantity = MatUtils.getIntInRange(8, 18)
         if (user.quiver) {
             user.quiver.addAmmo(AmmoType.shotgun, quantity)
-            MessageLog.send("${user.name} picked up ${quantity} shells.")
+            MessageLogSystem.send("${user.name} picked up ${quantity} shells.")
             return true
         } else {
-            MessageLog.send("${user.name} has no use for shells.", SColor.RED, [user])
+            MessageLogSystem.send("${user.name} has no use for shells.", SColor.RED, [user])
             return false
         }
     }

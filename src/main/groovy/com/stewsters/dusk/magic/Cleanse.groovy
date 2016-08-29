@@ -1,7 +1,7 @@
 package com.stewsters.dusk.magic
 
 import com.stewsters.dusk.entity.Entity
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
@@ -20,7 +20,7 @@ public class Cleanse implements Spell {
 
         //removes toxicity from the system.
         caster.fighter.toxicity = 0
-        MessageLog.send("${caster.name} is cleansed.", SColor.AMBER, [caster])
+        MessageLogSystem.send("${caster.name} is cleansed.", SColor.AMBER, [caster])
         return true
     }
 

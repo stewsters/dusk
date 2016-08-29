@@ -1,7 +1,7 @@
 package com.stewsters.dusk.map.gen
 
 import com.stewsters.dusk.flyweight.TileType
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.Tile
 import com.stewsters.dusk.map.gen.items.MonsterGen
@@ -104,7 +104,7 @@ class SimpleMapGenerator implements MapGenerator {
                 rooms.add(newRoom)
                 num_rooms++
             } else {
-                MessageLog.log("failed to place room " + roomNo)
+                MessageLogSystem.log("failed to place room " + roomNo)
             }
         }
 

@@ -4,7 +4,7 @@ import com.stewsters.dusk.component.ai.Ai
 import com.stewsters.dusk.component.ai.Projectile
 import com.stewsters.dusk.entity.Entity
 import com.stewsters.dusk.flyweight.DamageType
-import com.stewsters.dusk.graphic.MessageLog
+import com.stewsters.dusk.system.render.MessageLogSystem
 import com.stewsters.util.math.Point2i
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
@@ -25,7 +25,7 @@ public class Wrath implements Spell {
         Set<Entity> enemies = caster.ai.findAllVisibleEnemies(WRATH_RANGE)
 
         if (!enemies) {
-            MessageLog.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [caster])
+            MessageLogSystem.send("No enemy is within $WRATH_RANGE spaces.", SColor.RED, [caster])
             return false
         } else {
             enemies.each { Entity enemy ->
@@ -42,7 +42,7 @@ public class Wrath implements Spell {
                         target: new Point2i(dx, dy),
                         onImpact: { Entity user, int x, int y ->
 
-                            MessageLog.send("The ${enemy.name} collides!", SColor.RED, [enemy, user])
+                            MessageLogSystem.send("The ${enemy.name} collides!", SColor.RED, [enemy, user])
 
                             user.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
                                 enemy.fighter.takeDamage(1, user, [DamageType.BASH])
@@ -54,7 +54,7 @@ public class Wrath implements Spell {
                 )
                 enemy.ai.owner = enemy
                 enemy.levelMap.actors.add(enemy.ai)
-                MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
+                MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 
             }
             return true
