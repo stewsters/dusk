@@ -43,6 +43,7 @@ public trait Spell {
 
     public boolean cast(Entity castor) {
         MessageLog.send("The spell does something unknown.", SColor.GREEN)
-    };
+        return false;
+    }
 
 }

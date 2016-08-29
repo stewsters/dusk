@@ -13,6 +13,7 @@ import com.stewsters.dusk.graphic.StatusBar
 import com.stewsters.dusk.main.RenderConfig
 import com.stewsters.dusk.map.LevelMap
 import com.stewsters.dusk.map.MapStack
+import com.stewsters.dusk.system.render.MapRenderSystem
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
 import squidpony.squidcolor.SColor
@@ -37,10 +38,14 @@ public class PlayingScreen implements Screen {
 
     private int selectedItem = -1
 
+    MapRenderSystem mapRenderSystem;
+
     public PlayingScreen(MapStack mapStack, Entity player) {
 
         this.mapStack = mapStack;
         this.player = player;
+
+        mapRenderSystem = new MapRenderSystem()
 
         shadowCaster2d = new ShadowCaster2d(levelMap);
         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
@@ -57,7 +62,7 @@ public class PlayingScreen implements Screen {
     void displayOutput(SwingPane display) {
 
         // Render the map
-        levelMap.render(display, player)
+        mapRenderSystem.run(levelMap, display, player)
 
         // Render the UI
 
@@ -136,39 +141,39 @@ public class PlayingScreen implements Screen {
 
         int linesTaken = 0
 
-        if (entity.ch && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity.ch && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "${entity.ch}: ${entity.name}")
             linesTaken++
         }
 
-        if (entity?.fighter?.hp && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity?.fighter?.hp && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Health", entity?.fighter?.hp ?: 0, entity?.fighter?.maxHP ?: 1, SColor.DARK_BLUE)
             linesTaken++
         }
-        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Stamina", entity?.fighter?.stamina ?: 0, entity?.fighter?.maxStamina ?: 1, SColor.BLUE_VIOLET)
             linesTaken++
         }
-        if (entity?.fighter?.toxicity && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity?.fighter?.toxicity && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             StatusBar.renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Toxicity", entity?.fighter?.toxicity ?: 0, entity?.fighter?.maxToxicity ?: 1, SColor.DARK_RED)
             linesTaken++
         }
 
-        if (entity?.fighter?.weaknesses && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity?.fighter?.weaknesses && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "wkn:" + entity?.fighter?.weaknesses?.name?.join(", ") ?: "", SColor.RED, SColor.BLACK)
             linesTaken++
         }
-        if (entity?.fighter?.resistances && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity?.fighter?.resistances && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "res:" + entity?.fighter?.resistances?.name?.join(", ") ?: "", SColor.GREEN, SColor.BLACK)
             linesTaken++
         }
 
         //if player, show money
-        if (entity == player && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        if (entity == player && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             //money
             display.placeHorizontalString(0, verticalOffset + linesTaken, "Gold:${player?.purse?.gold ?: 0}")
             linesTaken++
-        } else if (entity.faction == Faction.GOOD && RenderConfig.screenHeight > verticalOffset+linesTaken) {
+        } else if (entity.faction == Faction.GOOD && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             display.placeHorizontalString(0, verticalOffset + linesTaken, "(Ally)")
             linesTaken++
         }
@@ -325,7 +330,8 @@ public class PlayingScreen implements Screen {
                 case VK_ESCAPE:
                     return new EscapeScreen(this)
                     break
-
+                case VK_P:
+                    return new LevelupScreen(this)
                 default:
                     break;
 
@@ -438,7 +444,7 @@ public class PlayingScreen implements Screen {
             if (code == VK_ESCAPE) {
                 screenMode = ScreenMode.PLAYING
             } else if (code >= a && code <= z) {
-                if (player.spellbook.castSpell((char)code)) {
+                if (player.spellbook.castSpell((char) code)) {
                     screenMode = ScreenMode.PLAYING
                     stepSim()
                 }
@@ -502,7 +508,7 @@ public class PlayingScreen implements Screen {
             int y = player.y + dir.deltaY
 
             //check for legality of move based solely on map boundary
-            if (x >= 0 && x < levelMap.getXSize() && y >= 0 && y < levelMap.getYSize()) {
+            if (levelMap.contains(x, y)) {
                 player.moveOrAttack(dir.deltaX, dir.deltaY)
                 //TODO: run can have issues with not stepping
             }
@@ -512,10 +518,9 @@ public class PlayingScreen implements Screen {
         int y = player.y + dir.deltaY
 
         //check for legality of move based solely on map boundary
-        if (x >= 0 && x < levelMap.getXSize() && y >= 0 && y < levelMap.getYSize()) {
+        if (levelMap.contains(x,y)) {
             return player.moveOrAttack(dir.deltaX, dir.deltaY)
         }
-
         return false;
     }
 

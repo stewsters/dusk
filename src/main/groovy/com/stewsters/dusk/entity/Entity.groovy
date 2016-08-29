@@ -157,12 +157,12 @@ public class Entity {
                 entities = levelMap.getEntitiesAtLocation(newX, newY)
 
             if (fighter) {
-                Set<Entity> target = entities.findAll{
+                Set<Entity> target = entities.findAll {
                     it.fighter && faction?.hates(it?.faction)
                 }
 
                 if (target) {
-                    target.each{
+                    target.each {
                         fighter.attack(it)
                     }
                     return true
@@ -261,7 +261,7 @@ public class Entity {
     public boolean grab() {
         if (!inventory) {
             MessageLog.send("${name} can't hold items.", SColor.WHITE, [this])
-            return
+            return false
         }
 
         Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.itemComponent }
@@ -269,6 +269,7 @@ public class Entity {
         if (topItem) {
             return inventory.pickUp(topItem)
         }
+        return false
     }
 
     public boolean dropItemById(int number) {
@@ -300,5 +301,25 @@ public class Entity {
 
     public boolean randomMovement() {
         return move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
+    }
+
+    public String getName() {
+        if (!equipment) {
+            return name
+        }
+
+        List<String> offenceStats = []
+        if (equipment.accuracyModifier)
+            offenceStats += "${equipment.accuracyModifier}"
+        if (equipment.damage)
+            offenceStats += "${equipment.damage.from}-${equipment.damage.to}"
+
+        List<String> defenceStats = []
+        if (equipment.evasionModifier)
+            defenceStats += equipment.evasionModifier
+        if (equipment.armor)
+            defenceStats += "${equipment.armor.from}-${equipment.armor.to}"
+
+        return name + (offenceStats ? " (${offenceStats.join(',')})" : "") + (defenceStats ? " [${defenceStats.join(',')}]" : "")
     }
 }

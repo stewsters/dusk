@@ -54,4 +54,8 @@ public class BaseMap2d implements TileBasedMap2d {
         return ground[x][y].tileType == tileType
 
     }
+
+    public boolean contains(int x, int y) {
+        x >= 0 && x < xSize && y >= 0 && y < ySize
+    }
 }

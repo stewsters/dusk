@@ -376,8 +376,8 @@ class FantasyItemGen {
             default:
                 println "Cannot find ${name}"
                 assert false
-
         }
+        return null
 
     }
 

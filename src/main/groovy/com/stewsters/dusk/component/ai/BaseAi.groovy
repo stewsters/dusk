@@ -135,8 +135,7 @@ abstract class BaseAi implements Ai {
                 int originalX = x + worldLowX
                 int originalY = y + worldLowY
 
-                if (originalX >= 0 && originalX < owner.levelMap.getXSize()
-                        && originalY >= 0 && originalY < owner.levelMap.getYSize()) {
+                if (owner.levelMap.contains(originalX,originalY)) {
                     resistances[x][y] = owner.levelMap.getOpacity(originalX, originalY)
                 } else {
                     resistances[x][y] = 1f

@@ -135,7 +135,7 @@ public class AdvancedStats extends BaseAi implements Ai {
         return owner.levelMap.isBlocked(owner.x + dx, owner.y + dy)
     }
 
-    boolean canAttack(int targetRange, Item item) {
+    private static boolean canAttack(int targetRange, Item item) {
         //todo: los?  we select based on view, so it may not matter
 
 //        if (item && item.minRange >= targetRange && item.maxRange <= targetRange) {

@@ -35,7 +35,7 @@ class SurfaceMapGenerator implements MapGenerator {
         // TODO: throw down some enemies
 
         int distToCenter = Integer.MAX_VALUE
-        int tX, tY = 0
+        int tX=0, tY = 0
 
         map.xSize.times { x ->
             map.ySize.times { y ->
