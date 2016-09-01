@@ -61,42 +61,7 @@ public class PlayingScreen implements Screen {
 
         MessageLogSystem.render(display, player)
 
-        //render inventory
-        if (player.inventory) {
-
-            switch (screenMode) {
-                case screenMode.APPLY:
-                    player.inventory.render(display, "Push (a-z) for more info. Esc to Cancel")
-                    break
-                case screenMode.CAST:
-                    player.spellbook.render(display, "Cast What?")
-                    break
-                case screenMode.DROP:
-                    player.inventory.render(display, "Drop what? (a-z), Esc to Cancel")
-                    break
-
-                case screenMode.INVENTORY:
-                    player.inventory.render(display, "View an item (a-z), Esc to Cancel")
-                    break
-
-                case screenMode.INVENTORY_INSPECT:
-                    player.inventory.render(display, "View an item (a-z), Esc to Cancel")
-                    player.inventory.renderInspect(display, selectedItem)
-                    break
-
-                case screenMode.EQUIP:
-                    player.inventory.render(display, "Equip what? (a-z), Esc to Cancel")
-                    break
-
-                case screenMode.REMOVE:
-                    player.inventory.render(display, "Unequip what? (a-z), Esc to Cancel")
-                    break
-
-                case screenMode.THROW:
-                    player.inventory.render(display, "Throw what? (a-z), Esc to Cancel")
-                    break
-            }
-        }
+        InventoryRenderSystem.render(display, player, screenMode, selectedItem)
 
         ItemsStandingOnRenderSystem.render(display, levelMap, player)
 
