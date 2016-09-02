@@ -1,7 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName = 'com.stewsters.dusk.main.DuskApplicationMain'
+mainClassName = 'com.stewsters.dusk.game.DuskApplicationMain'
 version = 1.1
 
 repositories {

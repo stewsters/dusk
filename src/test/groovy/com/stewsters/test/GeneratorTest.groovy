@@ -1,6 +1,6 @@
 package com.stewsters.test
 
-import com.stewsters.dusk.map.gen.name.KnightNameGen
+import com.stewsters.dusk.core.map.gen.name.KnightNameGen
 import spock.lang.Specification
 
 class GeneratorTest extends Specification {
