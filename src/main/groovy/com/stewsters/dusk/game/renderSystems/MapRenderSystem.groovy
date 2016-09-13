@@ -1,12 +1,12 @@
 package com.stewsters.dusk.game.renderSystems
 
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.game.RenderConfig
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.Tile
+import com.stewsters.dusk.game.RenderConfig
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
-import squidpony.squidgrid.gui.swing.SwingPane;
+import squidpony.squidgrid.gui.swing.SwingPane
 
 public class MapRenderSystem {
 
@@ -18,26 +18,40 @@ public class MapRenderSystem {
         // Render tiles
         for (int x = 0; x < RenderConfig.mapScreenWidth; x++) {
             for (int y = 0; y < RenderConfig.mapScreenHeight; y++) {
+
                 int wx = x + left;
                 int wy = y + top;
 
                 int sx = x + RenderConfig.leftWindow
-                int sy = y
+                int sy = -y + RenderConfig.mapScreenHeight - 1
 
+                // Outside the map is just back
                 if (levelMap.outsideMap(wx, wy)) {
                     display.clearCell(sx, sy)
+                    continue
+                }
 
-                } else if (levelMap.getLight(wx, wy) > 0) {
+                float lightLevel = levelMap.getLight(wx, wy);
+                if ( lightLevel> 0) {
 
                     double radius = Math.sqrt((wx - player.x) * (wx - player.x) + (wy - player.y) * (wy - player.y));
-                    SColor cellLight = SColorFactory.fromPallet("dark", levelMap.getLight(wx, wy) as float)
-
-                    SColor objectLight = SColorFactory.blend(
-                            levelMap.ground[wx][wy].gore ? SColor.RED : levelMap.ground[wx][wy].color, cellLight, getTint(radius));
+                    SColor cellLight = SColorFactory.fromPallet("dark", lightLevel);
                     SColor backColor = SColorFactory.blend(
                             levelMap.ground[wx][wy].background, cellLight, getTint(radius));
 
-                    display.placeCharacter(sx, sy, levelMap.ground[wx][wy].representation, objectLight, backColor);
+                    Entity entity = levelMap.getEntitiesAtLocation(wx, wy).max { it.priority }
+                    if (entity) {
+
+                        SColor objectLight = SColorFactory.blend(entity.color, cellLight, getTint(0f));
+                        display.placeCharacter(sx, sy, entity.ch, objectLight, backColor);
+
+                    } else {
+
+                        SColor groundLight = SColorFactory.blend(
+                                levelMap.ground[wx][wy].gore ? SColor.RED : levelMap.ground[wx][wy].color, cellLight, getTint(radius));
+
+                        display.placeCharacter(sx, sy, levelMap.ground[wx][wy].representation, groundLight, backColor);
+                    }
 
                     levelMap.ground[wx][wy].isExplored = true
 
@@ -49,33 +63,6 @@ public class MapRenderSystem {
                     display.clearCell(sx, sy);
                 }
 
-            }
-        }
-
-        // Render Objects
-        levelMap.getEntitiesBetween(left, top, left + RenderConfig.mapScreenWidth, top + RenderConfig.mapScreenHeight).sort {
-            it.priority
-        }.each { Entity entity ->
-
-            int screenPositionX = entity.x - left + RenderConfig.leftWindow
-            int screenPositionY = entity.y - top
-
-            if (screenPositionX >= 0 && screenPositionX < RenderConfig.mapScreenWidth && screenPositionY >= 0 && screenPositionY < RenderConfig.mapScreenHeight) {
-
-                float light = levelMap.getLight(entity.x, entity.y)
-                if (light > 0f) {
-
-                    //put the player at the origin of the FOV
-
-                    SColor cellLight = SColorFactory.fromPallet("dark", light);
-                    SColor objectLight = SColorFactory.blend(entity.color, cellLight, getTint(0f));
-
-                    for (int x = 0; x < entity.xSize; x++) {
-                        for (int y = 0; y < entity.ySize; y++) {
-                            display.placeCharacter(screenPositionX + x, screenPositionY + y, entity.ch, objectLight);
-                        }
-                    }
-                }
             }
         }
     }

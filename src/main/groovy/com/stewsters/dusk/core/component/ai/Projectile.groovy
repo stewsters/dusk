@@ -64,7 +64,7 @@ class Projectile extends BaseAi implements Ai {
 
     }
 
-    private onImpact(int dx, int dy) {
+    private boolean onImpact(int dx, int dy) {
         if (onImpact) {
             if (onImpact(caster, owner.x + dx, owner.y + dy)) {
                 owner.levelMap.remove(owner)
@@ -75,7 +75,10 @@ class Projectile extends BaseAi implements Ai {
     }
 
 
-    private restore() {
+    private void restore() {
+        if (!owner) // owner destroyed?
+            return
+
         owner.levelMap.actors.remove(this)
 
         if (oldAI) {

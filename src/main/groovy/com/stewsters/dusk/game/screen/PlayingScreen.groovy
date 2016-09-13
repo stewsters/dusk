@@ -5,25 +5,20 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.dusk.core.flyweight.TileType
-import com.stewsters.dusk.game.Game
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.MapStack
-import com.stewsters.dusk.game.renderSystems.BottomBarRenderSystem
-import com.stewsters.dusk.game.renderSystems.InventoryRenderSystem
-import com.stewsters.dusk.game.renderSystems.ItemsStandingOnRenderSystem
-import com.stewsters.dusk.game.renderSystems.LeftStatBarSystem
-import com.stewsters.dusk.game.renderSystems.MapRenderSystem
-import com.stewsters.dusk.game.renderSystems.MessageLogSystem
+import com.stewsters.dusk.game.Game
+import com.stewsters.dusk.game.renderSystems.*
+import com.stewsters.util.math.Facing2d
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
-import squidpony.squidgrid.util.Direction
 
 import java.awt.event.KeyEvent
 
+import static com.stewsters.util.math.Facing2d.*
 import static java.awt.event.KeyEvent.*
-import static squidpony.squidgrid.util.Direction.*
 
 public class PlayingScreen implements Screen {
 
@@ -99,41 +94,41 @@ public class PlayingScreen implements Screen {
                 case VK_H:
                 case VK_LEFT:
                 case VK_NUMPAD4:
-                    if (move(LEFT, shift)) stepSim()
+                    if (move(WEST, shift)) stepSim()
                     break;
                 case VK_L:
                 case VK_RIGHT:
                 case VK_NUMPAD6:
-                    if (move(RIGHT, shift)) stepSim()
+                    if (move(EAST, shift)) stepSim()
                     break;
                 case VK_K:
                 case VK_UP:
                 case VK_NUMPAD8:
-                    if (move(UP, shift)) stepSim()
+                    if (move(NORTH, shift)) stepSim()
                     break;
                 case VK_J:
                 case VK_DOWN:
                 case VK_NUMPAD2:
-                    if (move(DOWN, shift)) stepSim()
+                    if (move(SOUTH, shift)) stepSim()
                     break;
                 case VK_B:
                 case VK_NUMPAD1:
-                    if (move(DOWN_LEFT, shift)) stepSim()
+                    if (move(SOUTHWEST, shift)) stepSim()
                     break;
                 case VK_N:
                 case VK_NUMPAD3:
-                    if (move(DOWN_RIGHT, shift)) stepSim()
+                    if (move(SOUTHEAST, shift)) stepSim()
                     break;
                 case VK_NUMPAD5:
                     if (player.standStill()) stepSim() // waste time
                     break;
                 case VK_Y:
                 case VK_NUMPAD7:
-                    if (move(UP_LEFT, shift)) stepSim()
+                    if (move(NORTHWEST, shift)) stepSim()
                     break;
                 case VK_U:
                 case VK_NUMPAD9:
-                    if (move(UP_RIGHT, shift)) stepSim()
+                    if (move(NORTHEAST, shift)) stepSim()
                     break;
                 case VK_G:
                     if (player.grab()) stepSim() //pick up item
@@ -152,7 +147,6 @@ public class PlayingScreen implements Screen {
 
                         MessageLogSystem.send("${player.name} has ascended from the depths.", SColor.BABY_BLUE, [player])
 
-
                         player.ai.gameTurn = levelMap.actors.peek()?.gameTurn ?: player.ai.gameTurn
 
                         player.levelMap = levelMap
@@ -166,6 +160,8 @@ public class PlayingScreen implements Screen {
                         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
 
                         stepSim()
+                    } else {
+                        MessageLogSystem.send("Cannot ascend here", SColor.WHITE, [player])
                     }
                     break
                 case VK_PERIOD:
@@ -192,6 +188,8 @@ public class PlayingScreen implements Screen {
                         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
 
                         stepSim()
+                    } else {
+                        MessageLogSystem.send("Cannot descend here", SColor.WHITE, [player])
                     }
                     break
                 case VK_I:
@@ -356,10 +354,8 @@ public class PlayingScreen implements Screen {
             player.ai.takeTurn()
             levelMap.incrementTurn();
             shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
-
         }
         levelMap.actors.add next
-
     }
 
     @Override
@@ -376,13 +372,10 @@ public class PlayingScreen implements Screen {
         }
 
         Game.passTime()
-
-
-
         return true
     }
 
-    public boolean move(Direction dir, boolean shift = false) {
+    public boolean move(Facing2d dir, boolean shift = false) {
 
         if (shift && player.fighter.stamina) {
             //TODO: instead of moving faster, this should keep moving until
@@ -392,22 +385,22 @@ public class PlayingScreen implements Screen {
 
             // Double move
             player.fighter.stamina--
-            int x = player.x + dir.deltaX
-            int y = player.y + dir.deltaY
+            int x = player.x + dir.x
+            int y = player.y + dir.y
 
             //check for legality of move based solely on map boundary
             if (levelMap.contains(x, y)) {
-                player.moveOrAttack(dir.deltaX, dir.deltaY)
+                player.moveOrAttack(dir.x, dir.y)
                 //TODO: render can have issues with not stepping
             }
         }
 
-        int x = player.x + dir.deltaX
-        int y = player.y + dir.deltaY
+        int x = player.x + dir.x
+        int y = player.y + dir.y
 
         //check for legality of move based solely on map boundary
         if (levelMap.contains(x, y)) {
-            return player.moveOrAttack(dir.deltaX, dir.deltaY)
+            return player.moveOrAttack(dir.x, dir.y)
         }
         return false;
     }

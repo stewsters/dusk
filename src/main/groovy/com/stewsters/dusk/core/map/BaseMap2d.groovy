@@ -19,7 +19,19 @@ public class BaseMap2d implements TileBasedMap2d {
     }
 
     public boolean outsideMap(int x, int y) {
-        return (x < 0 || x >= ground.length || y < 0 || y >= ground[0].length)
+        return (x < 0 || x >= xSize || y < 0 || y >= ySize)
+    }
+
+    public boolean outsideMap(int x, int y, int xSize, int ySize) {
+        return (x < 0 || x > this.xSize - xSize || y < 0 || y > this.ySize - ySize)
+    }
+
+    public boolean contains(int x, int y) {
+        x >= 0 && x < xSize && y >= 0 && y < ySize
+    }
+
+    public boolean contains(int x, int y, int xSize, int ySize) {
+        x >= 0 && x <= this.xSize - xSize && y >= 0 && y <= this.ySize - ySize
     }
 
     @Override
@@ -55,7 +67,5 @@ public class BaseMap2d implements TileBasedMap2d {
 
     }
 
-    public boolean contains(int x, int y) {
-        x >= 0 && x < xSize && y >= 0 && y < ySize
-    }
+
 }

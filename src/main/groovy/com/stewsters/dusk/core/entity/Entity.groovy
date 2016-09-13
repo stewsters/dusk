@@ -21,6 +21,8 @@ public class Entity {
     public Priority priority
 
     public String name
+    public String description
+
     public boolean blocks
     public int x
     public int y
@@ -38,9 +40,8 @@ public class Entity {
     public Equipment equipment
     public Inventory inventory
     public Purse purse
-    public Spellbook spellbook
     public Quiver quiver
-    public String description
+    public Spellbook spellbook
 
     public DuskMover2d mover
 
@@ -144,7 +145,7 @@ public class Entity {
         int newX = dx + x
         int newY = dy + y
 
-        if (x < 0 || x > levelMap.getXSize() - xSize || y < 0 || y > levelMap.getYSize() - ySize) {
+        if (levelMap.outsideMap(newX, newY, xSize, ySize)) {
             return false;
         }
 

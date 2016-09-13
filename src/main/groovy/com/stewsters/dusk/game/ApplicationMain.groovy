@@ -1,6 +1,5 @@
 package com.stewsters.dusk.game
 
-import com.stewsters.dusk.game.RenderConfig
 import com.stewsters.dusk.game.screen.Screen
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory

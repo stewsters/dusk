@@ -5,10 +5,10 @@ import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
-import com.stewsters.dusk.game.RenderConfig
 import com.stewsters.dusk.core.map.MapStack
 import com.stewsters.dusk.core.map.gen.*
 import com.stewsters.dusk.core.sfx.DeathFunctions
+import com.stewsters.dusk.game.RenderConfig
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 

@@ -1,8 +1,8 @@
 package com.stewsters.dusk.game.renderSystems
 
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.game.RenderConfig
 import com.stewsters.dusk.core.map.LevelMap
+import com.stewsters.dusk.game.RenderConfig
 import squidpony.squidgrid.gui.swing.SwingPane
 
 public class ItemsStandingOnRenderSystem {

@@ -3,8 +3,8 @@ package com.stewsters.dusk.game.renderSystems
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
-import com.stewsters.dusk.game.RenderConfig
 import com.stewsters.dusk.core.map.LevelMap
+import com.stewsters.dusk.game.RenderConfig
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 

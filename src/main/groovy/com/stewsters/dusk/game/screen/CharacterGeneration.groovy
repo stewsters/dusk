@@ -11,8 +11,8 @@ import com.stewsters.dusk.core.map.gen.MapGenerator
 import com.stewsters.dusk.core.map.gen.SimpleMapGenerator
 import com.stewsters.dusk.core.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.core.map.gen.name.KnightNameGen
-import com.stewsters.dusk.game.screen.subscreen.ListSelector
 import com.stewsters.dusk.core.sfx.DeathFunctions
+import com.stewsters.dusk.game.screen.subscreen.ListSelector
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
