@@ -10,11 +10,21 @@ public class ItemsStandingOnRenderSystem {
 
         def names = (levelMap.getEntitiesAtLocation(player.x, player.y) - player).sort { Entity entity -> entity.priority }.name
 
+        String terrain = (levelMap.ground[player.x][player.y].groundCover ? levelMap.ground[player.x][player.y].groundCover.displayName + " covered " : "") + levelMap.ground[player.x][player.y].tileType.displayName
+        display.placeHorizontalString(
+                RenderConfig.screenWidth - terrain.length(),
+                RenderConfig.screenHeight - 1,
+                terrain
+        )
+
         names.eachWithIndex { String name, Integer i ->
             if (i < RenderConfig.surroundingHeight) {
-                display.placeHorizontalString(RenderConfig.mapScreenWidth + RenderConfig.leftWindow - RenderConfig.inventoryWidth, RenderConfig.surroundingY + i, name)
+                display.placeHorizontalString(
+                        RenderConfig.screenWidth - name.length(),
+                        RenderConfig.screenHeight - i - 2, name)
             }
         }
+
 
     }
 }

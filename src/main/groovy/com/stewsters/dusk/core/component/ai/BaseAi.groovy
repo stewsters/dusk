@@ -143,7 +143,7 @@ abstract class BaseAi implements Ai {
         }
 
         //manually set the radius to equal the force
-        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.windowRadiusX, RenderConfig.windowRadiusY, 10f, 0.3f, RenderConfig.strat);
+        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.enemySightRadiusX, RenderConfig.enemySightRadiusY, 10f, 0.3f, RenderConfig.strat);
         lightLastCalculated = Game.gameTurn
     }
 

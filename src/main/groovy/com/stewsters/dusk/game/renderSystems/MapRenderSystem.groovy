@@ -32,12 +32,13 @@ public class MapRenderSystem {
                 }
 
                 float lightLevel = levelMap.getLight(wx, wy);
-                if ( lightLevel> 0) {
+                if (lightLevel > 0) {
 
                     double radius = Math.sqrt((wx - player.x) * (wx - player.x) + (wy - player.y) * (wy - player.y));
                     SColor cellLight = SColorFactory.fromPallet("dark", lightLevel);
                     SColor backColor = SColorFactory.blend(
-                            levelMap.ground[wx][wy].background, cellLight, getTint(radius));
+                            levelMap.ground[wx][wy].groundCover ? levelMap.ground[wx][wy].groundCover.color : levelMap.ground[wx][wy].background,
+                            cellLight, getTint(radius));
 
                     Entity entity = levelMap.getEntitiesAtLocation(wx, wy).max { it.priority }
                     if (entity) {
@@ -47,8 +48,7 @@ public class MapRenderSystem {
 
                     } else {
 
-                        SColor groundLight = SColorFactory.blend(
-                                levelMap.ground[wx][wy].gore ? SColor.RED : levelMap.ground[wx][wy].color, cellLight, getTint(radius));
+                        SColor groundLight = SColorFactory.blend(levelMap.ground[wx][wy].color, cellLight, getTint(radius));
 
                         display.placeCharacter(sx, sy, levelMap.ground[wx][wy].representation, groundLight, backColor);
                     }

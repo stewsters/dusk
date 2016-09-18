@@ -27,21 +27,7 @@ public class RenderConfig {
     public static int screenHeight;
 
 
-    public static SColor litNear = SColorFactory.asSColor(SColor.WHITE);
-    public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE);
-    public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE);
-
-    public static float lightTintPercentage = 0.02f; //0 to 1
-
-    public static LOSSolver los;
-    public static TranslucenceWrapperFOV fov;
-    public static RadiusStrategy strat;
-
-
     public static final int leftWindow = 20;
-
-    public static final int windowRadiusX = 20;
-    public static final int windowRadiusY = 20;
 
     // for game window
     public static final int mapScreenWidth = 100;
@@ -58,5 +44,18 @@ public class RenderConfig {
     public static final int inventoryMaxHeight = 26;
     public static final int inventoryWidth = 40;
 
+    // Light
+    public static SColor litNear = SColorFactory.asSColor(SColor.WHITE);
+    public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE);
+    public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE);
+
+    public static float lightTintPercentage = 0.02f; //0 to 1
+
+    public static LOSSolver los;
+    public static TranslucenceWrapperFOV fov;
+    public static RadiusStrategy strat;
+
+    public static final int enemySightRadiusX = 20;
+    public static final int enemySightRadiusY = 20;
 
 }

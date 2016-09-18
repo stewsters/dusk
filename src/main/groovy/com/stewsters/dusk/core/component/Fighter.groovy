@@ -2,6 +2,7 @@ package com.stewsters.dusk.core.component
 
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
+import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
@@ -79,7 +80,7 @@ class Fighter {
                 // blood splatter
                 int xPos = MatUtils.getIntInRange(-range, range) + owner.x
                 int yPos = MatUtils.getIntInRange(-range, range) + owner.y
-                owner.levelMap.ground[MatUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MatUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].gore = true
+                owner.levelMap.ground[MatUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MatUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].groundCover = GroundCover.BLOOD
             }
 
         }

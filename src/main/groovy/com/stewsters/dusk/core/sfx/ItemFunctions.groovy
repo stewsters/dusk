@@ -4,10 +4,7 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.ai.ConfusedOpponent
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.AmmoType
-import com.stewsters.dusk.core.flyweight.DamageType
-import com.stewsters.dusk.core.flyweight.Faction
-import com.stewsters.dusk.core.flyweight.Priority
+import com.stewsters.dusk.core.flyweight.*
 import com.stewsters.dusk.core.map.gen.items.MonsterGen
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
@@ -85,6 +82,12 @@ class ItemFunctions {
                                         MessageLogSystem.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [user, enemy])
                                     }
                                 }
+                                for (int xf = x - 1; xf <= x + 1; xf++) {
+                                    for (int yf = y - 1; yf <= y + 1; yf++) {
+                                        caster.levelMap.ground[xf][yf].groundCover = GroundCover.ASH
+                                    }
+                                }
+
                                 //TODO: immolate on impact
                                 return true
                             }
@@ -193,7 +196,7 @@ class ItemFunctions {
                             caster.levelMap.getEntitiesAtLocation(x, y).findAll { it.fighter }.each {
                                 enemy.fighter.takeDamage(1, caster, [DamageType.BASH])
                             }
-                            //TODO: immolate on impact
+
                             return false
                         }
 

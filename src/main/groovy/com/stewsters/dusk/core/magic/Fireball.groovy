@@ -3,6 +3,7 @@ package com.stewsters.dusk.core.magic
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
+import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
@@ -52,6 +53,12 @@ class Fireball implements Spell {
                                         MessageLogSystem.send("Flame envelopes ${it.name}! The damage is ${actualDamage} hit points.", SColor.LIGHT_BLUE, [caster, enemy])
                                     }
                                 }
+                                for (int xf = x - 1; xf <= x + 1; xf++) {
+                                    for (int yf = y - 1; yf <= y + 1; yf++) {
+                                        caster.levelMap.ground[xf][yf].groundCover = GroundCover.ASH
+                                    }
+                                }
+
                                 //TODO: immolate on impact
                                 return true
                             }
