@@ -148,13 +148,18 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public Integer getGameTurn() {
+    public int getGameTurn() {
         return gameTurn
     }
 
     @Override
-    void setGameTurn(Integer gameTurn) {
+    void setGameTurn(int gameTurn) {
         this.gameTurn = gameTurn
+    }
+
+    @Override
+    int getSpeed() {
+        return speed;
     }
 
     @Override

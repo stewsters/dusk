@@ -1,10 +1,29 @@
 package com.stewsters.dusk.game.screen
 
-import com.stewsters.dusk.core.component.*
+import com.stewsters.dusk.core.component.Equipment
+import com.stewsters.dusk.core.component.Fighter
+import com.stewsters.dusk.core.component.Inventory
+import com.stewsters.dusk.core.component.Purse
+import com.stewsters.dusk.core.component.Quiver
+import com.stewsters.dusk.core.component.Spellbook
 import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.*
-import com.stewsters.dusk.core.magic.*
+import com.stewsters.dusk.core.flyweight.Faction
+import com.stewsters.dusk.core.flyweight.Gender
+import com.stewsters.dusk.core.flyweight.Priority
+import com.stewsters.dusk.core.flyweight.Slot
+import com.stewsters.dusk.core.flyweight.SocialClass
+import com.stewsters.dusk.core.magic.Cleanse
+import com.stewsters.dusk.core.magic.Confusion
+import com.stewsters.dusk.core.magic.Domination
+import com.stewsters.dusk.core.magic.Fireball
+import com.stewsters.dusk.core.magic.Healing
+import com.stewsters.dusk.core.magic.HostileSummoning
+import com.stewsters.dusk.core.magic.LightningStrike
+import com.stewsters.dusk.core.magic.Mapping
+import com.stewsters.dusk.core.magic.StoneCurse
+import com.stewsters.dusk.core.magic.Summoning
+import com.stewsters.dusk.core.magic.Wrath
 import com.stewsters.dusk.core.map.MapStack
 import com.stewsters.dusk.core.map.gen.JailMapGenerator
 import com.stewsters.dusk.core.map.gen.MapGenerator
@@ -18,7 +37,21 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.*
+import static java.awt.event.KeyEvent.VK_DOWN
+import static java.awt.event.KeyEvent.VK_ESCAPE
+import static java.awt.event.KeyEvent.VK_H
+import static java.awt.event.KeyEvent.VK_J
+import static java.awt.event.KeyEvent.VK_K
+import static java.awt.event.KeyEvent.VK_L
+import static java.awt.event.KeyEvent.VK_LEFT
+import static java.awt.event.KeyEvent.VK_NUMPAD2
+import static java.awt.event.KeyEvent.VK_NUMPAD4
+import static java.awt.event.KeyEvent.VK_NUMPAD6
+import static java.awt.event.KeyEvent.VK_NUMPAD8
+import static java.awt.event.KeyEvent.VK_RIGHT
+import static java.awt.event.KeyEvent.VK_SPACE
+import static java.awt.event.KeyEvent.VK_UNDEFINED
+import static java.awt.event.KeyEvent.VK_UP
 
 class CharacterGeneration implements Screen {
 

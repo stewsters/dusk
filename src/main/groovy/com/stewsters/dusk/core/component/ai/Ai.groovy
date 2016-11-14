@@ -23,7 +23,9 @@ public interface Ai {
 
 //    public void hearNoise(int x, int y)
 
-    public Integer getGameTurn()
+    public int getGameTurn()
 
-    public void setGameTurn(Integer gameTurn)
+    public int getSpeed()
+
+    public void setGameTurn(int gameTurn)
 }

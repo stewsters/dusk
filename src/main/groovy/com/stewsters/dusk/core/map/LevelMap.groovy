@@ -3,6 +3,7 @@ package com.stewsters.dusk.core.map
 import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.TileType
+import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.spatial.IntervalKDTree2d
 
@@ -26,8 +27,10 @@ public class LevelMap extends BaseLitMap2d {
     }
 
     public void add(Entity e) {
-        if (e.ai)
+        if (e.ai) {
+            e.ai.gameTurn = (actors.peek()?.gameTurn ?: 0) + MatUtils.getIntInRange(0, e.ai.speed)
             actors.add(e.ai)
+        }
         spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
     }
 

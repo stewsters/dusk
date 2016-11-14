@@ -12,7 +12,7 @@ public class Cleanse implements Spell {
 
     public Cleanse() {
         name = "Cleanse"
-        key = 'l' as char
+        key = 'e' as char
     }
 
     @Override

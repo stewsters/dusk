@@ -34,10 +34,12 @@ public class BaseLitMap2d extends BaseMap2d implements LitMap2d {
 
     @Override
     public float getLight(int x, int y) {
+        if (outsideMap(x, y))
+            return 0
         if (turnLastUpdated[x][y] == turnCounter)
-            return lightLevel[x][y];
+            return lightLevel[x][y]
         else
-            return 0;
+            return 0
     }
 
     @Override

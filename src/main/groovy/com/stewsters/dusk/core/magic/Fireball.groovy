@@ -1,5 +1,6 @@
 package com.stewsters.dusk.core.magic
 
+import com.stewsters.dusk.core.component.ai.FlameAi
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
@@ -55,7 +56,15 @@ class Fireball implements Spell {
                                 }
                                 for (int xf = x - 1; xf <= x + 1; xf++) {
                                     for (int yf = y - 1; yf <= y + 1; yf++) {
-                                        caster.levelMap.ground[xf][yf].groundCover = GroundCover.ASH
+                                        Entity newFire = new Entity(
+                                                x: xf,
+                                                y: yf,
+                                                map: caster.levelMap,
+                                                ch: '^',
+                                                color: SColor.RED,
+                                                ai: new FlameAi(2, 10),
+                                        )
+                                        caster.levelMap.add(newFire)
                                     }
                                 }
 
