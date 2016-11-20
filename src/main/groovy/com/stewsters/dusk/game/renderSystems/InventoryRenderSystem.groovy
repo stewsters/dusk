@@ -85,11 +85,14 @@ class InventoryRenderSystem {
 
         Integer y = 0
 
+        int xLineStart = RenderConfig.screenWidth - RenderConfig.inventoryWidth
+
         inventory.allEquipment.each { Entity item ->
             char c = (char) (((char) 'a') + inventory.findIndex(item))
 
-            String out = "${c}) ${item.ch ?: ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}"
-            display.placeHorizontalString(RenderConfig.screenWidth - RenderConfig.inventoryWidth, y + RenderConfig.inventoryY, out)
+            display.placeHorizontalString(xLineStart, y + RenderConfig.inventoryY, "${c})")
+            display.placeCharacter(xLineStart + 2, y + RenderConfig.inventoryY, item.ch, item.color, SColor.BLACK)
+            display.placeHorizontalString(xLineStart + 3, y + RenderConfig.inventoryY, " ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
             y++
         }
 
@@ -101,8 +104,9 @@ class InventoryRenderSystem {
         inventory.allNonEquipment.each { Entity item ->
             char c = (char) (((char) 'a') + inventory.findIndex(item))
 
-            String out = "${c}) ${item.ch ?: ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}"
-            display.placeHorizontalString(RenderConfig.screenWidth - RenderConfig.inventoryWidth, y + RenderConfig.inventoryY, out)
+            display.placeHorizontalString(xLineStart, y + RenderConfig.inventoryY, "${c})")
+            display.placeCharacter(xLineStart + 2, y + RenderConfig.inventoryY, item.ch, item.color, SColor.BLACK)
+            display.placeHorizontalString(xLineStart + 3, y + RenderConfig.inventoryY, " ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
             y++
         }
 

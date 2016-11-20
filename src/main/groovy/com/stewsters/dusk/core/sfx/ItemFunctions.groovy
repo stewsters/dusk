@@ -4,7 +4,11 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.ai.ConfusedOpponent
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.*
+import com.stewsters.dusk.core.flyweight.AmmoType
+import com.stewsters.dusk.core.flyweight.DamageType
+import com.stewsters.dusk.core.flyweight.Faction
+import com.stewsters.dusk.core.flyweight.GroundCover
+import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.map.gen.items.MonsterGen
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
@@ -155,7 +159,7 @@ class ItemFunctions {
                 Ai oldID = enemy.ai
                 enemy.levelMap.actors.remove(oldID)
                 enemy.ai = new ConfusedOpponent(oldAI: oldID, castor: user, numTurns: turns)
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
 
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
@@ -201,7 +205,7 @@ class ItemFunctions {
                         }
 
                 )
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 

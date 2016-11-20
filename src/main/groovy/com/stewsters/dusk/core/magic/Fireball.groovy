@@ -4,7 +4,6 @@ import com.stewsters.dusk.core.component.ai.FlameAi
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
-import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils

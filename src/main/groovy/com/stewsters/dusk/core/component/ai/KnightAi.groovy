@@ -25,31 +25,31 @@ class KnightAi extends BaseAi implements Ai {
 
         if (enemy) {
             //if we have a gun, and they are getting too close, shoot them
-            owner.moveTowardsAndAttack(enemy.x, enemy.y)
+            entity.moveTowardsAndAttack(enemy.x, enemy.y)
 
-        } else if (owner.inventory) {
+        } else if (entity.inventory) {
 
             //if we are standing on an item and we have room, pick it up
-            if (owner.inventory.isFull()) {
-                owner.randomMovement()
+            if (entity.inventory.isFull()) {
+                entity.randomMovement()
             } else {
                 //find nearest visible item
-                Entity item = owner.ai.findClosestVisibleItem()
+                Entity item = entity.ai.findClosestVisibleItem()
 
                 //if we are standing on it, pickUp
                 if (item) {
-                    if (item.x == owner.x && item.y == owner.y) {
-                        owner.inventory.pickUp(item)
+                    if (item.x == entity.x && item.y == entity.y) {
+                        entity.inventory.pickUp(item)
                     } else {
-                        owner.moveTowardsAndAttack(item.x, item.y)
+                        entity.moveTowardsAndAttack(item.x, item.y)
                     }
                 } else {
-                    owner.randomMovement()
+                    entity.randomMovement()
                 }
 
             }
         } else if (MatUtils.boolean) {
-            owner.randomMovement();
+            entity.randomMovement();
         }
 
         gameTurn += speed

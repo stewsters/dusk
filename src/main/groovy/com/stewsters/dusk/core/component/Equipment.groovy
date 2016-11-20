@@ -8,7 +8,7 @@ import squidpony.squidcolor.SColor
 
 class Equipment {
 
-    Entity owner
+    Entity entity
     Slot slot
     boolean isEquipped = false
 
@@ -53,13 +53,13 @@ class Equipment {
             oldEquipment.dequip(holder)
 
         isEquipped = true
-        MessageLogSystem.send("Equipped ${owner.name}", SColor.WHITE, [holder])
+        MessageLogSystem.send("Equipped ${entity.name}", SColor.WHITE, [holder])
     }
 
     void dequip(Entity holder) {
         if (isEquipped) {
             isEquipped = false
-            MessageLogSystem.send("Dequipped ${owner.name} from ${slot.name}", SColor.WHITE, [holder])
+            MessageLogSystem.send("Dequipped ${entity.name} from ${slot.name}", SColor.WHITE, [holder])
         }
 
     }

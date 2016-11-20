@@ -10,75 +10,75 @@ import squidpony.squidcolor.SColor
 class DeathFunctions {
 
 
-    public static Closure playerDeath = { Entity owner, Entity attacker ->
+    public static Closure playerDeath = { Entity target, Entity attacker ->
 
-        MessageLogSystem.send("${owner.name} is dead. Press space to continue.", SColor.RED, [owner])
-        owner.ch = '%'
-        owner.color = SColor.BLOOD_RED
-        owner.faction = null
+        MessageLogSystem.send("${target.name} is dead. Press space to continue.", SColor.RED, [target])
+        target.ch = '%'
+        target.color = SColor.BLOOD_RED
+        target.faction = null
 
         // Rather than dropping everything, we need to make the death screen that identifies everything
 
-//        owner.priority = Priority.CORPSE
-//        owner.faction = null
-//        if (owner.inventory) {
-//            owner.inventory.dump()
+//        entity.priority = Priority.CORPSE
+//        entity.faction = null
+//        if (entity.inventory) {
+//            entity.inventory.dump()
 //        }
     }
 
 
-    public static Closure opponentDeath = { Entity owner, Entity attacker ->
-        MessageLogSystem.send("${owner.name} is dead!", SColor.RED, [owner])
-        owner.ch = '%'
-        owner.color = SColor.BLOOD_RED
-        owner.blocks = false
-        owner.fighter = null
-        owner.levelMap.actors.remove(owner.ai)
-        owner.ai.owner = null
-        owner.ai = null
-        owner.name = "Remains of ${owner.name}"
-        owner.priority = Priority.CORPSE
-        owner.faction = null
-        if (owner.inventory)
-            owner.inventory.dump()
+    public static Closure opponentDeath = { Entity target, Entity attacker ->
+        MessageLogSystem.send("${target.name} is dead!", SColor.RED, [target])
+        target.ch = '%'
+        target.color = SColor.BLOOD_RED
+        target.blocks = false
+        target.fighter = null
+        target.levelMap.actors.remove(target.ai)
+        target.ai.entity = null
+        target.ai = null
+        target.name = "Remains of ${target.name}"
+        target.priority = Priority.CORPSE
+        target.faction = null
+        if (target.inventory)
+            target.inventory.dump()
     }
 
 
-    public static Closure bossDeath = { Entity owner, Entity attacker ->
-        MessageLogSystem.send("${attacker.name} has slain ${owner.name}.", SColor.RED, [owner])
-        owner.ch = '%'
-        owner.color = SColor.BLOOD_RED
-        owner.blocks = false
-        owner.fighter = null
-        owner.levelMap.actors.remove(owner.ai)
-        owner.ai.owner = null
-        owner.ai = null
-        owner.name = "Remains of ${owner.name}"
-        owner.priority = Priority.CORPSE
-        owner.faction = null
-        if (owner.inventory)
-            owner.inventory.dump()
+    public static Closure bossDeath = { Entity target, Entity attacker ->
+        MessageLogSystem.send("${attacker.name} has slain ${target.name}.", SColor.RED, [target])
+        target.ch = '%'
+        target.color = SColor.BLOOD_RED
+        target.blocks = false
+        target.fighter = null
+        target.levelMap.actors.remove(target.ai)
+        target.ai.entity = null
+        target.ai = null
+        target.name = "Remains of ${target.name}"
+        target.priority = Priority.CORPSE
+        target.faction = null
+        if (target.inventory)
+            target.inventory.dump()
 
         //TODO: give exp that can be used for leveling
         attacker.fighter.experience++
     }
 
 
-    public static Closure zombify = { Entity owner, Entity attacker ->
-        MessageLogSystem.send("${owner.name} is changing!", SColor.RED, [owner])
-        owner.faction = Faction.EVIL
-        owner.ch = 'z'
-        owner.color = SColor.GREEN_BAMBOO
-        owner.fighter.deathFunction = opponentDeath
-        owner.fighter.skillMarksman = 0;
-        owner.ai = new BasicOpponent()
-        owner.ai.owner = owner
-        owner.name = "Zombie of ${owner.name}"
-        owner.priority = Priority.OPPONENT
+    public static Closure zombify = { Entity target, Entity attacker ->
+        MessageLogSystem.send("${target.name} is changing!", SColor.RED, [target])
+        target.faction = Faction.EVIL
+        target.ch = 'z'
+        target.color = SColor.GREEN_BAMBOO
+        target.fighter.deathFunction = opponentDeath
+        target.fighter.skillMarksman = 0;
+        target.ai = new BasicOpponent()
+        target.ai.entity = target
+        target.name = "Zombie of ${target.name}"
+        target.priority = Priority.OPPONENT
 
-        if (owner.inventory) {
-            owner.inventory.dump()
-            owner.inventory = null
+        if (target.inventory) {
+            target.inventory.dump()
+            target.inventory = null
         }
     }
 }

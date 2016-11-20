@@ -5,7 +5,11 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.*
+import static java.awt.event.KeyEvent.VK_E
+import static java.awt.event.KeyEvent.VK_ESCAPE
+import static java.awt.event.KeyEvent.VK_H
+import static java.awt.event.KeyEvent.VK_M
+import static java.awt.event.KeyEvent.VK_UNDEFINED
 
 class LevelupScreen implements Screen {
 

@@ -35,7 +35,7 @@ public class Confusion implements Spell {
                 Ai oldID = enemy.ai
                 enemy.levelMap.actors.remove(oldID)
                 enemy.ai = new ConfusedOpponent(oldAI: oldID, castor: caster, numTurns: turns)
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
 
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)

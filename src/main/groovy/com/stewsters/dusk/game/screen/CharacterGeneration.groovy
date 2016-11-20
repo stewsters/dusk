@@ -186,8 +186,6 @@ class CharacterGeneration implements Screen {
                         deathFunction: DeathFunctions.playerDeath)
         )
 
-        player.mover.owner = player
-
         player.spellbook.spells.addAll([
                 new Cleanse(),
                 new Confusion(),
@@ -214,7 +212,7 @@ class CharacterGeneration implements Screen {
         )
 
         player.inventory.pickUp(defaultArmor)
-        player.ai.owner = player
+
         return new PlayingScreen(mapStack, player)
 
     }

@@ -5,7 +5,7 @@ import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import squidpony.squidcolor.SColor
 
 class Item {
-    public Entity owner
+    public Entity entity
 
     Closure useFunction
     boolean useOnPickup
@@ -23,13 +23,13 @@ class Item {
      */
     public boolean useItem(Entity user) {
 
-        if (owner.equipment) {
-            owner.equipment.toggleEquip(user)
+        if (entity.equipment) {
+            entity.equipment.toggleEquip(user)
             return true
         } else if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${entity.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }
@@ -38,7 +38,7 @@ class Item {
         if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${entity.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }

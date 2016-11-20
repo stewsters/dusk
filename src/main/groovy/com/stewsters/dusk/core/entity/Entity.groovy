@@ -1,6 +1,12 @@
 package com.stewsters.dusk.core.entity
 
-import com.stewsters.dusk.core.component.*
+import com.stewsters.dusk.core.component.Equipment
+import com.stewsters.dusk.core.component.Fighter
+import com.stewsters.dusk.core.component.Inventory
+import com.stewsters.dusk.core.component.Item
+import com.stewsters.dusk.core.component.Purse
+import com.stewsters.dusk.core.component.Quiver
+import com.stewsters.dusk.core.component.Spellbook
 import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.mover.DuskMover2d
 import com.stewsters.dusk.core.flyweight.Faction
@@ -76,30 +82,30 @@ public class Entity {
 
         if (params.fighter) {
             fighter = params.fighter
-            fighter.owner = this
+            fighter.entity = this
         }
 
         if (params.ai) {
             ai = params.ai
-            ai.owner = this
+            ai.entity = this
         }
 
         if (params.inventory) {
             inventory = params.inventory
-            inventory.owner = this
+            inventory.entity = this
         }
 
         if (params.itemComponent) {
             itemComponent = params.itemComponent
-            itemComponent.owner = this
+            itemComponent.entity = this
         }
 
         if (params.equipment) {
             equipment = params.equipment
-            equipment.owner = this
+            equipment.entity = this
             if (!itemComponent) {
                 itemComponent = new Item([:])
-                itemComponent.owner = this
+                itemComponent.entity = this
             }
         }
 
@@ -109,7 +115,7 @@ public class Entity {
 
         if (params.spellbook) {
             spellbook = params.spellbook
-            spellbook.owner = this
+            spellbook.entity = this
         }
 
         if (params.quiver) {
@@ -170,8 +176,8 @@ public class Entity {
             }
             if (inventory) {
 
-                Entity pickup = entities.find { Entity entity ->
-                    entity?.itemComponent?.autoPickup
+                Entity pickup = entities.find { Entity possibleItem ->
+                    possibleItem?.itemComponent?.autoPickup
                 }
 
                 if (pickup) {

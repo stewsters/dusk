@@ -52,7 +52,7 @@ public class Wrath implements Spell {
                         }
 
                 )
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 

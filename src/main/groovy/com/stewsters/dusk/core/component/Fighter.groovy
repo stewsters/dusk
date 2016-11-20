@@ -9,7 +9,7 @@ import com.stewsters.util.math.MatUtils
 import squidpony.squidcolor.SColor
 
 class Fighter {
-    public Entity owner
+    public Entity entity
 
     int baseMaxHp
     int hp      //can take more hits
@@ -72,15 +72,15 @@ class Fighter {
             if (hp <= 0) {
                 hp = 0
                 if (deathFunction)
-                    deathFunction(owner, attacker)
+                    deathFunction(entity, attacker)
             }
 
             int range = Math.sqrt(damage)
             for (int i = 0; i < damage; i++) {
                 // blood splatter
-                int xPos = MatUtils.getIntInRange(-range, range) + owner.x
-                int yPos = MatUtils.getIntInRange(-range, range) + owner.y
-                owner.levelMap.ground[MatUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MatUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].groundCover = GroundCover.BLOOD
+                int xPos = MatUtils.getIntInRange(-range, range) + entity.x
+                int yPos = MatUtils.getIntInRange(-range, range) + entity.y
+                entity.levelMap.ground[MatUtils.limit(xPos, 0, entity.levelMap.xSize - 1)][MatUtils.limit(yPos, 0, entity.levelMap.ySize - 1)].groundCover = GroundCover.BLOOD
             }
 
         }
@@ -97,9 +97,6 @@ class Fighter {
 
     public def addToxicity(int amount) {
         toxicity = Math.min(amount + toxicity, maxToxicity)
-        if (toxicity >= maxToxicity) {
-//            DeathFunctions.zombify(owner)
-        }
     }
 
     public void attack(Entity target) {
@@ -111,7 +108,7 @@ class Fighter {
             //figure out damage
 
 
-            Equipment equipment = owner.inventory?.getEquippedInSlot(Slot.PRIMARY_HAND)
+            Equipment equipment = entity.inventory?.getEquippedInSlot(Slot.PRIMARY_HAND)
             IntRange damageRange
             List<DamageType> damageTypes
 
@@ -134,24 +131,19 @@ class Fighter {
             if (damage > 0) {
 
                 String targetName = target.name
-                int actualDamage = target.fighter.takeDamage(damage, owner, damageTypes)
+                int actualDamage = target.fighter.takeDamage(damage, entity, damageTypes)
 
                 if (target.fighter && target.fighter.hp > 0) {
-                    MessageLogSystem.send "${owner.name} attacks ${targetName} for ${actualDamage} damage.", SColor.WHITE, [owner, target]
+                    MessageLogSystem.send "${entity.name} attacks ${targetName} for ${actualDamage} damage.", SColor.WHITE, [entity, target]
                 } else {
-                    MessageLogSystem.send "${targetName} has been slain by ${owner.name}", SColor.WHITE, [owner, target]
+                    MessageLogSystem.send "${targetName} has been slain by ${entity.name}", SColor.WHITE, [entity, target]
                 }
 
-                //other effects?
-                // if (owner.faction == Faction.EVIL) {
-                //   target.fighter.infect(1)
-                // }
-
             } else {
-                MessageLogSystem.send "${owner.name}'s attack deflects off ${target.name}.", SColor.WHITE, [owner, target]
+                MessageLogSystem.send "${entity.name}'s attack deflects off ${target.name}.", SColor.WHITE, [entity, target]
             }
         } else {
-            MessageLogSystem.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
+            MessageLogSystem.send "${entity.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [entity, target]
         }
     }
 
@@ -159,24 +151,24 @@ class Fighter {
 
     public int getMaxHP() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment()?.bonusMaxHp.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment()?.bonusMaxHp.sum() ?: 0
 //        }
         return baseMaxHp //+ bonus
     }
 
     public int getMaxToxicity() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxToxicity.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment().bonusMaxToxicity.sum() ?: 0
 //        }
         return baseMaxToxicity //+ bonus
     }
 
     public int getMaxStamina() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment().bonusMaxStamina.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment().bonusMaxStamina.sum() ?: 0
 //        }
         return baseMaxStamina //+ bonus
     }
@@ -184,24 +176,24 @@ class Fighter {
 
     public int getAccuracy() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment().accuracyModifier.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment().accuracyModifier.sum() ?: 0
 //        }
         return skillMelee //+ bonus
     }
 
     public int getEvasion() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment().evasionModifier.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment().evasionModifier.sum() ?: 0
 //        }
         return skillEvasion //+ bonus
     }
 
     public int getMarksman() {
 //        int bonus = 0
-//        if (owner.inventory) {
-//            bonus += owner.inventory.getAllEquippedEquipment().bonusMarksman.sum() ?: 0
+//        if (entity.inventory) {
+//            bonus += entity.inventory.getAllEquippedEquipment().bonusMarksman.sum() ?: 0
 //        }
         return skillMarksman
     }

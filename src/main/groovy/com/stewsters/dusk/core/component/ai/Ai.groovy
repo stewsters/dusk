@@ -4,12 +4,11 @@ import com.stewsters.dusk.core.entity.Entity
 
 public interface Ai {
 
+    public Entity getEntity()
+
+    public void setEntity(Entity entity)
+
     public boolean takeTurn()
-
-    //getters and setters
-    public Entity getOwner()
-
-    public void setOwner(Entity owner)
 
 //    public float[][] getLight()
 

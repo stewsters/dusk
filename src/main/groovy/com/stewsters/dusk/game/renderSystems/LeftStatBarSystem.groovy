@@ -34,7 +34,8 @@ class LeftStatBarSystem {
         int linesTaken = 0
 
         if (entity.ch && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "${entity.ch}: ${entity.name}")
+            display.placeCharacter(0, verticalOffset + linesTaken, entity.ch, entity.color, SColor.BLACK)
+            display.placeHorizontalString(1, verticalOffset + linesTaken, ": ${entity.name}")
             linesTaken++
         }
 

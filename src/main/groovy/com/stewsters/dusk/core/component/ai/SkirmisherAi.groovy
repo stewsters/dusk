@@ -16,26 +16,26 @@ class SkirmisherAi extends BaseAi implements Ai {
         Entity enemy = findClosestVisibleEnemy()
 
 
-        if (enemy && owner.fighter) {
+        if (enemy && entity.fighter) {
             //if we have a gun, and they are getting too close, shoot them
 
-            if (owner.fighter.hp == owner.fighter.maxHP) {
-                owner.moveTowardsAndAttack(enemy.x, enemy.y)
+            if (entity.fighter.hp == entity.fighter.maxHP) {
+                entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
                 //if injured, move away. This works best for regenerators
-                if (!owner.moveAway(enemy.x, enemy.y)) {
+                if (!entity.moveAway(enemy.x, enemy.y)) {
                     //but if you cant, fight it out.
-                    owner.moveTowardsAndAttack(enemy.x, enemy.y)
+                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
                 }
 
             }
         } else if (MatUtils.boolean) {
-            owner.randomMovement();
+            entity.randomMovement();
         } else {
             //TODO: regeneration
-            owner.standStill()
-            if (owner.fighter) {
-                owner.fighter.addHealth(1)
+            entity.standStill()
+            if (entity.fighter) {
+                entity.fighter.addHealth(1)
             }
 
         }

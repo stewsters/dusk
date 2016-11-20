@@ -16,28 +16,28 @@ public class FlameAi extends BaseAi implements Ai {
 
     @Override
     boolean takeTurn() {
-        int x = owner.x
-        int y = owner.y
+        int x = entity.x
+        int y = entity.y
 
         if (intensity <= 0 ||
-                owner.levelMap.getTileType(x, y).water) {
-            owner.levelMap.remove(owner)
+                entity.levelMap.getTileType(x, y).water) {
+            entity.levelMap.remove(entity)
             return false
         }
 
-        owner.levelMap.ground[owner.x][owner.y].groundCover = GroundCover.ASH
+        entity.levelMap.ground[entity.x][entity.y].groundCover = GroundCover.ASH
         // If we have fuel, turn it into intensity
 
 
         Facing2d spreadDirection = Facing2d.randomCardinal()
-        int nextX = owner.x + spreadDirection.x
-        int nextY = owner.y + spreadDirection.y
+        int nextX = entity.x + spreadDirection.x
+        int nextY = entity.y + spreadDirection.y
 
         // do we have fire there?  do we have burnable stuff?
-        if (!owner.levelMap.getTileType(nextX, nextY).blocks) {
+        if (!entity.levelMap.getTileType(nextX, nextY).blocks) {
 
 
-            Entity existing = owner.levelMap.getEntitiesAtLocation(nextX, nextY).find { Entity e ->
+            Entity existing = entity.levelMap.getEntitiesAtLocation(nextX, nextY).find { Entity e ->
                 e?.ai?.class == FlameAi.class
             }
 
@@ -46,13 +46,13 @@ public class FlameAi extends BaseAi implements Ai {
                 Entity newFire = new Entity(
                         x: nextX,
                         y: nextY,
-                        map: owner.levelMap,
+                        map: entity.levelMap,
                         name: 'fire',
                         ch: '^',
                         color: SColor.RED,
-                        ai: new FlameAi(intensity-1, 10),
+                        ai: new FlameAi(intensity - 1, 10),
                 )
-                owner.levelMap.add(newFire)
+                entity.levelMap.add(newFire)
             }
         }
 

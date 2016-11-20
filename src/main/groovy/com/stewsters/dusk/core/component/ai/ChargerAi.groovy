@@ -26,13 +26,13 @@ class ChargerAi extends BaseAi implements Ai {
 
         if (chargeDest) {
 
-            if (owner.moveTowards(chargeDest.x, chargeDest.y)) {
+            if (entity.moveTowards(chargeDest.x, chargeDest.y)) {
                 gameTurn += Math.max(1, (int) (speed / 3))
                 return true
 
             } else {
                 //TODO: should do bonus damage
-                owner.moveTowardsAndAttack(chargeDest.x, chargeDest.y)
+                entity.moveTowardsAndAttack(chargeDest.x, chargeDest.y)
                 chargeDest = null
 
                 gameTurn += speed
@@ -45,39 +45,39 @@ class ChargerAi extends BaseAi implements Ai {
         Entity enemy = findClosestVisibleEnemy()
         if (enemy) {
 
-            if (owner.distanceTo(enemy) < 2) {
-                owner.moveTowardsAndAttack(enemy.x, enemy.y)
+            if (entity.distanceTo(enemy) < 2) {
+                entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
 
                 // charge!  charge through them!
-                int dx = enemy.x - owner.x
-                int dy = enemy.y - owner.y
+                int dx = enemy.x - entity.x
+                int dy = enemy.y - entity.y
 
                 chargeDest = new Point2i(enemy.x + dx, enemy.y + dy)
             }
-        } else if (owner.inventory) {
+        } else if (entity.inventory) {
 
             //if we are standing on an item and we have room, pick it up
-            if (owner.inventory.isFull()) {
-                owner.randomMovement()
+            if (entity.inventory.isFull()) {
+                entity.randomMovement()
             } else {
                 //find nearest visible item
-                Entity item = owner.ai.findClosestVisibleItem()
+                Entity item = entity.ai.findClosestVisibleItem()
 
                 //if we are standing on it, pickUp
                 if (item) {
-                    if (item.x == owner.x && item.y == owner.y) {
-                        owner.inventory.pickUp(item)
+                    if (item.x == entity.x && item.y == entity.y) {
+                        entity.inventory.pickUp(item)
                     } else {
-                        owner.moveTowardsAndAttack(item.x, item.y)
+                        entity.moveTowardsAndAttack(item.x, item.y)
                     }
                 } else {
-                    owner.randomMovement()
+                    entity.randomMovement()
                 }
 
             }
         } else if (MatUtils.boolean) {
-            owner.randomMovement();
+            entity.randomMovement();
         }
 
         gameTurn += speed

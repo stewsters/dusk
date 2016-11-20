@@ -8,7 +8,12 @@ import com.stewsters.dusk.core.flyweight.TileType
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.MapStack
 import com.stewsters.dusk.game.Game
-import com.stewsters.dusk.game.renderSystems.*
+import com.stewsters.dusk.game.renderSystems.BottomBarRenderSystem
+import com.stewsters.dusk.game.renderSystems.InventoryRenderSystem
+import com.stewsters.dusk.game.renderSystems.ItemsStandingOnRenderSystem
+import com.stewsters.dusk.game.renderSystems.LeftStatBarSystem
+import com.stewsters.dusk.game.renderSystems.MapRenderSystem
+import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.Facing2d
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
@@ -17,8 +22,51 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static com.stewsters.util.math.Facing2d.*
-import static java.awt.event.KeyEvent.*
+import static com.stewsters.util.math.Facing2d.EAST
+import static com.stewsters.util.math.Facing2d.NORTH
+import static com.stewsters.util.math.Facing2d.NORTHEAST
+import static com.stewsters.util.math.Facing2d.NORTHWEST
+import static com.stewsters.util.math.Facing2d.SOUTH
+import static com.stewsters.util.math.Facing2d.SOUTHEAST
+import static com.stewsters.util.math.Facing2d.SOUTHWEST
+import static com.stewsters.util.math.Facing2d.WEST
+import static java.awt.event.KeyEvent.VK_A
+import static java.awt.event.KeyEvent.VK_B
+import static java.awt.event.KeyEvent.VK_COMMA
+import static java.awt.event.KeyEvent.VK_D
+import static java.awt.event.KeyEvent.VK_DOWN
+import static java.awt.event.KeyEvent.VK_E
+import static java.awt.event.KeyEvent.VK_ESCAPE
+import static java.awt.event.KeyEvent.VK_F
+import static java.awt.event.KeyEvent.VK_G
+import static java.awt.event.KeyEvent.VK_H
+import static java.awt.event.KeyEvent.VK_I
+import static java.awt.event.KeyEvent.VK_J
+import static java.awt.event.KeyEvent.VK_K
+import static java.awt.event.KeyEvent.VK_L
+import static java.awt.event.KeyEvent.VK_LEFT
+import static java.awt.event.KeyEvent.VK_M
+import static java.awt.event.KeyEvent.VK_N
+import static java.awt.event.KeyEvent.VK_NUMPAD1
+import static java.awt.event.KeyEvent.VK_NUMPAD2
+import static java.awt.event.KeyEvent.VK_NUMPAD3
+import static java.awt.event.KeyEvent.VK_NUMPAD4
+import static java.awt.event.KeyEvent.VK_NUMPAD5
+import static java.awt.event.KeyEvent.VK_NUMPAD6
+import static java.awt.event.KeyEvent.VK_NUMPAD7
+import static java.awt.event.KeyEvent.VK_NUMPAD8
+import static java.awt.event.KeyEvent.VK_NUMPAD9
+import static java.awt.event.KeyEvent.VK_P
+import static java.awt.event.KeyEvent.VK_PERIOD
+import static java.awt.event.KeyEvent.VK_R
+import static java.awt.event.KeyEvent.VK_RIGHT
+import static java.awt.event.KeyEvent.VK_SPACE
+import static java.awt.event.KeyEvent.VK_T
+import static java.awt.event.KeyEvent.VK_U
+import static java.awt.event.KeyEvent.VK_UNDEFINED
+import static java.awt.event.KeyEvent.VK_UP
+import static java.awt.event.KeyEvent.VK_Y
+import static java.awt.event.KeyEvent.VK_Z
 
 public class PlayingScreen implements Screen {
 
@@ -411,7 +459,7 @@ public class PlayingScreen implements Screen {
         if (player.inventory) {
             Equipment weapon = player.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
             if (weapon) {
-                weapon.owner.itemComponent.useHeldItem(player)
+                weapon.entity.itemComponent.useHeldItem(player)
                 return true
             } else {
                 MessageLogSystem.send("Find a weapon first.", SColor.RED, [player])

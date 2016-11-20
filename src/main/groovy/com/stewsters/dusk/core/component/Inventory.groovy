@@ -8,7 +8,7 @@ import squidpony.squidcolor.SColor
 
 public class Inventory {
 
-    Entity owner
+    Entity entity
     List<Entity> items = []
     int capacity = 26
 
@@ -16,25 +16,25 @@ public class Inventory {
     public boolean pickUp(Entity item) {
 
         if (items.size() >= capacity) {
-            MessageLogSystem.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
+            MessageLogSystem.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [entity])
 
         } else {
 
             // use item on pickup
             if (item.itemComponent.useOnPickup) {
-                item.itemComponent.useFunction(owner);
+                item.itemComponent.useFunction(entity);
             } else {
                 items.add item
 
                 if (item.equipment) {
-                    Equipment oldEquipment = owner.inventory.getEquippedInSlot(item.equipment.slot)
+                    Equipment oldEquipment = entity.inventory.getEquippedInSlot(item.equipment.slot)
                     if (!oldEquipment)
-                        item.equipment.equip(owner)
+                        item.equipment.equip(entity)
                 }
             }
 
             item.levelMap.remove(item)
-            MessageLogSystem.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
+            MessageLogSystem.send("${entity.name} picked up ${entity.name}", SColor.GREEN, [entity])
 
             return true
         }
@@ -47,22 +47,22 @@ public class Inventory {
 
     public dump() {
 
-        for (Entity item : owner.inventory.items) {
+        for (Entity item : entity.inventory.items) {
 
-            int xPos = MatUtils.getIntInRange(-1, 1) + owner.x
-            int yPos = MatUtils.getIntInRange(-1, 1) + owner.y
-            if (!owner.levelMap.isBlocked(xPos, yPos)) {
+            int xPos = MatUtils.getIntInRange(-1, 1) + entity.x
+            int yPos = MatUtils.getIntInRange(-1, 1) + entity.y
+            if (!entity.levelMap.isBlocked(xPos, yPos)) {
                 item.x = xPos
                 item.y = yPos
             } else {
-                item.x = owner.x
-                item.y = owner.y
+                item.x = entity.x
+                item.y = entity.y
             }
             if (item.equipment?.isEquipped)
-                item.equipment.dequip(owner)
-            owner.levelMap.add(item)
+                item.equipment.dequip(entity)
+            entity.levelMap.add(item)
         }
-        owner.inventory.items.clear()
+        entity.inventory.items.clear()
     }
 
     public int findIndex(Entity entity) {
@@ -73,7 +73,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.itemComponent.useItem(owner)) {
+                if (item.itemComponent.useItem(entity)) {
                     items.remove(item)
                     return true
                 }
@@ -93,7 +93,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.itemComponent.useItem(owner)) {
+                if (item.itemComponent.useItem(entity)) {
                     items.remove(item)
                     return true
                 }
@@ -106,7 +106,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.equipment.equip(owner)) {
+                if (item.equipment.equip(entity)) {
                     return true
                 }
             }
@@ -118,7 +118,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.equipment.dequip(owner)) {
+                if (item.equipment.dequip(entity)) {
                     return true
                 }
             }
