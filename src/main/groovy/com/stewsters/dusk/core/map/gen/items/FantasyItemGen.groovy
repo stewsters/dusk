@@ -1,7 +1,9 @@
 package com.stewsters.dusk.core.map.gen.items
 
+import com.stewsters.dusk.core.component.Armor
 import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Item
+import com.stewsters.dusk.core.component.Weapon
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
 import com.stewsters.dusk.core.flyweight.Slot
@@ -79,7 +81,7 @@ class FantasyItemGen {
         switch (name) {
 
             case ("Gold"):
-                int gp = MatUtils.d(20);
+                int gp = MatUtils.d(20)
 
                 return new Entity(map: map, x: x, y: y,
                         ch: '$', name: "$gp Gold", color: SColor.GOLD,
@@ -100,10 +102,11 @@ class FantasyItemGen {
                         ch: '[', color: SColor.BROWN,
                         name: 'Leather Coat',
                         description: "A sturdy coat made from leather.",
-                        equipment: new Equipment(
+                        itemComponent: new Item(weight: 2),
+                        equipment: new Equipment(slot: Slot.CHEST),
+                        armor: new Armor(
                                 slot: Slot.CHEST,
-                                evasionModifier: -1,
-                                armor: (2..4)
+                                armor: 2,
                         )
                 )
                 break
@@ -113,10 +116,11 @@ class FantasyItemGen {
                         ch: '[', color: SColor.SILVER_GREY,
                         name: 'Chain Hauberk',
                         description: "A shirt of mail reaching the thighs.",
-                        equipment: new Equipment(
+                        itemComponent: new Item(weight: 4),
+                        equipment: new Equipment(slot: Slot.CHEST),
+                        armor: new Armor(
                                 slot: Slot.CHEST,
-                                evasionModifier: -2,
-                                armor: (3..6)
+                                armor: 4
                         )
                 )
                 break
@@ -125,10 +129,11 @@ class FantasyItemGen {
                         ch: '[', color: SColor.SILVER,
                         name: 'Coat of Plates',
                         description: "Suit of armor made from metal plates.",
-                        equipment: new Equipment(
+                        itemComponent: new Item(weight: 6),
+                        equipment: new Equipment(slot: Slot.CHEST),
+                        armor: new Armor(
                                 slot: Slot.CHEST,
-                                evasionModifier: -3,
-                                armor: (4..8)
+                                armor: 8
                         )
                 )
                 break
@@ -229,12 +234,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.WHITE,
                         name: "${material.name} Hand Axe",
                         description: "A one handed axe",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 1,
-                                evasionModifier: 0, // parrying
+                        itemComponent: new Item(weight: 2),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (6..12),
-                                damageTypes: [DamageType.SLASH] + material
+                                damageTypes: [DamageType.SLASH, material],
+                                strengthReq: 10
                         )
                 )
                 break
@@ -245,12 +250,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.SILVER_GREY,
                         name: "${material.name} Arming Sword",
                         description: "A knightly sword.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 2,
-                                evasionModifier: 1, // parrying
+                        itemComponent: new Item(weight: 4),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (6..10),
-                                damageTypes: [DamageType.SLASH] + material
+                                damageTypes: [DamageType.SLASH, material],
+                                strengthReq: 12
                         )
                 )
                 break
@@ -261,12 +266,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.STEEL_BLUE,
                         name: "${material.name} Longsword",
                         description: "A long sword",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 1,
-                                evasionModifier: 1, // parrying
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (10..14),
-                                damageTypes: [DamageType.SLASH] + material
+                                damageTypes: [DamageType.SLASH, material],
+                                strengthReq: 16
                         )
                 )
                 break
@@ -279,12 +284,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.WHITE,
                         name: "${material.name} Stiletto",
                         description: "A small piercing dagger.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 3,
-                                evasionModifier: 0, // parrying
+                        itemComponent: new Item(weight: 2),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (3..5),
-                                damageTypes: [DamageType.PIERCE] + material
+                                damageTypes: [DamageType.PIERCE, material],
+                                strengthReq: 8
                         )
                 )
                 break
@@ -295,12 +300,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.GRAY,
                         name: "${material.name} Spear",
                         description: "A pointy stick. Classic.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 3,
-                                evasionModifier: 1, // parrying
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (8..12),
-                                damageTypes: [DamageType.PIERCE] + material
+                                damageTypes: [DamageType.PIERCE, material],
+                                strengthReq: 12
                         )
                 )
                 break
@@ -311,12 +316,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.GOLDEN,
                         name: "${material.name} Halberd",
                         description: "A halberd.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 0,
-                                evasionModifier: 2, // parrying
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (10..14),
-                                damageTypes: [DamageType.PIERCE] + material
+                                damageTypes: [DamageType.PIERCE, material],
+                                strengthReq: 12
                         )
                 )
                 break
@@ -329,12 +334,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.WHITE,
                         name: "${material.name} Club",
                         description: "A solid club.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: 1,
-                                evasionModifier: 1, // parrying
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (4..8),
-                                damageTypes: [DamageType.BASH] + material
+                                damageTypes: [DamageType.BASH, material],
+                                strengthReq: 12
                         )
                 )
                 break
@@ -345,12 +350,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.WHITE,
                         name: "${material.name} Mace",
                         description: "A weight on the end of a stick.",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: -1,
-                                evasionModifier: -1, // parrying
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (6..16),
-                                damageTypes: [DamageType.BASH] + material
+                                damageTypes: [DamageType.BASH, material],
+                                strengthReq: 12
                         )
                 )
                 break
@@ -362,12 +367,12 @@ class FantasyItemGen {
                         ch: '↑', color: SColor.RED_BEAN,
                         name: "${material.name} Maul",
                         description: "A great hammer",
-                        equipment: new Equipment(
-                                slot: Slot.PRIMARY_HAND,
-                                accuracyModifier: -3,
-                                evasionModifier: -3, // parrying
+                        itemComponent: new Item(weight: 20),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
                                 damage: (10..20),
-                                damageTypes: [DamageType.BASH] + material
+                                damageTypes: [DamageType.BASH, material],
+                                strengthReq: 20
                         )
                 )
                 break

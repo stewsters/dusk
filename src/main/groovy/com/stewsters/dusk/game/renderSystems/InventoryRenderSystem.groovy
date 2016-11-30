@@ -87,7 +87,7 @@ class InventoryRenderSystem {
 
         int xLineStart = RenderConfig.screenWidth - RenderConfig.inventoryWidth
 
-        inventory.allEquipment.each { Entity item ->
+        inventory.allEquippedEquipment.each { Entity item ->
             char c = (char) (((char) 'a') + inventory.findIndex(item))
 
             display.placeHorizontalString(xLineStart, y + RenderConfig.inventoryY, "${c})")
@@ -101,7 +101,7 @@ class InventoryRenderSystem {
             y++
         }
 
-        inventory.allNonEquipment.each { Entity item ->
+        inventory.allNonEquippedItems.each { Entity item ->
             char c = (char) (((char) 'a') + inventory.findIndex(item))
 
             display.placeHorizontalString(xLineStart, y + RenderConfig.inventoryY, "${c})")
@@ -156,34 +156,34 @@ class InventoryRenderSystem {
             }
         }
 
-        if (item?.equipment?.damageTypes) {
+        if (item?.weapon?.damageTypes) {
             i++
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, item?.equipment?.damageTypes?.name?.join(", ") ?: "")
-            i++
-        }
-
-        if (item?.equipment?.damage) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Damage: ${item?.equipment?.damage?.from} - ${item?.equipment?.damage?.to}")
-            i++
-        }
-        if (item?.equipment?.armor) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Armor: ${item?.equipment?.armor?.from} - ${item?.equipment?.armor?.to}")
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, item?.weapon?.damageTypes?.name?.join(", ") ?: "")
             i++
         }
 
-        if (item?.equipment?.accuracyModifier) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Accuracy: ${item?.equipment?.accuracyModifier}")
+        if (item?.weapon?.damage) {
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Damage: ${item?.weapon?.damage?.from} - ${item?.weapon?.damage?.to}")
             i++
         }
-        if (item?.equipment?.evasionModifier) {
-            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Evasion: ${item?.equipment?.evasionModifier}")
+        if (item?.armor?.armor) {
+            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Armor: ${item?.armor?.armor}")
             i++
         }
+
+//        if (item?.equipment?.accuracyModifier) {
+//            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Accuracy: ${item?.equipment?.accuracyModifier}")
+//            i++
+//        }
+//        if (item?.equipment?.evasionModifier) {
+//            display.placeHorizontalString(xStart, RenderConfig.inventoryY + i, "Evasion: ${item?.equipment?.evasionModifier}")
+//            i++
+//        }
 
         String actions = ""
 
         // Render possible actions
-        if (item.itemComponent.useFunction) {
+        if (item.item.useFunction) {
             actions += "[Apply] "
         }
         if (item.equipment && !item.equipment.isEquipped) {

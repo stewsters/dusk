@@ -44,7 +44,7 @@ public class AdvancedStats extends BaseAi implements Ai {
             if (entity.inventory) {
                 weapon = entity.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
                 if (weapon) {
-                    item = weapon.entity.itemComponent
+                    item = weapon.entity.item
 //                    if (item) {
 //                        optimalRange = (item.minRange + item.maxRange) / 2
 //                    }

@@ -33,7 +33,7 @@ class SimpleMapGenerator implements MapGenerator {
 
         int width = 60
         int height = 60
-        LevelMap map = new LevelMap(width, height);
+        LevelMap map = new LevelMap(width, height)
 
         map.getXSize().times { iX ->
             map.getYSize().times { iY ->

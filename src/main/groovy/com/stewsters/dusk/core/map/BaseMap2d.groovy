@@ -7,15 +7,15 @@ import groovy.transform.CompileStatic
 @CompileStatic
 public class BaseMap2d implements TileBasedMap2d {
 
-    public final int xSize;
-    public final int ySize;
-    public Tile[][] ground;
+    public final int xSize
+    public final int ySize
+    public Tile[][] ground
 
     public BaseMap2d(int width, int height) {
-        this.xSize = width;
-        this.ySize = height;
+        this.xSize = width
+        this.ySize = height
 
-        ground = new Tile[width][height];
+        ground = new Tile[width][height]
     }
 
     public boolean outsideMap(int x, int y) {
@@ -36,12 +36,12 @@ public class BaseMap2d implements TileBasedMap2d {
 
     @Override
     public int getXSize() {
-        return xSize;
+        return xSize
     }
 
     @Override
     public int getYSize() {
-        return ySize;
+        return ySize
     }
 
     @Override
@@ -52,16 +52,16 @@ public class BaseMap2d implements TileBasedMap2d {
     public boolean isBlocked(int x, int y) {
 
         if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
-            return true;
+            return true
         }
 
-        return ground[x][y].isBlocked;
+        return ground[x][y].isBlocked
     }
 
     public boolean isType(int x, int y, TileType tileType) {
 
         if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
-            return false;
+            return false
         }
         return ground[x][y].tileType == tileType
 

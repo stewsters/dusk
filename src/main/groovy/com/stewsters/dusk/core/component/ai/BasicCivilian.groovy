@@ -26,8 +26,8 @@ class BasicCivilian extends BaseAi implements Ai {
             } else {
                 if (entity.inventory) {
                     Equipment weapon = entity.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
-                    if (weapon && weapon.entity.itemComponent.useFunction != null) {
-                        weapon.entity.itemComponent.useHeldItem(entity)
+                    if (weapon && weapon.entity.item.useFunction != null) {
+                        weapon.entity.item.useHeldItem(entity)
                         println "Bang!"
                     } else {
                         entity.moveAway(enemy.x, enemy.y)

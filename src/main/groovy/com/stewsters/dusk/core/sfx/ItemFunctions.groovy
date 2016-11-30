@@ -4,7 +4,6 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.ai.ConfusedOpponent
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.AmmoType
 import com.stewsters.dusk.core.flyweight.DamageType
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.GroundCover
@@ -274,7 +273,6 @@ class ItemFunctions {
 
     public static Closure castStoneCurse = { Entity user ->
 
-
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
             MessageLogSystem.send('No enemy is close enough to curse.', SColor.RED)
@@ -292,60 +290,5 @@ class ItemFunctions {
                 priority: Priority.ITEM
         )
 
-    }
-
-
-    public static Closure cleanse = { Entity user ->
-        //removes toxicity from the system.
-        user.fighter.toxicity = 0
-        MessageLogSystem.send("${user.name} is cleansed.", SColor.GREEN_BAMBOO, [user])
-        return true
-    }
-
-
-    public static final int EAT_STAMINA_BOOST = 4
-    public static Closure eat = { Entity user ->
-        if (user.fighter.stamina == user.fighter.maxStamina) {
-            MessageLogSystem.send("${user.name} isn't hungry.", SColor.RED, [user])
-            return false
-        } else {
-            MessageLogSystem.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET, [user])
-            user.fighter.addStamina(EAT_STAMINA_BOOST)
-            return true
-        }
-    }
-
-    public static Closure rifleAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(12, 20)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.rifle, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
-            return false
-        }
-    }
-    public static Closure pistolAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(12, 20)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.pistol, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
-            return false
-        }
-    }
-    public static Closure shotgunAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(8, 18)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.shotgun, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} shells.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for shells.", SColor.RED, [user])
-            return false
-        }
     }
 }

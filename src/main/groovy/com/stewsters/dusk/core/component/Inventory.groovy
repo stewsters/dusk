@@ -21,8 +21,8 @@ public class Inventory {
         } else {
 
             // use item on pickup
-            if (item.itemComponent.useOnPickup) {
-                item.itemComponent.useFunction(entity);
+            if (item.item.useOnPickup) {
+                item.item.useFunction(entity)
             } else {
                 items.add item
 
@@ -34,7 +34,7 @@ public class Inventory {
             }
 
             item.levelMap.remove(item)
-            MessageLogSystem.send("${entity.name} picked up ${entity.name}", SColor.GREEN, [entity])
+            MessageLogSystem.send("${entity.name} picked up ${item.name}", SColor.GREEN, [entity])
 
             return true
         }
@@ -73,7 +73,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.itemComponent.useItem(entity)) {
+                if (item.item.useItem(entity)) {
                     items.remove(item)
                     return true
                 }
@@ -93,7 +93,7 @@ public class Inventory {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
-                if (item.itemComponent.useItem(entity)) {
+                if (item.item.useItem(entity)) {
                     items.remove(item)
                     return true
                 }
@@ -136,16 +136,16 @@ public class Inventory {
         return null
     }
 
-    public List<Equipment> getAllEquippedEquipment() {
-        return items.findAll { item -> item.equipment && item.equipment.isEquipped }.equipment
-    }
-
-    public List<Entity> getAllEquipment() {
+    public List<Entity> getAllEquippedEquipment() {
         return items.findAll { item -> item.equipment && item.equipment.isEquipped }
     }
 
-    public List<Entity> getAllNonEquipment() {
+    public List<Entity> getAllNonEquippedItems() {
         return items.findAll { item -> !item.equipment || !item.equipment.isEquipped }
+    }
+
+    Weapon getEquippedWeapon() {
+        return items.find { Entity item -> item.weapon && item.equipment && item.equipment.isEquipped }?.weapon
     }
 
 }

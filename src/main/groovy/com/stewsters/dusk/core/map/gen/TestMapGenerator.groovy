@@ -17,7 +17,7 @@ class TestMapGenerator implements MapGenerator {
     public LevelMap reGenerate(int level) {
         int width = 100
         int height = 100
-        LevelMap map = new LevelMap(width, height);
+        LevelMap map = new LevelMap(width, height)
 
         map.xSize.times { iX ->
             map.ySize.times { iY ->

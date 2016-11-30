@@ -27,7 +27,7 @@ public class RenderConfig {
     public static int screenHeight;
 
 
-    public static final int leftWindow = 20;
+    public static final Integer leftWindow = 20;
 
     // for game window
     public static final int mapScreenWidth = 100;

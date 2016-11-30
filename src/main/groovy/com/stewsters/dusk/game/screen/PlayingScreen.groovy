@@ -1,9 +1,8 @@
 package com.stewsters.dusk.game.screen
 
-import com.stewsters.dusk.core.component.Equipment
+import com.stewsters.dusk.core.component.Weapon
 import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.dusk.core.flyweight.TileType
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.MapStack
@@ -60,6 +59,7 @@ import static java.awt.event.KeyEvent.VK_P
 import static java.awt.event.KeyEvent.VK_PERIOD
 import static java.awt.event.KeyEvent.VK_R
 import static java.awt.event.KeyEvent.VK_RIGHT
+import static java.awt.event.KeyEvent.VK_SLASH
 import static java.awt.event.KeyEvent.VK_SPACE
 import static java.awt.event.KeyEvent.VK_T
 import static java.awt.event.KeyEvent.VK_U
@@ -168,6 +168,7 @@ public class PlayingScreen implements Screen {
                     if (move(SOUTHEAST, shift)) stepSim()
                     break;
                 case VK_NUMPAD5:
+                case VK_SLASH:
                     if (player.standStill()) stepSim() // waste time
                     break;
                 case VK_Y:
@@ -457,9 +458,9 @@ public class PlayingScreen implements Screen {
 
         //select a target in view
         if (player.inventory) {
-            Equipment weapon = player.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
+            Weapon weapon = player.inventory.getEquippedWeapon()
             if (weapon) {
-                weapon.entity.itemComponent.useHeldItem(player)
+                weapon.entity.item.useHeldItem(player)
                 return true
             } else {
                 MessageLogSystem.send("Find a weapon first.", SColor.RED, [player])

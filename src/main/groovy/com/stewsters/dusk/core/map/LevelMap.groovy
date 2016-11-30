@@ -11,7 +11,7 @@ public class LevelMap extends BaseLitMap2d {
 
     public PriorityQueue<Ai> actors // need to cut down this visibility
     private IntervalKDTree2d<Entity> spatialHash
-    private HashSet<Entity> entityTemp;
+    private HashSet<Entity> entityTemp
 
     public LevelMap(int x, int y) {
         super(x, y)
@@ -23,7 +23,7 @@ public class LevelMap extends BaseLitMap2d {
             }
         })
         spatialHash = new IntervalKDTree2d<>(Math.max(x, y), 4)
-        entityTemp = new HashSet<>();
+        entityTemp = new HashSet<>()
     }
 
     public void add(Entity e) {
@@ -59,7 +59,7 @@ public class LevelMap extends BaseLitMap2d {
     public boolean isBlocked(int x, int y, Entity ignore = null) {
 
         if (super.isBlocked(x, y))
-            return true;
+            return true
         for (Entity entity : getEntitiesAtLocation(x, y)) {
             if (entity != ignore && entity.blocks)
                 return true

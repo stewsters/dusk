@@ -17,7 +17,7 @@ class SurfaceMapGenerator implements MapGenerator {
         int width = 200
         int height = 200
 
-        LevelMap map = new LevelMap(width, height);
+        LevelMap map = new LevelMap(width, height)
         map.xSize.times { iX ->
             map.ySize.times { iY ->
                 //if on the edge, we will need to win
@@ -72,7 +72,7 @@ class SurfaceMapGenerator implements MapGenerator {
 
     private static void growTrees(LevelMap map) {
         //Randomly place trees on grass squares
-        OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
+        OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise()
 
         map.xSize.times { x ->
             map.ySize.times { y ->

@@ -100,7 +100,7 @@ abstract class BaseAi implements Ai {
 
             if (otherEntity.x > lowX && otherEntity.x < highX &&
                     otherEntity.y > lowY && otherEntity.y < highY &&
-                    otherEntity.itemComponent) {
+                    otherEntity.item) {
                 int lightX = otherEntity.x - lowX
                 int lightY = otherEntity.y - lowY
                 if (light[lightX][lightY] > 0f) {

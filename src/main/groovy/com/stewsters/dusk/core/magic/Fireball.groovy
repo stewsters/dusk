@@ -56,6 +56,7 @@ class Fireball implements Spell {
                                 for (int xf = x - 1; xf <= x + 1; xf++) {
                                     for (int yf = y - 1; yf <= y + 1; yf++) {
                                         Entity newFire = new Entity(
+                                                name: "Fire",
                                                 x: xf,
                                                 y: yf,
                                                 map: caster.levelMap,

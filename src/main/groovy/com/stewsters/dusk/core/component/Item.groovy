@@ -10,11 +10,13 @@ class Item {
     Closure useFunction
     boolean useOnPickup
     boolean autoPickup
+    int weight
 
     public Item(params) {
         useFunction = params?.useFunction
         useOnPickup = params?.useOnPickup
-        autoPickup = params?.autoPickup
+        autoPickup = params.autoPickup != false
+        weight = params?.weight ?: 0
     }
 
     /**

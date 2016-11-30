@@ -1,8 +1,10 @@
 package com.stewsters.dusk.game.screen
 
+import com.stewsters.dusk.core.component.Armor
 import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.component.Inventory
+import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.component.Purse
 import com.stewsters.dusk.core.component.Quiver
 import com.stewsters.dusk.core.component.Spellbook
@@ -176,12 +178,9 @@ class CharacterGeneration implements Screen {
                 quiver: new Quiver(),
                 spellbook: new Spellbook(),
                 fighter: new Fighter(
-                        hp: (socialClassSelect.selected == SocialClass.PRIEST) ? 35 : 30,
+                        hp: 30,
                         stamina: 10,
                         toxicity: 10,
-                        melee: (socialClassSelect.selected == SocialClass.KNIGHT) ? 2 : 1,
-                        evasion: (socialClassSelect.selected == SocialClass.POACHER) ? 2 : 1,
-                        marksman: 1,
                         unarmedDamage: (1..4),
                         deathFunction: DeathFunctions.playerDeath)
         )
@@ -205,10 +204,9 @@ class CharacterGeneration implements Screen {
                 ch: '[', color: SColor.DARK_BLUE,
                 name: "Prisoner's Rags",
                 description: "Rags covered in filth.",
-                equipment: new Equipment(
-                        slot: Slot.CHEST,
-                        armor: (0..1)
-                )
+                item: new Item(weight: 1),
+                equipment: new Equipment(slot: Slot.CHEST),
+                armor: new Armor(armor: 0)
         )
 
         player.inventory.pickUp(defaultArmor)

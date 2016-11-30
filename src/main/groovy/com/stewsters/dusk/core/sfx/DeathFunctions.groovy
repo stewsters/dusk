@@ -59,8 +59,6 @@ class DeathFunctions {
         if (target.inventory)
             target.inventory.dump()
 
-        //TODO: give exp that can be used for leveling
-        attacker.fighter.experience++
     }
 
 
@@ -70,7 +68,6 @@ class DeathFunctions {
         target.ch = 'z'
         target.color = SColor.GREEN_BAMBOO
         target.fighter.deathFunction = opponentDeath
-        target.fighter.skillMarksman = 0;
         target.ai = new BasicOpponent()
         target.ai.entity = target
         target.name = "Zombie of ${target.name}"

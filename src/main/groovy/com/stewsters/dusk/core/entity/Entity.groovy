@@ -1,5 +1,6 @@
 package com.stewsters.dusk.core.entity
 
+import com.stewsters.dusk.core.component.Armor
 import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.component.Inventory
@@ -7,6 +8,7 @@ import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.component.Purse
 import com.stewsters.dusk.core.component.Quiver
 import com.stewsters.dusk.core.component.Spellbook
+import com.stewsters.dusk.core.component.Weapon
 import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.mover.DuskMover2d
 import com.stewsters.dusk.core.flyweight.Faction
@@ -23,13 +25,6 @@ import squidpony.squidcolor.SColor
 public class Entity {
 
     public LevelMap levelMap
-
-    public Priority priority
-
-    public String name
-    public String description
-
-    public boolean blocks
     public int x
     public int y
 
@@ -38,12 +33,22 @@ public class Entity {
 
     public char ch
     public SColor color
+    public Priority priority
+
+    public String name
+    public String description
+
+    public boolean blocks
 
     public Fighter fighter
     public Ai ai
     public Faction faction
-    public Item itemComponent
+    public Item item
+
     public Equipment equipment
+    public Armor armor
+    public Weapon weapon
+
     public Inventory inventory
     public Purse purse
     public Quiver quiver
@@ -54,7 +59,7 @@ public class Entity {
     /**
      * LevelMap map, int x, int y, char ch, String name, def color,
      blocks = false, Fighter fighter = null, Ai ai = null, Faction faction = null,
-     Item itemComponent
+     Item item
      * @param params
      */
 
@@ -75,8 +80,6 @@ public class Entity {
 
         priority = params.priority ?: Priority.ITEM
 
-        mover = new DuskMover2d(this)
-
         if (params.description)
             description = params.description
 
@@ -88,6 +91,7 @@ public class Entity {
         if (params.ai) {
             ai = params.ai
             ai.entity = this
+            mover = new DuskMover2d(this)
         }
 
         if (params.inventory) {
@@ -96,17 +100,27 @@ public class Entity {
         }
 
         if (params.itemComponent) {
-            itemComponent = params.itemComponent
-            itemComponent.entity = this
+            item = params.itemComponent
+            item.entity = this
         }
 
         if (params.equipment) {
             equipment = params.equipment
             equipment.entity = this
-            if (!itemComponent) {
-                itemComponent = new Item([:])
-                itemComponent.entity = this
+            if (!item) {
+                item = new Item([:])
+                item.entity = this
             }
+        }
+
+        if (params.armor) {
+            armor = params.armor
+            armor.entity = this
+        }
+
+        if (params.weapon) {
+            weapon = params.weapon
+            weapon.entity = this
         }
 
         if (params.purse) {
@@ -177,7 +191,7 @@ public class Entity {
             if (inventory) {
 
                 Entity pickup = entities.find { Entity possibleItem ->
-                    possibleItem?.itemComponent?.autoPickup
+                    possibleItem?.item?.autoPickup
                 }
 
                 if (pickup) {
@@ -270,7 +284,7 @@ public class Entity {
             return false
         }
 
-        Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.itemComponent }
+        Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.item }
 
         if (topItem) {
             return inventory.pickUp(topItem)
@@ -302,6 +316,14 @@ public class Entity {
     }
 
     public boolean standStill() {
+
+        if (fighter) {
+            int max = fighter.maxArmor
+            if (fighter.armor < max) {
+                fighter.armor++;
+            }
+        }
+
         return true
     }
 
@@ -310,22 +332,26 @@ public class Entity {
     }
 
     public String getName() {
-        if (!equipment) {
-            return name
-        }
+        return name
 
-        List<String> offenceStats = []
-        if (equipment.accuracyModifier)
-            offenceStats += "${equipment.accuracyModifier}"
-        if (equipment.damage)
-            offenceStats += "${equipment.damage.from}-${equipment.damage.to}"
-
-        List<String> defenceStats = []
-        if (equipment.evasionModifier)
-            defenceStats += equipment.evasionModifier
-        if (equipment.armor)
-            defenceStats += "${equipment.armor.from}-${equipment.armor.to}"
-
-        return name + (offenceStats ? " (${offenceStats.join(',')})" : "") + (defenceStats ? " [${defenceStats.join(',')}]" : "")
+        //TODO: figure this out
+//
+//        if (!equipment) {
+//            return name
+//        }
+//
+//        List<String> offenceStats = []
+//        if (equipment.accuracyModifier)
+//            offenceStats += "${equipment.accuracyModifier}"
+//        if (equipment.damage)
+//            offenceStats += "${equipment.damage.from}-${equipment.damage.to}"
+//
+//        List<String> defenceStats = []
+//        if (equipment.evasionModifier)
+//            defenceStats += equipment.evasionModifier
+//        if (equipment.armor)
+//            defenceStats += "${equipment.armor.from}-${equipment.armor.to}"
+//
+//        return name + (offenceStats ? " (${offenceStats.join(',')})" : "") + (defenceStats ? " [${defenceStats.join(',')}]" : "")
     }
 }

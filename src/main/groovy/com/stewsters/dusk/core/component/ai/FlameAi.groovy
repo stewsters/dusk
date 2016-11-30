@@ -5,11 +5,11 @@ import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.util.math.Facing2d
 import squidpony.squidcolor.SColor
 
-public class FlameAi extends BaseAi implements Ai {
+class FlameAi extends BaseAi implements Ai {
 
     int intensity
 
-    public FlameAi(int intensity, int speed) {
+    FlameAi(int intensity, int speed) {
         this.speed = speed
         this.intensity = intensity
     }
@@ -44,10 +44,10 @@ public class FlameAi extends BaseAi implements Ai {
             if (!existing) {
                 // TODO: light up
                 Entity newFire = new Entity(
+                        name: "Fire",
                         x: nextX,
                         y: nextY,
                         map: entity.levelMap,
-                        name: 'fire',
                         ch: '^',
                         color: SColor.RED,
                         ai: new FlameAi(intensity - 1, 10),
@@ -56,7 +56,7 @@ public class FlameAi extends BaseAi implements Ai {
             }
         }
 
-        intensity--;
+        intensity--
         gameTurn += speed
 
         return true
