@@ -1,7 +1,9 @@
 package com.stewsters.dusk.core.flyweight;
 
+import groovy.transform.CompileStatic;
 import squidpony.squidcolor.SColor;
 
+@CompileStatic
 public enum TileType {
 
 
@@ -34,6 +36,9 @@ public enum TileType {
 
     GAME_WIN('_', SColor.GREEN, SColor.DARK_GREEN, "Escape", false, 0f, false);
 
+    public static TileType[] lookup = TileType.values();
+    public static TileType[] grassTypes = {GRASS_SHORT, GRASS_MEDIUM, GRASS_TALL, GRASS_FOLIAGE};
+
     public final boolean blocks;
     public final SColor color;
     public final SColor background;
@@ -42,7 +47,6 @@ public enum TileType {
     public final String displayName;
     public final boolean water;
 
-    public static TileType[] lookup = TileType.values();
 
     TileType(char character, SColor color, SColor background, String name, boolean blocked, float opacity, boolean water) {
 
@@ -55,11 +59,8 @@ public enum TileType {
         this.water = water;
     }
 
-
     public byte id() {
         return (byte) ordinal();
     }
-
-    public static TileType[] grassTypes = {GRASS_SHORT, GRASS_MEDIUM, GRASS_TALL, GRASS_FOLIAGE};
 
 }

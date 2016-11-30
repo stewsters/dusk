@@ -12,7 +12,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 @CompileStatic
 class LeftStatBarSystem {
 
-    public static void render(SwingPane display, LevelMap levelMap, Entity player) {
+    static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
         int linesTaken = 0
 
@@ -90,7 +90,6 @@ class LeftStatBarSystem {
     }
 
 
-    public
     static void render(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {
 
         double ratio = (double) value / (double) maximum
@@ -113,7 +112,7 @@ class LeftStatBarSystem {
     }
 
     //width 20
-    public static void renderTextOnly(SwingPane display, int x, int y, String name, int value, int maximum) {
+    static void renderTextOnly(SwingPane display, int x, int y, String name, int value, int maximum) {
 
         20.times { xPos ->
             display.clearCell(xPos + x, y)
@@ -122,7 +121,7 @@ class LeftStatBarSystem {
         display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
     }
 
-    public
+
     static void renderTextBar(SwingPane display, int x, int y, int totalWidth, String barName, int value, int maximum, SColor barColor) {
 
         double ratio = (double) value / (double) maximum

@@ -4,16 +4,18 @@ import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
-public class Inventory {
+@CompileStatic
+class Inventory {
 
     Entity entity
     List<Entity> items = []
     int capacity = 26
 
 
-    public boolean pickUp(Entity item) {
+    boolean pickUp(Entity item) {
 
         if (items.size() >= capacity) {
             MessageLogSystem.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [entity])
@@ -22,7 +24,8 @@ public class Inventory {
 
             // use item on pickup
             if (item.item.useOnPickup) {
-                item.item.useFunction(entity)
+                Closure use = item.item.useFunction
+                use(entity)
             } else {
                 items.add item
 
@@ -41,11 +44,11 @@ public class Inventory {
         return false
     }
 
-    public boolean isFull() {
+    boolean isFull() {
         return capacity <= items.size() - 1
     }
 
-    public dump() {
+    void dump() {
 
         for (Entity item : entity.inventory.items) {
 
@@ -65,11 +68,11 @@ public class Inventory {
         entity.inventory.items.clear()
     }
 
-    public int findIndex(Entity entity) {
+    int findIndex(Entity entity) {
         items.indexOf(entity)
     }
 
-    public boolean dropById(int id) {
+    boolean dropById(int id) {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
@@ -82,14 +85,14 @@ public class Inventory {
         return false
     }
 
-    public boolean hasItemById(int id) {
+    boolean hasItemById(int id) {
         if (items.size() > id) {
             return true
         }
         return false
     }
 
-    public boolean useById(int id) {
+    boolean useById(int id) {
         if (items.size() > id) {
             Entity item = items.get(id)
             if (item) {
@@ -127,7 +130,7 @@ public class Inventory {
     }
 
 
-    public Equipment getEquippedInSlot(Slot slot) {
+    Equipment getEquippedInSlot(Slot slot) {
         for (Entity item : items) {
             if (item.equipment && item.equipment.slot == slot && item.equipment.isEquipped) {
                 return item.equipment
@@ -136,11 +139,11 @@ public class Inventory {
         return null
     }
 
-    public List<Entity> getAllEquippedEquipment() {
+    List<Entity> getAllEquippedEquipment() {
         return items.findAll { item -> item.equipment && item.equipment.isEquipped }
     }
 
-    public List<Entity> getAllNonEquippedItems() {
+    List<Entity> getAllNonEquippedItems() {
         return items.findAll { item -> !item.equipment || !item.equipment.isEquipped }
     }
 

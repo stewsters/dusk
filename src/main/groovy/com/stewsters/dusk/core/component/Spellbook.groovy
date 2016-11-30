@@ -5,7 +5,7 @@ import com.stewsters.dusk.core.magic.Spell
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class Spellbook {
+class Spellbook {
 
     Entity entity
     public List<Spell> spells = []

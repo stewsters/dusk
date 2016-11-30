@@ -9,7 +9,7 @@ class LibraryTest extends Specification {
         Game.gameTurn = gameTurn
 
         when:
-        def light = Game.dayLight
+        double light = Game.dayLight
 
         then:
         light <= expectedLight + 0.0001
@@ -20,7 +20,7 @@ class LibraryTest extends Specification {
         0                         | 0f
         Game.DAY_LENGTH * (1 / 4) | 1f
         Game.DAY_LENGTH * (2 / 4) | 0f
-        Game.DAY_LENGTH * (3 / 4) | -1f;
-        Game.DAY_LENGTH * (4 / 4) | 0f;
+        Game.DAY_LENGTH * (3 / 4) | -1f
+        Game.DAY_LENGTH * (4 / 4) | 0f
     }
 }

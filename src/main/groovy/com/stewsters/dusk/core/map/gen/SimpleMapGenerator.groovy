@@ -29,7 +29,7 @@ class SimpleMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    public LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int level) {
 
         int width = 60
         int height = 60

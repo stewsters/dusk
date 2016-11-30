@@ -22,7 +22,7 @@ import squidpony.squidcolor.SColor
  * this is a generic object: the player, an opponent, an item, the stairs...
  * it's always represented by a character on screen.
  */
-public class Entity {
+class Entity {
 
     public LevelMap levelMap
     public int x
@@ -56,14 +56,7 @@ public class Entity {
 
     public DuskMover2d mover
 
-    /**
-     * LevelMap map, int x, int y, char ch, String name, def color,
-     blocks = false, Fighter fighter = null, Ai ai = null, Faction faction = null,
-     Item item
-     * @param params
-     */
-
-    public Entity(Map params) {
+    Entity(Map params) {
 
         x = params.x ?: 0
         y = params.y ?: 0
@@ -142,31 +135,31 @@ public class Entity {
             levelMap.add(this)
     }
 
-    public int distanceTo(Entity other) {
+    int distanceTo(Entity other) {
         int dx = other.x - this.x
         int dy = other.y - this.y
         return (int) Math.round(Math.sqrt(dx * dx + dy * dy))
     }
 
-    public boolean move(int xDif, int yDif) {
+    boolean move(int xDif, int yDif) {
         int newX = xDif + x
         int newY = yDif + y
 
         if (mover.canTraverse(x, y, newX, newY)) {
             x = newX
             y = newY
-            levelMap.update(this);
+            levelMap.update(this)
             return true
         }
         return false
     }
 
-    public boolean moveOrAttack(int dx, int dy) {
+    boolean moveOrAttack(int dx, int dy) {
         int newX = dx + x
         int newY = dy + y
 
         if (levelMap.outsideMap(newX, newY, xSize, ySize)) {
-            return false;
+            return false
         }
 
         if (inventory || fighter) {
@@ -208,7 +201,7 @@ public class Entity {
     }
 
 
-    public boolean moveTowards(int targetX, int targetY) {
+    boolean moveTowards(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
 
@@ -239,7 +232,7 @@ public class Entity {
     }
 
 
-    public boolean moveTowardsAndAttack(int targetX, int targetY) {
+    boolean moveTowardsAndAttack(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
 
@@ -268,7 +261,7 @@ public class Entity {
         }
     }
 
-    public boolean moveAway(int targetX, int targetY) {
+    boolean moveAway(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
 
@@ -278,7 +271,7 @@ public class Entity {
     }
 
 
-    public boolean grab() {
+    boolean grab() {
         if (!inventory) {
             MessageLogSystem.send("${name} can't hold items.", SColor.WHITE, [this])
             return false
@@ -292,7 +285,7 @@ public class Entity {
         return false
     }
 
-    public boolean dropItemById(int number) {
+    boolean dropItemById(int number) {
         //take held item and put it on the ground where you stand
 
         if (inventory.items.size() && inventory.items.size() > number) {
@@ -315,23 +308,23 @@ public class Entity {
         false
     }
 
-    public boolean standStill() {
+    boolean standStill() {
 
         if (fighter) {
             int max = fighter.maxArmor
             if (fighter.armor < max) {
-                fighter.armor++;
+                fighter.armor++
             }
         }
 
         return true
     }
 
-    public boolean randomMovement() {
+    boolean randomMovement() {
         return move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
     }
 
-    public String getName() {
+    String getName() {
         return name
 
         //TODO: figure this out

@@ -66,7 +66,7 @@ class FantasyItemGen {
     ]
 
 
-    public static Entity getRandomItemByLevel(LevelMap map, int x, int y, int level) {
+    static Entity getRandomItemByLevel(LevelMap map, int x, int y, int level) {
 
         Map<String, Integer> spawnChances = [:]
 
@@ -77,7 +77,7 @@ class FantasyItemGen {
         return createFromName(map, x, y, MatUtils.getChoice(spawnChances))
     }
 
-    public static Entity createFromName(LevelMap map, int x, int y, String name) {
+    static Entity createFromName(LevelMap map, int x, int y, String name) {
         switch (name) {
 
             case ("Gold"):

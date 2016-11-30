@@ -2,15 +2,17 @@ package com.stewsters.dusk.core.component.ai
 
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class SkirmisherAi extends BaseAi implements Ai {
 
-    public SkirmisherAi() {
+    SkirmisherAi() {
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
@@ -30,7 +32,7 @@ class SkirmisherAi extends BaseAi implements Ai {
 
             }
         } else if (MatUtils.boolean) {
-            entity.randomMovement();
+            entity.randomMovement()
         } else {
             //TODO: regeneration
             entity.standStill()

@@ -3,15 +3,17 @@ package com.stewsters.dusk.core.component.ai
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
+import groovy.transform.CompileStatic
 
 /**
  * This unit attacks on sight, and scavenges items when not in combat
  */
+@CompileStatic
 class ChargerAi extends BaseAi implements Ai {
 
     Point2i chargeDest = null
 
-    public ChargerAi(int speed = 10) {
+    ChargerAi(int speed = 10) {
         this.speed = speed
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
@@ -21,7 +23,7 @@ class ChargerAi extends BaseAi implements Ai {
      * @return
      */
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
 
         if (chargeDest) {
@@ -77,7 +79,7 @@ class ChargerAi extends BaseAi implements Ai {
 
             }
         } else if (MatUtils.boolean) {
-            entity.randomMovement();
+            entity.randomMovement()
         }
 
         gameTurn += speed

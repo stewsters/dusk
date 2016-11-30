@@ -17,6 +17,7 @@ import com.stewsters.dusk.core.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.core.map.gen.TestMapGenerator
 import com.stewsters.dusk.core.sfx.DeathFunctions
 import com.stewsters.dusk.game.RenderConfig
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -27,7 +28,9 @@ import static java.awt.event.KeyEvent.VK_T
 import static java.awt.event.KeyEvent.VK_UNDEFINED
 import static java.awt.event.KeyEvent.VK_X
 
+@CompileStatic
 class MainMenu implements Screen {
+
     @Override
     void displayOutput(SwingPane display) {
 
@@ -39,7 +42,7 @@ class MainMenu implements Screen {
     }
 
     static void centerJustifiedText(SwingPane display, int y, String txt) {
-        int startX = (RenderConfig.screenWidth / 2) - (txt.length() / 2)
+        int startX = (int)(RenderConfig.screenWidth / 2) - (int)(txt.length() / 2)
         display.placeHorizontalString(startX, y, txt)
     }
 
@@ -63,7 +66,7 @@ class MainMenu implements Screen {
         } else if (code == VK_T) {
 
             MapStack mapStack = new MapStack(1, 1, 4)
-            MapGenerator mapgen = new TestMapGenerator();
+            MapGenerator mapgen = new TestMapGenerator()
 
             mapStack.levelMaps[0][0][0] = mapgen.reGenerate(0)
             mapStack.levelMaps[0][0][1] = new JailMapGenerator().reGenerate(1)

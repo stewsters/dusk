@@ -4,15 +4,17 @@ import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class BasicCivilian extends BaseAi implements Ai {
 
-    public BasicCivilian() {
+    BasicCivilian() {
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
@@ -58,7 +60,7 @@ class BasicCivilian extends BaseAi implements Ai {
 
             }
         } else if (MatUtils.boolean) {
-            entity.randomMovement();
+            entity.randomMovement()
         }
 
         gameTurn += speed

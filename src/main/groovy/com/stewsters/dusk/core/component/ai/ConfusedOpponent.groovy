@@ -10,7 +10,7 @@ class ConfusedOpponent extends BaseAi implements Ai {
     int numTurns = 0
     Entity castor
 
-    public ConfusedOpponent(params) {
+    ConfusedOpponent(params) {
         oldAI = params.oldAI
         numTurns = params.numTurns
         castor = params.castor
@@ -18,7 +18,7 @@ class ConfusedOpponent extends BaseAi implements Ai {
     }
 
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         if (numTurns > 0) {
             entity.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))

@@ -20,7 +20,7 @@ abstract class BaseAi implements Ai {
     protected int gameTurn
 
     @Override
-    public Set<Entity> findAllVisibleEnemies(int maxDistance) {
+    Set<Entity> findAllVisibleEnemies(int maxDistance) {
         if (!entity.faction) return null
 
         calculateSight()
@@ -49,7 +49,7 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public Entity findClosestVisibleEnemy() {
+    Entity findClosestVisibleEnemy() {
         if (!entity.faction) return null
 
         calculateSight()
@@ -84,7 +84,7 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public Entity findClosestVisibleItem() {
+    Entity findClosestVisibleItem() {
 
         calculateSight()
 
@@ -118,7 +118,7 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public void calculateSight() {
+    void calculateSight() {
         if (lightLastCalculated == Game.gameTurn)
             return
 
@@ -128,7 +128,7 @@ abstract class BaseAi implements Ai {
         int range = 2 * sightRange + 1 // this is the total size of the box
 
         //Get resistance from map
-        float[][] resistances = new float[range][range];
+        float[][] resistances = new float[range][range]
         for (int x = 0; x < range; x++) {
             for (int y = 0; y < range; y++) {
                 int originalX = x + worldLowX
@@ -143,12 +143,12 @@ abstract class BaseAi implements Ai {
         }
 
         //manually set the radius to equal the force
-        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.enemySightRadiusX, RenderConfig.enemySightRadiusY, 10f, 0.3f, RenderConfig.strat);
+        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.enemySightRadiusX, RenderConfig.enemySightRadiusY, 10f, 0.3f, RenderConfig.strat)
         lightLastCalculated = Game.gameTurn
     }
 
     @Override
-    public int getGameTurn() {
+    int getGameTurn() {
         return gameTurn
     }
 
@@ -159,7 +159,11 @@ abstract class BaseAi implements Ai {
 
     @Override
     int getSpeed() {
-        return speed;
+        return speed
+    }
+
+    int setSpeed(int speed) {
+        this.speed = speed
     }
 
     @Override
@@ -171,6 +175,5 @@ abstract class BaseAi implements Ai {
     void setEntity(Entity entity) {
         this.entity = entity
     }
-
 
 }

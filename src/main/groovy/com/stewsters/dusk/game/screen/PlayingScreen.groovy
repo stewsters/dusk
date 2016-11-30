@@ -16,6 +16,7 @@ import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.Facing2d
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.shadow.twoDimention.ShadowCaster2d
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -68,7 +69,8 @@ import static java.awt.event.KeyEvent.VK_UP
 import static java.awt.event.KeyEvent.VK_Y
 import static java.awt.event.KeyEvent.VK_Z
 
-public class PlayingScreen implements Screen {
+@CompileStatic
+class PlayingScreen implements Screen {
 
     private static final int a = VK_A
     private static final int z = VK_Z
@@ -82,18 +84,18 @@ public class PlayingScreen implements Screen {
     private int selectedItem = -1
 
 
-    public PlayingScreen(MapStack mapStack, Entity player) {
+    PlayingScreen(MapStack mapStack, Entity player) {
 
-        this.mapStack = mapStack;
-        this.player = player;
+        this.mapStack = mapStack
+        this.player = player
 
-        shadowCaster2d = new ShadowCaster2d(levelMap);
+        shadowCaster2d = new ShadowCaster2d(levelMap)
         shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
 
         screenMode = ScreenMode.PLAYING
     }
 
-    public LevelMap getLevelMap() {
+    LevelMap getLevelMap() {
         mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ]
     }
 
@@ -122,14 +124,14 @@ public class PlayingScreen implements Screen {
     @Override
     Screen respondToUserInput(KeyEvent e) {
 
-        int code = e.getExtendedKeyCode();
+        int code = e.getExtendedKeyCode()
 
         // if ExtendedKeyCode is VK_UNDEFINED (0) use normal keycode
         if (code == VK_UNDEFINED) {
-            code = e.getKeyCode();
+            code = e.getKeyCode()
         }
 
-        boolean shift = e.isShiftDown();
+        boolean shift = e.isShiftDown()
 
         if (!player?.fighter?.hp) {
             // You are dead
@@ -143,48 +145,48 @@ public class PlayingScreen implements Screen {
                 case VK_LEFT:
                 case VK_NUMPAD4:
                     if (move(WEST, shift)) stepSim()
-                    break;
+                    break
                 case VK_L:
                 case VK_RIGHT:
                 case VK_NUMPAD6:
                     if (move(EAST, shift)) stepSim()
-                    break;
+                    break
                 case VK_K:
                 case VK_UP:
                 case VK_NUMPAD8:
                     if (move(NORTH, shift)) stepSim()
-                    break;
+                    break
                 case VK_J:
                 case VK_DOWN:
                 case VK_NUMPAD2:
                     if (move(SOUTH, shift)) stepSim()
-                    break;
+                    break
                 case VK_B:
                 case VK_NUMPAD1:
                     if (move(SOUTHWEST, shift)) stepSim()
-                    break;
+                    break
                 case VK_N:
                 case VK_NUMPAD3:
                     if (move(SOUTHEAST, shift)) stepSim()
-                    break;
+                    break
                 case VK_NUMPAD5:
                 case VK_SLASH:
                     if (player.standStill()) stepSim() // waste time
-                    break;
+                    break
                 case VK_Y:
                 case VK_NUMPAD7:
                     if (move(NORTHWEST, shift)) stepSim()
-                    break;
+                    break
                 case VK_U:
                 case VK_NUMPAD9:
                     if (move(NORTHEAST, shift)) stepSim()
-                    break;
+                    break
                 case VK_G:
                     if (player.grab()) stepSim() //pick up item
-                    break;
+                    break
                 case VK_F:
                     if (fire()) stepSim() //use a bow or spell
-                    break;
+                    break
                 case VK_COMMA:
                     if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps[0][0].length - 1 > mapStack.currentZ) {
 
@@ -203,10 +205,10 @@ public class PlayingScreen implements Screen {
                         player.y = dest.y
                         levelMap.add(player)
 
-                        shadowCaster2d = new ShadowCaster2d(levelMap);
+                        shadowCaster2d = new ShadowCaster2d(levelMap)
 
-                        levelMap.incrementTurn();
-                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+                        levelMap.incrementTurn()
+                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
 
                         stepSim()
                     } else {
@@ -234,7 +236,7 @@ public class PlayingScreen implements Screen {
                         shadowCaster2d = new ShadowCaster2d(levelMap)
 
                         levelMap.incrementTurn()
-                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+                        shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
 
                         stepSim()
                     } else {
@@ -243,32 +245,32 @@ public class PlayingScreen implements Screen {
                     break
                 case VK_I:
                     screenMode = ScreenMode.INVENTORY //use a bow or spell
-                    break;
+                    break
                 case VK_A:
                     screenMode = ScreenMode.APPLY
-                    break;
+                    break
                 case VK_E:
                     screenMode = ScreenMode.EQUIP
-                    break;
+                    break
                 case VK_R:
                     screenMode = ScreenMode.REMOVE
-                    break;
+                    break
                 case VK_T:
                     screenMode = ScreenMode.THROW
-                    break;
+                    break
                 case VK_D:
                     screenMode = ScreenMode.DROP
-                    break;
+                    break
                 case VK_M:
                     screenMode = ScreenMode.CAST
-                    break;
+                    break
                 case VK_ESCAPE:
                     return new EscapeScreen(this)
                     break
                 case VK_P:
                     return new LevelupScreen(this)
                 default:
-                    break;
+                    break
 
             }
         } else if (screenMode == ScreenMode.INVENTORY) {
@@ -290,37 +292,37 @@ public class PlayingScreen implements Screen {
                 switch (code) {
                     case VK_I:
                         screenMode = ScreenMode.INVENTORY //use a bow or spell
-                        break;
+                        break
                     case VK_A:
                         if (player.inventory.useById(selectedItem)) {
                             screenMode = ScreenMode.PLAYING
                             stepSim()
                         }
-                        break;
+                        break
                     case VK_E:
                         if (player.inventory.equipById(selectedItem)) {
                             screenMode = ScreenMode.PLAYING
                             stepSim()
                         }
-                        break;
+                        break
                     case VK_R:
                         if (player.inventory.removeById(selectedItem)) {
                             screenMode = ScreenMode.PLAYING
                             stepSim()
                         }
-                        break;
+                        break
                     case VK_T:
                         if (player.throwItemById(selectedItem)) {
                             screenMode = ScreenMode.PLAYING
                             stepSim()
                         }
-                        break;
+                        break
                     case VK_D:
                         if (player.dropItemById(selectedItem)) {
                             screenMode = ScreenMode.PLAYING
                             stepSim()
                         }
-                        break;
+                        break
                 }
 
             }
@@ -390,30 +392,30 @@ public class PlayingScreen implements Screen {
             return new WinScreen(player)
         }
 
-        return this;
+        return this
     }
 
 
-    public void stepSim() {
+    void stepSim() {
         //Run sim
 
         Ai next = levelMap.actors.poll()
         if (next == player.ai) {
             //next is the player now
             player.ai.takeTurn()
-            levelMap.incrementTurn();
-            shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f);
+            levelMap.incrementTurn()
+            shadowCaster2d.recalculateFOV(player.x, player.y, 10, 0.3f)
         }
         levelMap.actors.add next
     }
 
     @Override
-    public boolean autoplay() {
+    boolean autoplay() {
         return levelMap.actors.peek() != player.ai
     }
 
     @Override
-    public boolean play() {
+    boolean play() {
 
         Ai next = levelMap.actors.poll()
         if (next != null && next.takeTurn()) {
@@ -424,25 +426,7 @@ public class PlayingScreen implements Screen {
         return true
     }
 
-    public boolean move(Facing2d dir, boolean shift = false) {
-
-        if (shift && player.fighter.stamina) {
-            //TODO: instead of moving faster, this should keep moving until
-            //  A hostile monster is visible
-            //  A message is sent to the message log
-            //  you are about to step on anything that is not regular floor
-
-            // Double move
-            player.fighter.stamina--
-            int x = player.x + dir.x
-            int y = player.y + dir.y
-
-            //check for legality of move based solely on map boundary
-            if (levelMap.contains(x, y)) {
-                player.moveOrAttack(dir.x, dir.y)
-                //TODO: render can have issues with not stepping
-            }
-        }
+    boolean move(Facing2d dir, boolean shift = false) {
 
         int x = player.x + dir.x
         int y = player.y + dir.y
@@ -451,10 +435,10 @@ public class PlayingScreen implements Screen {
         if (levelMap.contains(x, y)) {
             return player.moveOrAttack(dir.x, dir.y)
         }
-        return false;
+        return false
     }
 
-    public boolean fire() {
+    boolean fire() {
 
         //select a target in view
         if (player.inventory) {

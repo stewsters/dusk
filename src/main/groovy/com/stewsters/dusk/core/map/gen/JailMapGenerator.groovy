@@ -17,7 +17,7 @@ class JailMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    public LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int level) {
 
         int width = 40
         int height = 40

@@ -127,7 +127,7 @@ class InventoryRenderSystem {
         //
     }
 
-    public static void renderInspect(SwingPane display, Inventory inventory, int itemIndex) {
+    static void renderInspect(SwingPane display, Inventory inventory, int itemIndex) {
 
 
         final int boxWidth = 40

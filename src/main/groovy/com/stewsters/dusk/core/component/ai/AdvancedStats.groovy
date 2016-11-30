@@ -6,21 +6,21 @@ import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.util.math.MatUtils
 
-public class AdvancedStats extends BaseAi implements Ai {
+class AdvancedStats extends BaseAi implements Ai {
 
     private float morale
     private float chargeProbability
     private float retreatProbability
 
 
-    public AdvancedStats() {
+    AdvancedStats() {
         morale = 0.5f
         chargeProbability = 0.5f
         retreatProbability = 0.5f
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
-    public AdvancedStats(Map params) {
+    AdvancedStats(Map params) {
         morale = params?.morale ?: 0.5f
         chargeProbability = params?.chargeProbability ?: 0.5f
         retreatProbability = params?.retreatProbability ?: 0.5f
@@ -28,7 +28,7 @@ public class AdvancedStats extends BaseAi implements Ai {
     }
 
     // http://dillingers.com/blog/2014/05/10/roguelike-ai/
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
@@ -81,7 +81,7 @@ public class AdvancedStats extends BaseAi implements Ai {
                 entity.moveAway(enemy.x, enemy.y)
 
             } else if (MatUtils.boolean) {
-                entity.randomMovement();
+                entity.randomMovement()
             }
 
 
@@ -107,7 +107,7 @@ public class AdvancedStats extends BaseAi implements Ai {
 
             }
         } else if (MatUtils.boolean) {
-            entity.randomMovement();
+            entity.randomMovement()
         }
         gameTurn += speed
 

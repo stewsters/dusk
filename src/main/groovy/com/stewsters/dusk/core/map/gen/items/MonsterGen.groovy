@@ -42,7 +42,7 @@ class MonsterGen {
     ]
 
 
-    public static Entity getRandomMonsterByLevel(LevelMap map, int x, int y, int level) {
+    static Entity getRandomMonsterByLevel(LevelMap map, int x, int y, int level) {
 
         Map<String, Integer> spawnChances = [:]
 
@@ -53,7 +53,7 @@ class MonsterGen {
         return createFromName(map, x, y, MatUtils.getChoice(spawnChances))
     }
 
-    public static Entity createFromName(LevelMap map, int x, int y, String name) {
+    static Entity createFromName(LevelMap map, int x, int y, String name) {
         switch (name) {
 
             case ("Rat"):
@@ -201,17 +201,18 @@ class MonsterGen {
 
         }
 
+        return null
     }
 
 
-    public static Entity generateBossForLevel(LevelMap map, int x, int y, int level) {
+    static Entity generateBossForLevel(LevelMap map, int x, int y, int level) {
 
         //early on they have more weaknesses, later they have more resistances
         List<DamageType> resistances = []
         List<DamageType> weaknesses = []
 
-        int resistanceCount = level / 3
-        int weaknessCount = 3 - resistanceCount
+        Integer resistanceCount = level / 3
+        Integer weaknessCount = 3 - resistanceCount
 
         resistanceCount.times {
             resistances.add(MatUtils.randVal(DamageType.values()))

@@ -4,11 +4,11 @@ import com.stewsters.dusk.core.entity.Entity
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class Mapping implements Spell {
+class Mapping implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
-    public Mapping() {
+    Mapping() {
         name = "Mapping"
         key = 'm' as char
     }
@@ -27,7 +27,7 @@ public class Mapping implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         //TODO: make the map distance/vision effected by level
         "Maps the current dungeon level"
     }

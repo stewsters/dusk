@@ -17,14 +17,14 @@ class Fireball implements Spell {
     public static final int FIREBALL_MIN_DAMAGE = 10
     public static final int FIREBALL_MAX_DAMAGE = 20
 
-    public Fireball() {
+    Fireball() {
         name = "Fireball"
         key = 'f' as char
     }
 
 
     @Override
-    public boolean cast(Entity caster) {
+    boolean cast(Entity caster) {
 
         //TODO: create a fireball aimed at the target
 //        List<Entity> targets = caster.ai.findVisibleEnemies(FIREBALL_RANGE + level)
@@ -79,7 +79,7 @@ class Fireball implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Fires a ball of fire at the nearest target for ${FIREBALL_MIN_DAMAGE} to ${FIREBALL_MAX_DAMAGE} damage."
     }
 

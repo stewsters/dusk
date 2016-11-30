@@ -220,7 +220,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -232,11 +232,11 @@ class ItemFunctions {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.GOOD
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
     }
@@ -246,7 +246,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -258,11 +258,11 @@ class ItemFunctions {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.EVIL
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
 

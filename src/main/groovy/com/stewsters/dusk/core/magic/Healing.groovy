@@ -7,11 +7,11 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public class Healing implements Spell {
+class Healing implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
-    public Healing() {
+    Healing() {
         name = "Healing"
         key = 'h' as char
     }
@@ -33,7 +33,7 @@ public class Healing implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Heals $level + d(${HEAL_AMOUNT + level}) damage."
     }
 }

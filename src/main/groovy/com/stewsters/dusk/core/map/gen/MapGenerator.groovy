@@ -1,13 +1,14 @@
 package com.stewsters.dusk.core.map.gen
 
 import com.stewsters.dusk.core.map.LevelMap
+import groovy.transform.CompileStatic
 
+@CompileStatic
+interface MapGenerator {
 
-public interface MapGenerator {
+    LevelMap reGenerate(int level)
 
-    public LevelMap reGenerate(int level)
+    int getPlayerStartX()
 
-    public int getPlayerStartX()
-
-    public int getPlayerStartY()
+    int getPlayerStartY()
 }

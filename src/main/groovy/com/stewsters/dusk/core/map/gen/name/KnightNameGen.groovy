@@ -5,7 +5,7 @@ import com.stewsters.util.math.MatUtils
 
 class KnightNameGen {
 
-    public static String generate(Gender gender = null, int maxLength = 20) {
+    static String generate(Gender gender = null, int maxLength = 20) {
 
 
         if (!gender)

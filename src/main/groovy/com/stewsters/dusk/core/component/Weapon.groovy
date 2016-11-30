@@ -12,10 +12,16 @@ class Weapon {
     // TODO: moveset, special, SP
     int strengthReq
 
-    public Weapon(Map params) {
+    boolean SP
+    boolean maxSP
+
+    Weapon(Map params) {
         damage = params?.damage ?: null
         damageTypes = params?.damageTypes ?: []
         strengthReq = params?.strengthReq ?: 0
+
+        SP = 0;
+        maxSP = params?.maxSP ?: 1
     }
 
 }

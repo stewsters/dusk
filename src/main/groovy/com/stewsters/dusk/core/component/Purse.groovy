@@ -1,6 +1,9 @@
 package com.stewsters.dusk.core.component
 
-public class Purse {
+import groovy.transform.CompileStatic
+
+@CompileStatic
+class Purse {
 
     public int gold = 0
 }

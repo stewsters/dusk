@@ -8,10 +8,10 @@ import groovy.transform.CompileStatic
 import squidpony.squidgrid.util.Direction
 
 @CompileStatic
-public class HostileSummoning implements Spell {
+class HostileSummoning implements Spell {
 
 
-    public HostileSummoning() {
+    HostileSummoning() {
         name = "Hostile Summoning"
         key = 'o' as char
     }
@@ -22,7 +22,7 @@ public class HostileSummoning implements Spell {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -34,18 +34,18 @@ public class HostileSummoning implements Spell {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.EVIL
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
 
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Summons an enemy monster."
     }
 

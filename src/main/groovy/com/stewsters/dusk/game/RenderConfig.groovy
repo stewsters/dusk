@@ -10,12 +10,12 @@ import squidpony.squidgrid.fov.TranslucenceWrapperFOV
  * This file just really stores some configs
  */
 
-public class RenderConfig {
+class RenderConfig {
 
-    public static def config
+    public static ConfigObject config
 
-    public static void loadConfig() {
-        File propertiesFile = new File('assets/settings.props');
+    static void loadConfig() {
+        File propertiesFile = new File('assets/settings.props')
         config = new ConfigSlurper().parse(propertiesFile.text)
 
         screenWidth = config?.graphics?.width ?: 120
@@ -23,39 +23,39 @@ public class RenderConfig {
     }
 
     //total
-    public static int screenWidth;
-    public static int screenHeight;
+    public static int screenWidth
+    public static int screenHeight
 
 
-    public static final Integer leftWindow = 20;
+    public static final Integer leftWindow = 20
 
     // for game window
-    public static final int mapScreenWidth = 100;
-    public static final int mapScreenHeight = 60;
+    public static final int mapScreenWidth = 100
+    public static final int mapScreenHeight = 60
 
     //Messaging sizes
-    public static final int messageHeight = 3;
+    public static final int messageHeight = 3
 
-    public static final int surroundingY = 42;
-    public static final int surroundingHeight = 5;
+    public static final int surroundingY = 42
+    public static final int surroundingHeight = 5
 
     // Inventory screens should start just below the message log.
-    public static final int inventoryY = messageHeight;
-    public static final int inventoryMaxHeight = 26;
-    public static final int inventoryWidth = 40;
+    public static final int inventoryY = messageHeight
+    public static final int inventoryMaxHeight = 26
+    public static final int inventoryWidth = 40
 
     // Light
-    public static SColor litNear = SColorFactory.asSColor(SColor.WHITE);
-    public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE);
-    public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE);
+    public static SColor litNear = SColorFactory.asSColor(SColor.WHITE)
+    public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE)
+    public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE)
 
-    public static float lightTintPercentage = 0.02f; //0 to 1
+    public static float lightTintPercentage = 0.02f //0 to 1
 
-    public static LOSSolver los;
-    public static TranslucenceWrapperFOV fov;
-    public static RadiusStrategy strat;
+    public static LOSSolver los
+    public static TranslucenceWrapperFOV fov
+    public static RadiusStrategy strat
 
-    public static final int enemySightRadiusX = 20;
-    public static final int enemySightRadiusY = 20;
+    public static final int enemySightRadiusX = 20
+    public static final int enemySightRadiusY = 20
 
 }

@@ -11,11 +11,11 @@ class Equipment {
     Slot slot
     boolean isEquipped = false
 
-    public Equipment(Map params) {
+    Equipment(Map params) {
         slot = params?.slot
     }
 
-    public void toggleEquip(Entity holder) {
+    void toggleEquip(Entity holder) {
         if (isEquipped)
             dequip(holder)
         else

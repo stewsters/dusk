@@ -14,7 +14,7 @@ class TestMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    public LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int level) {
         int width = 100
         int height = 100
         LevelMap map = new LevelMap(width, height)
@@ -56,7 +56,7 @@ class TestMapGenerator implements MapGenerator {
      * Paint a room onto the map's tiles
      * @return
      */
-    public static void createRoom(LevelMap map, Rect room) {
+    static void createRoom(LevelMap map, Rect room) {
 
         OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise()
 

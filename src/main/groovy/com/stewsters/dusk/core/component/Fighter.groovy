@@ -31,7 +31,7 @@ class Fighter {
 
     Closure deathFunction
 
-    public Fighter(params) {
+    Fighter(Map params) {
 
         maxHP = params.hp ?: 1
         hp = params.hp ?: maxHP
@@ -51,7 +51,7 @@ class Fighter {
         deathFunction = params.deathFunction ?: null
     }
 
-    public int takeDamage(int initialDamage, Entity attacker = null, List<DamageType> damageTypes = []) {
+    int takeDamage(int initialDamage, Entity attacker = null, List<DamageType> damageTypes = []) {
 
         int resistance = resistances.intersect(damageTypes).size()
         int weakness = weaknesses.intersect(damageTypes).size()
@@ -83,11 +83,11 @@ class Fighter {
         return finalDamage
     }
 
-    public def addHealth(int amount) {
+    void addHealth(int amount) {
         hp = Math.min(amount + hp, maxHP)
     }
 
-    public void attack(Entity target) {
+    void attack(Entity target) {
 
         /*
         int attackRoll = MatUtils.d(20) + accuracy

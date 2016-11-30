@@ -8,12 +8,12 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public class Confusion implements Spell {
+class Confusion implements Spell {
 
     public static final int CONFUSE_RANGE = 10
     public static final int CONFUSE_NUM_TURNS = 20
 
-    public Confusion() {
+    Confusion() {
         name = "Confusion"
         key = 'c' as char
     }
@@ -47,7 +47,7 @@ public class Confusion implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Confuses nearby enemies."
     }
 

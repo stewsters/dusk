@@ -12,7 +12,7 @@ class Item {
     boolean autoPickup
     int weight
 
-    public Item(params) {
+    Item(Map params) {
         useFunction = params?.useFunction
         useOnPickup = params?.useOnPickup
         autoPickup = params.autoPickup != false
@@ -23,7 +23,7 @@ class Item {
      *
      * @return true if the item should be used up
      */
-    public boolean useItem(Entity user) {
+    boolean useItem(Entity user) {
 
         if (entity.equipment) {
             entity.equipment.toggleEquip(user)
@@ -36,7 +36,7 @@ class Item {
         }
     }
 
-    public boolean useHeldItem(Entity user) {
+    boolean useHeldItem(Entity user) {
         if (useFunction) {
             return useFunction(user)
         } else {

@@ -9,7 +9,7 @@ class Projectile extends BaseAi implements Ai {
     Point2i target
     Closure onImpact
 
-    public Projectile(params) {
+    Projectile(params) {
         oldAI = params.oldAI
         caster = params.caster
         target = params.target
@@ -25,7 +25,7 @@ class Projectile extends BaseAi implements Ai {
         }
     }
 
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         int dx = target.x - entity.x
         int dy = target.y - entity.y

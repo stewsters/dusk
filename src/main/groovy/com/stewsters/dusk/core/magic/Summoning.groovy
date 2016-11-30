@@ -8,14 +8,12 @@ import groovy.transform.CompileStatic
 import squidpony.squidgrid.util.Direction
 
 @CompileStatic
-public class Summoning implements Spell {
+class Summoning implements Spell {
 
-
-    public Summoning() {
+    Summoning() {
         name = "Summoning"
         key = 's' as char
     }
-
 
     @Override
     boolean cast(Entity caster) {
@@ -23,7 +21,7 @@ public class Summoning implements Spell {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -35,18 +33,18 @@ public class Summoning implements Spell {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.GOOD
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
 
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Summons an allied monster."
     }
 

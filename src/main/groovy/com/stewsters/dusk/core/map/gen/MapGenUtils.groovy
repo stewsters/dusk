@@ -7,10 +7,12 @@ import com.stewsters.dusk.core.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class MapGenUtils {
 
-    public static void digPool(LevelMap map, Rect room, TileType shallow, TileType deep) {
+    static void digPool(LevelMap map, Rect room, TileType shallow, TileType deep) {
 
         ((room.x1)..(room.x2)).each { int x ->
             ((room.y1)..(room.y2)).each { int y ->
@@ -26,7 +28,6 @@ class MapGenUtils {
         }
     }
 
-    public
     static void pillarRoom(LevelMap map, Rect room, int spacing, TileType column, TileType floor, TileType edge = null) {
         ((room.x1)..(room.x2)).each { int x ->
             ((room.y1)..(room.y2)).each { int y ->

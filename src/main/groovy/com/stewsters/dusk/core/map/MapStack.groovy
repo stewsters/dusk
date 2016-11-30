@@ -1,6 +1,9 @@
 package com.stewsters.dusk.core.map
 
-public class MapStack {
+import groovy.transform.CompileStatic
+
+@CompileStatic
+class MapStack {
 
     public int currentX
     public int currentY
@@ -13,7 +16,7 @@ public class MapStack {
     public LevelMap[][][] levelMaps
 
 
-    public MapStack(int xSize, int ySize, int zSize) {
+    MapStack(int xSize, int ySize, int zSize) {
         this.xSize = xSize
         this.ySize = ySize
         this.zSize = zSize

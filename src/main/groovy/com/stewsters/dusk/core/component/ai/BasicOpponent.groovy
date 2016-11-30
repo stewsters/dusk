@@ -2,18 +2,20 @@ package com.stewsters.dusk.core.component.ai
 
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class BasicOpponent extends BaseAi implements Ai {
 
-    public BasicOpponent(int speed = 10) {
+    BasicOpponent(int speed = 10) {
         this.speed = speed
 
         gameTurn = MatUtils.getIntInRange(1, speed)
     }
 
-    private boolean active = false;
+    private boolean active = false
 
-    public boolean takeTurn() {
+    boolean takeTurn() {
         if (!entity)
             return true//you died this turn, sorry bro
         if (!active) {

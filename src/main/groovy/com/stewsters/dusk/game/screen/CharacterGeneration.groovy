@@ -34,6 +34,7 @@ import com.stewsters.dusk.core.map.gen.SurfaceMapGenerator
 import com.stewsters.dusk.core.map.gen.name.KnightNameGen
 import com.stewsters.dusk.core.sfx.DeathFunctions
 import com.stewsters.dusk.game.screen.subscreen.ListSelector
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
@@ -55,15 +56,16 @@ import static java.awt.event.KeyEvent.VK_SPACE
 import static java.awt.event.KeyEvent.VK_UNDEFINED
 import static java.awt.event.KeyEvent.VK_UP
 
+@CompileStatic
 class CharacterGeneration implements Screen {
 
-    int pointerColumn = 0;
+    int pointerColumn = 0
 
 //    ListSelector<Race> raceSelect
     ListSelector<SocialClass> socialClassSelect
     ListSelector<Gender> genderSelect
 
-    public CharacterGeneration() {
+    CharacterGeneration() {
         //TODO: generate the map in another thread and wait for it
 
 //        raceSelect = new ListSelector<>("Select Race", Race.values() as List)
@@ -89,11 +91,11 @@ class CharacterGeneration implements Screen {
     @Override
     Screen respondToUserInput(KeyEvent key) {
 
-        int code = key.getExtendedKeyCode();
+        int code = key.getExtendedKeyCode()
 
         // if ExtendedKeyCode is VK_UNDEFINED (0) use normal keycode
         if (code == VK_UNDEFINED) {
-            code = key.getKeyCode();
+            code = key.getKeyCode()
         }
 
         switch (code) {
@@ -126,12 +128,12 @@ class CharacterGeneration implements Screen {
                         genderSelect.down()
                         break
                 }
-                break;
+                break
             case VK_H:
             case VK_LEFT:
             case VK_NUMPAD4:
                 pointerColumn = Math.max(0, pointerColumn - 1)
-                break;
+                break
             case VK_L:
             case VK_RIGHT:
             case VK_NUMPAD6:

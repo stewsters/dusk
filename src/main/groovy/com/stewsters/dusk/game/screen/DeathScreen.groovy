@@ -2,6 +2,7 @@ package com.stewsters.dusk.game.screen
 
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.game.RenderConfig
+import groovy.transform.CompileStatic
 import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
@@ -9,9 +10,10 @@ import java.awt.event.KeyEvent
 import static java.awt.event.KeyEvent.VK_SPACE
 import static java.awt.event.KeyEvent.VK_UNDEFINED
 
+@CompileStatic
 class DeathScreen implements Screen {
 
-    Entity player;
+    Entity player
 
     DeathScreen(Entity player) {
         this.player = player
