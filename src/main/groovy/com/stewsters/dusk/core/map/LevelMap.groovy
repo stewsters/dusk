@@ -15,8 +15,19 @@ class LevelMap extends BaseLitMap2d {
     private IntervalKDTree2d<Entity> spatialHash
     private HashSet<Entity> entityTemp
 
-    LevelMap(int x, int y) {
-        super(x, y)
+    public static final int chunkSize = 60
+
+    // These are chunk offsets in the worldmap
+    final int chunkX
+    final int chunkY
+    final int chunkZ
+
+    LevelMap(int x, int y, int z) {
+        super(chunkSize, chunkSize)
+
+        chunkX = x
+        chunkY = y
+        chunkZ = z
 
         actors = new PriorityQueue<Ai>(new Comparator<Ai>() {
             @Override
@@ -24,7 +35,7 @@ class LevelMap extends BaseLitMap2d {
                 return o1.getGameTurn().compareTo(o2.getGameTurn())
             }
         })
-        spatialHash = new IntervalKDTree2d<>(Math.max(x, y), 4)
+        spatialHash = new IntervalKDTree2d<>(Math.max(chunkSize, chunkSize), 4)
         entityTemp = new HashSet<>()
     }
 
@@ -33,6 +44,7 @@ class LevelMap extends BaseLitMap2d {
             e.ai.gameTurn = (actors.peek()?.gameTurn ?: 0) + MatUtils.getIntInRange(0, e.ai.speed)
             actors.add(e.ai)
         }
+
         spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
     }
 

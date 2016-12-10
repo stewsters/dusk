@@ -9,7 +9,7 @@ import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
-import com.stewsters.dusk.core.map.MapStack
+import com.stewsters.dusk.core.map.WorldMap
 import com.stewsters.dusk.core.map.gen.JailMapGenerator
 import com.stewsters.dusk.core.map.gen.MapGenerator
 import com.stewsters.dusk.core.map.gen.SimpleMapGenerator
@@ -65,16 +65,16 @@ class MainMenu implements Screen {
 
         } else if (code == VK_T) {
 
-            MapStack mapStack = new MapStack(1, 1, 4)
+            WorldMap mapStack = new WorldMap(1, 1, 4)
             MapGenerator mapgen = new TestMapGenerator()
 
-            mapStack.levelMaps[0][0][0] = mapgen.reGenerate(0)
-            mapStack.levelMaps[0][0][1] = new JailMapGenerator().reGenerate(1)
-            mapStack.levelMaps[0][0][2] = new SimpleMapGenerator().reGenerate(2)
-            mapStack.levelMaps[0][0][3] = new SurfaceMapGenerator().reGenerate(3)
+            mapStack.setLevelMap(mapgen.reGenerate(0,0,0))
+            mapStack.setLevelMap(new JailMapGenerator().reGenerate(0,0,1))
+            mapStack.setLevelMap(new SimpleMapGenerator().reGenerate(0,0,2))
+            mapStack.setLevelMap(new SurfaceMapGenerator().reGenerate(0,0,3))
 
 
-            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+            Entity testPlayer = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ),
                     x: mapgen.playerStartX, y: mapgen.playerStartY,
                     ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,

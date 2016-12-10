@@ -26,7 +26,7 @@ import com.stewsters.dusk.core.magic.Mapping
 import com.stewsters.dusk.core.magic.StoneCurse
 import com.stewsters.dusk.core.magic.Summoning
 import com.stewsters.dusk.core.magic.Wrath
-import com.stewsters.dusk.core.map.MapStack
+import com.stewsters.dusk.core.map.WorldMap
 import com.stewsters.dusk.core.map.gen.JailMapGenerator
 import com.stewsters.dusk.core.map.gen.MapGenerator
 import com.stewsters.dusk.core.map.gen.SimpleMapGenerator
@@ -152,24 +152,25 @@ class CharacterGeneration implements Screen {
 
     private Screen startGame() {
 
-        MapStack mapStack = new MapStack(1, 1, 10)
+        WorldMap mapStack = new WorldMap(1, 1, 10)
 
         MapGenerator jailMapGen = new JailMapGenerator()
         MapGenerator simpleMapGen = new SimpleMapGenerator()
         MapGenerator surfaceMapGen = new SurfaceMapGenerator()
 
-        mapStack.levelMaps[0][0][0] = jailMapGen.reGenerate(0)
+        mapStack.setLevelMap(jailMapGen.reGenerate(0, 0, 0))
         int playerStartX = jailMapGen.playerStartX
         int playerStartY = jailMapGen.playerStartY
 
         8.times {
-            mapStack.levelMaps[0][0][it + 1] = simpleMapGen.reGenerate(it + 1)
+            mapStack.setLevelMap(simpleMapGen.reGenerate(0, 0, it + 1))
         }
-        mapStack.levelMaps[0][0][9] = surfaceMapGen.reGenerate(9)
+
+        mapStack.setLevelMap(surfaceMapGen.reGenerate(0, 0, 9))
 
         String name = KnightNameGen.generate(genderSelect.selected)
 
-        Entity player = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+        Entity player = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                 x: playerStartX, y: playerStartY,
                 xSize: 1, ySize: 1,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
@@ -201,7 +202,7 @@ class CharacterGeneration implements Screen {
                 new Wrath()
         ])
 
-        Entity defaultArmor = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+        Entity defaultArmor = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                 x: playerStartX, y: playerStartY,
                 ch: '[', color: SColor.DARK_BLUE,
                 name: "Prisoner's Rags",

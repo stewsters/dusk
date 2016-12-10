@@ -6,7 +6,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface MapGenerator {
 
-    LevelMap reGenerate(int level)
+    LevelMap reGenerate(int x, int y, int z)
 
     int getPlayerStartX()
 

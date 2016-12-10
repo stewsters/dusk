@@ -7,6 +7,9 @@ import com.stewsters.dusk.core.component.Weapon
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.DamageType
 import com.stewsters.dusk.core.flyweight.Slot
+import com.stewsters.dusk.core.flyweight.moveset.Bump
+import com.stewsters.dusk.core.flyweight.moveset.Peirce
+import com.stewsters.dusk.core.flyweight.moveset.Sweep
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.sfx.ItemFunctions
 import com.stewsters.util.math.MatUtils
@@ -47,9 +50,11 @@ class FantasyItemGen {
             [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
             [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
             [name: "Longsword", rarity: 10, startLevel: 3, endLevel: 9],
+            [name: "Reaper Blade", rarity: 10, startLevel: 1, endLevel: 5],
 
             // pierce
             [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
+            [name: "Rapier", rarity: 10, startLevel: 1, endLevel: 5],
             [name: "Spear", rarity: 10, startLevel: 2, endLevel: 4],
             [name: "Halberd", rarity: 10, startLevel: 4, endLevel: 9],
 
@@ -271,6 +276,22 @@ class FantasyItemGen {
                         weapon: new Weapon(
                                 damage: (10..14),
                                 damageTypes: [DamageType.SLASH, material],
+                                moveSet: new Sweep(),
+                                strengthReq: 16
+                        )
+                )
+                break
+            case "Reaper Blade":
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.STEEL_BLUE,
+                        name: "Reaper Blade",
+                        description: "A cruel scythe",
+                        itemComponent: new Item(weight: 8),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
+                                damage: (10..14),
+                                damageTypes: [DamageType.SLASH, DamageType.SILVER],
+                                moveSet: new Sweep(),
                                 strengthReq: 16
                         )
                 )
@@ -293,6 +314,24 @@ class FantasyItemGen {
                         )
                 )
                 break
+            case "Rapier":
+                DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
+
+                return new Entity(map: map, x: x, y: y,
+                        ch: '↑', color: SColor.WHITE,
+                        name: "${material.name} Rapier",
+                        description: "A sharp peircing sword.",
+                        itemComponent: new Item(weight: 2),
+                        equipment: new Equipment(slot: Slot.PRIMARY_HAND),
+                        weapon: new Weapon(
+                                damage: (5..7),
+                                damageTypes: [DamageType.PIERCE, material],
+                                moveSet: new Bump(),
+                                postMoveAttack:new Bump(),
+                                strengthReq: 8
+                        )
+                )
+                break
             case "Spear":
                 DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER, DamageType.WOOD])
 
@@ -305,6 +344,7 @@ class FantasyItemGen {
                         weapon: new Weapon(
                                 damage: (8..12),
                                 damageTypes: [DamageType.PIERCE, material],
+                                moveSet: new Peirce(),
                                 strengthReq: 12
                         )
                 )

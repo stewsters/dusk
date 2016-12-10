@@ -12,12 +12,10 @@ class SurfaceMapGenerator implements MapGenerator {
     int playerY
 
     @Override
-    LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int x, int y , int level) {
 
-        int width = 200
-        int height = 200
 
-        LevelMap map = new LevelMap(width, height)
+        LevelMap map = new LevelMap(x, y, level)
         map.xSize.times { iX ->
             map.ySize.times { iY ->
                 //if on the edge, we will need to win
@@ -37,15 +35,15 @@ class SurfaceMapGenerator implements MapGenerator {
         int distToCenter = Integer.MAX_VALUE
         int tX = 0, tY = 0
 
-        map.xSize.times { x ->
-            map.ySize.times { y ->
+        map.xSize.times { xp ->
+            map.ySize.times { yp ->
                 if (!map.ground[x][y].tileType.blocks) {
 
-                    int tDist = MatUtils.manhattanDistance(x, y, (int) (map.getXSize() / 2), (int) (map.getYSize() / 2))
+                    int tDist = MatUtils.manhattanDistance(xp, yp, (int) (map.getXSize() / 2), (int) (map.getYSize() / 2))
                     if (tDist < distToCenter) {
                         distToCenter = tDist
-                        tX = x
-                        tY = y
+                        tX = xp
+                        tY = yp
                     }
 
                 }

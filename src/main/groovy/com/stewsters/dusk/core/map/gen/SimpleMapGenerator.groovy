@@ -29,11 +29,9 @@ class SimpleMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int x, int y, int level) {
 
-        int width = 60
-        int height = 60
-        LevelMap map = new LevelMap(width, height)
+        LevelMap map = new LevelMap(x, y,level)
 
         map.getXSize().times { iX ->
             map.getYSize().times { iY ->

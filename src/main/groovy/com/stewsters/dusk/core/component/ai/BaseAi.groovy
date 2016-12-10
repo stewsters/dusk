@@ -71,7 +71,7 @@ abstract class BaseAi implements Ai {
                 //TODO: this goes out of bounds.  Use advanced lighting?
                 if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
 
-                    int tempDist = entity.distanceTo(entity)
+                    int tempDist = entity.distanceTo(otherEntity)
                     if (tempDist <= maxDistance) {
                         enemy = otherEntity
                         maxDistance = tempDist

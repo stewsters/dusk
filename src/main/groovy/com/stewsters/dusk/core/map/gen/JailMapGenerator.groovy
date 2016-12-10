@@ -17,12 +17,10 @@ class JailMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    LevelMap reGenerate(int level) {
+    LevelMap reGenerate(int x, int y, int level) {
 
-        int width = 40
-        int height = 40
+        LevelMap map = new LevelMap(x, y, level)
 
-        LevelMap map = new LevelMap(width, height)
         map.getXSize().times { iX ->
             map.getYSize().times { iY ->
                 map.ground[iX][iY] = new Tile(TileType.WALL)
@@ -32,8 +30,8 @@ class JailMapGenerator implements MapGenerator {
         List<Rect> rooms = []
         int roomSize = 6
 
-        for (int roomX = 1; roomX < width - roomSize; roomX += roomSize) {
-            for (int roomY = 1; roomY < height - roomSize; roomY += roomSize) {
+        for (int roomX = 1; roomX < map.xSize - roomSize; roomX += roomSize) {
+            for (int roomY = 1; roomY < map.ySize - roomSize; roomY += roomSize) {
 
                 if (MatUtils.boolean)
                     continue

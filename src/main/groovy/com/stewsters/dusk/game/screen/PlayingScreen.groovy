@@ -5,7 +5,7 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.TileType
 import com.stewsters.dusk.core.map.LevelMap
-import com.stewsters.dusk.core.map.MapStack
+import com.stewsters.dusk.core.map.WorldMap
 import com.stewsters.dusk.game.Game
 import com.stewsters.dusk.game.renderSystems.BottomBarRenderSystem
 import com.stewsters.dusk.game.renderSystems.InventoryRenderSystem
@@ -75,7 +75,7 @@ class PlayingScreen implements Screen {
     private static final int a = VK_A
     private static final int z = VK_Z
 
-    public MapStack mapStack
+    public WorldMap mapStack
 
     public Entity player
     public ShadowCaster2d shadowCaster2d
@@ -84,7 +84,7 @@ class PlayingScreen implements Screen {
     private int selectedItem = -1
 
 
-    PlayingScreen(MapStack mapStack, Entity player) {
+    PlayingScreen(WorldMap mapStack, Entity player) {
 
         this.mapStack = mapStack
         this.player = player
@@ -96,7 +96,7 @@ class PlayingScreen implements Screen {
     }
 
     LevelMap getLevelMap() {
-        mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ]
+        mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ)
     }
 
 
@@ -188,10 +188,10 @@ class PlayingScreen implements Screen {
                     if (fire()) stepSim() //use a bow or spell
                     break
                 case VK_COMMA:
-                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelMaps[0][0].length - 1 > mapStack.currentZ) {
+                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelExists(levelMap.chunkX, levelMap.chunkY,levelMap.chunkZ +1) ) {
 
                         // Ascend
-                        Point2i dest = mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ + 1].findATile(TileType.STAIRS_DOWN)
+                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ + 1).findATile(TileType.STAIRS_DOWN)
                         levelMap.remove(player)
 
                         mapStack.currentZ++
@@ -219,7 +219,7 @@ class PlayingScreen implements Screen {
 
                     if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_DOWN) && mapStack.currentZ > 0) {
                         // Descend
-                        Point2i dest = mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ - 1].findATile(TileType.STAIRS_UP)
+                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ - 1).findATile(TileType.STAIRS_UP)
                         levelMap.remove(player)
 
                         mapStack.currentZ--

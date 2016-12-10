@@ -16,6 +16,7 @@ import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
 import squidpony.squidcolor.SColor
 
 /**
@@ -163,16 +164,41 @@ class Entity {
         }
 
         if (inventory || fighter) {
-            HashSet<Entity> entities
-            if (xSize > 1 || ySize > 1)
-                entities = levelMap.getEntitiesBetween(newX, newY, newX + xSize - 1, newY + ySize - 1)
-            else
-                entities = levelMap.getEntitiesAtLocation(newX, newY)
 
             if (fighter) {
-                Set<Entity> target = entities.findAll {
-                    it.fighter && faction?.hates(it?.faction)
+                Set<Entity> target = []
+                Weapon weapon = inventory?.getEquippedWeapon()
+                if (weapon) {
+
+                    boolean doAttack = weapon.moveSet.getTriggerArea(x, y, dx, dy).find { Point2i p ->
+                        for (Entity e : levelMap.getEntitiesAtLocation(p.x, p.y)) {
+                            if (e.fighter && faction?.hates(e?.faction))
+                                return true
+                        }
+                        return false
+                    }
+
+                    //Weapon attack
+                    if (doAttack) {
+                        weapon.moveSet.getAttackArea(x, y, dx, dy).each { Point2i p ->
+                            for (Entity e : levelMap.getEntitiesAtLocation(p.x, p.y)) {
+                                if (e.fighter && faction?.hates(e?.faction))
+                                    target.add(e)
+                            }
+                        }
+                    }
+                } else {
+                    //unarmed attack
+                    if (xSize > 1 || ySize > 1)
+                        target = levelMap.getEntitiesBetween(newX, newY, newX + xSize - 1, newY + ySize - 1).findAll {
+                            it.fighter && faction?.hates(it?.faction)
+                        }
+                    else
+                        target = levelMap.getEntitiesAtLocation(newX, newY).findAll {
+                            it.fighter && faction?.hates(it?.faction)
+                        }
                 }
+
 
                 if (target) {
                     target.each {
@@ -182,6 +208,12 @@ class Entity {
                 }
             }
             if (inventory) {
+
+                HashSet<Entity> entities
+                if (xSize > 1 || ySize > 1)
+                    entities = levelMap.getEntitiesBetween(newX, newY, newX + xSize - 1, newY + ySize - 1)
+                else
+                    entities = levelMap.getEntitiesAtLocation(newX, newY)
 
                 Entity pickup = entities.find { Entity possibleItem ->
                     possibleItem?.item?.autoPickup
@@ -195,8 +227,36 @@ class Entity {
             }
         }
 
-        return move(dx, dy)
+        if (move(dx, dy)) {
 
+            if (fighter) {
+                Weapon weapon = inventory?.getEquippedWeapon()
+                if (weapon?.postMoveAttack) {
+                    Set<Entity> target = []
+                    //Weapon attack
+                    boolean doAttack = weapon.postMoveAttack.getTriggerArea(x, y, dx, dy).contains { Point2i p ->
+                        target.addAll(levelMap.getEntitiesAtLocation(p.x, p.y))
+                    }
+                    if (doAttack) {
+                        weapon.postMoveAttack.getAttackArea(x, y, dx, dy).each { Point2i p ->
+                            target.addAll(levelMap.getEntitiesAtLocation(p.x, p.y))
+                        }
+                        target = target.findAll {
+                            it.fighter && faction?.hates(it?.faction)
+                        }
+
+                        if (target) {
+                            target.each {
+                                fighter.attack(it)
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true
+        }
+        return false
 
     }
 
