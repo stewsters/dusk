@@ -6,6 +6,4 @@ public enum Priority {
     ITEM,
     OPPONENT,
     PLAYER
-
-
 }

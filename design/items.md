@@ -1,7 +1,7 @@
 # Items
 
 
-Items could have their own fitness function for ai
+Items could have their own fitness function for ai, giving them an idea of when it would be beneficial to use.
 
 ## Examples
 

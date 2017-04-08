@@ -21,7 +21,7 @@ class ItemFunctions {
 
     public static Closure castHeal = { Entity user ->
 
-        if (user.fighter.hp == user.fighter.maxHP) {
+        if (user.fighter.hp >= user.fighter.maxHP) {
             MessageLogSystem.send("You are already at full health.", SColor.RED, [user])
             return false
         } else {
@@ -34,7 +34,7 @@ class ItemFunctions {
 
     public static final int BANDAGE_HEAL_AMOUNT = 6
     public static Closure bandage = { Entity user ->
-        if (user.fighter.hp == user.fighter.maxHP) {
+        if (user.fighter.hp >= user.fighter.maxHP) {
             MessageLogSystem.send("You aren't bleeding.", SColor.RED, [user])
             return false
         } else {

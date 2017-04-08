@@ -10,9 +10,9 @@ Equipment
   Armor
   Cloak
   Weapon
-  
+
 Stats
-  Life
+  Life - Does not regenerate, however you can brew potions to heal
   Armor - max derived from gear, regenerate
   Stamina - Regenerates each turn
 
@@ -30,7 +30,7 @@ Stamina Regen slower if you are too damaged or too toxic
 
 Adrenaline - goes up when you hit an enemy, goes down when someone hits you. Combo. Reward for not being timid
 
-Mana - lets you cast spells
+Mana - lets you cast spells -> not 100% sure on this
 
 Toxicity - lowers health Regen, let's you use potions.
 

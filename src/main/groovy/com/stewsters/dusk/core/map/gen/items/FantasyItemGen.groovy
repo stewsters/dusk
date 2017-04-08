@@ -22,48 +22,53 @@ class FantasyItemGen {
     // PLAN: so you will have a chance to add certain items at certain levels.  whenever one appears, the
     // probability of another is cut by 1/2
 
-    public static final List<Map> spawnPerLevel = [
+    public static final Map<String,List<Map>> spawnPerLevel = [
 
-            [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
+            treasure: [
+                    [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
+            ],
 
-            // Armor
-            [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
-            [name: "Chain Hauberk", rarity: 10, startLevel: 3, endLevel: 6],
-            [name: "Coat of Plates", rarity: 5, startLevel: 6, endLevel: 9],
+            armor   : [
+                    [name: "Leather Coat", rarity: 20, startLevel: 0, endLevel: 3],
+                    [name: "Chain Hauberk", rarity: 10, startLevel: 3, endLevel: 6],
+                    [name: "Coat of Plates", rarity: 5, startLevel: 6, endLevel: 9],
+            ],
 
-            // Pots
-            [name: "Healing Potion", rarity: 10, startLevel: 0, endLevel: 9],
+            potions : [
+                    [name: "Healing Potion", rarity: 10, startLevel: 0, endLevel: 9],
+            ],
 
-            // Scrolls
-            [name: "Scroll of Fireball", rarity: 30, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Lightning", rarity: 20, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Domination", rarity: 10, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Confusion", rarity: 10, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Wrath", rarity: 30, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Mapping", rarity: 10, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Testing", rarity: 0, startLevel: 0, endLevel: 9],
-            [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
+            scrolls : [
+                    [name: "Scroll of Fireball", rarity: 30, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Lightning", rarity: 20, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Domination", rarity: 10, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Confusion", rarity: 10, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Wrath", rarity: 30, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Mapping", rarity: 10, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Summoning", rarity: 20, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Testing", rarity: 0, startLevel: 0, endLevel: 9],
+                    [name: "Scroll of Stone Curse", rarity: 5, startLevel: 5, endLevel: 9],
+            ],
 
-            // Weapons
-            // slash
-            [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
-            [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
-            [name: "Longsword", rarity: 10, startLevel: 3, endLevel: 9],
-            [name: "Reaper Blade", rarity: 10, startLevel: 1, endLevel: 5],
+            weapons : [
+                    // slash
+                    [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
+                    [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
+                    [name: "Longsword", rarity: 10, startLevel: 3, endLevel: 9],
+                    [name: "Reaper Blade", rarity: 10, startLevel: 1, endLevel: 5],
 
-            // pierce
-            [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
-            [name: "Rapier", rarity: 10, startLevel: 1, endLevel: 5],
-            [name: "Spear", rarity: 10, startLevel: 2, endLevel: 4],
-            [name: "Halberd", rarity: 10, startLevel: 4, endLevel: 9],
+                    // pierce
+                    [name: "Stiletto", rarity: 10, startLevel: 0, endLevel: 3],
+                    [name: "Rapier", rarity: 10, startLevel: 1, endLevel: 5],
+                    [name: "Spear", rarity: 10, startLevel: 2, endLevel: 4],
+                    [name: "Halberd", rarity: 10, startLevel: 4, endLevel: 9],
 
-            // Blunt
-            [name: "Club", rarity: 10, startLevel: 0, endLevel: 4],
-            [name: "Mace", rarity: 10, startLevel: 3, endLevel: 6],
-            [name: "Maul", rarity: 10, startLevel: 6, endLevel: 9]
-            //warhammer
-
+                    // Blunt
+                    [name: "Club", rarity: 10, startLevel: 0, endLevel: 4],
+                    [name: "Mace", rarity: 10, startLevel: 3, endLevel: 6],
+                    [name: "Maul", rarity: 10, startLevel: 6, endLevel: 9]
+                    //warhammer
+            ]
 //            "Helm"                : 10,
 //            "Boots"               : 10,
 //            "Greaves"             : 10
@@ -75,7 +80,7 @@ class FantasyItemGen {
 
         Map<String, Integer> spawnChances = [:]
 
-        spawnPerLevel.findAll { it.startLevel <= level && it.endLevel >= level }.each {
+        spawnPerLevel.values().flatten().findAll { it.startLevel <= level && it.endLevel >= level }.each {
             spawnChances[it.name] = it.rarity
         }
 
@@ -327,7 +332,7 @@ class FantasyItemGen {
                                 damage: (5..7),
                                 damageTypes: [DamageType.PIERCE, material],
                                 moveSet: new Bump(),
-                                postMoveAttack:new Bump(),
+                                postMoveAttack: new Bump(),
                                 strengthReq: 8
                         )
                 )

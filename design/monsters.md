@@ -10,6 +10,11 @@
 -- Herbivore
 -- Omnivore
 
+- Fast Healing from eating
+-- Carnivores can eat dead to regain hp
+-- Herbivores can eat grass to regain hp
+
+
 assuming bilateral symmetry
 
 - Eyes (most have 2)
@@ -125,7 +130,7 @@ Blink bat - these are annoying
 Zombie- slow walk
 Rhino charger
 
-Goat archers
+Goat archers - retreat an fire, try to draw you into darkness
 Skeleton archers- stand and fire
 
 
@@ -159,3 +164,8 @@ Either mounts should have their own slot in entity, or there should be a separat
 
 bosses drop reagents, they can be brewed into stat increase potions.
 
+
+
+
+Many monsters have abilities that can change various types of terrain.  May freeze water, light brush, dig, grow plants, 
+eat plants to heal
