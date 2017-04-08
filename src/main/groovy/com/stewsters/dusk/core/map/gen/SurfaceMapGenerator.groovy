@@ -12,7 +12,7 @@ class SurfaceMapGenerator implements MapGenerator {
     int playerY
 
     @Override
-    LevelMap reGenerate(int x, int y , int level) {
+    LevelMap reGenerate(int x, int y, int level) {
 
 
         LevelMap map = new LevelMap(x, y, level)

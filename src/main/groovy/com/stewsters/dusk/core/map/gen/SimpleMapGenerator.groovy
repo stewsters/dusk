@@ -31,7 +31,7 @@ class SimpleMapGenerator implements MapGenerator {
     @Override
     LevelMap reGenerate(int x, int y, int level) {
 
-        LevelMap map = new LevelMap(x, y,level)
+        LevelMap map = new LevelMap(x, y, level)
 
         map.getXSize().times { iX ->
             map.getYSize().times { iY ->

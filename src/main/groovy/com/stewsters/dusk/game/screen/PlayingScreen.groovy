@@ -96,7 +96,7 @@ class PlayingScreen implements Screen {
     }
 
     LevelMap getLevelMap() {
-        mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ)
+        mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ)
     }
 
 
@@ -188,10 +188,10 @@ class PlayingScreen implements Screen {
                     if (fire()) stepSim() //use a bow or spell
                     break
                 case VK_COMMA:
-                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelExists(levelMap.chunkX, levelMap.chunkY,levelMap.chunkZ +1) ) {
+                    if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_UP) && mapStack.levelExists(levelMap.chunkX, levelMap.chunkY, levelMap.chunkZ + 1)) {
 
                         // Ascend
-                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ + 1).findATile(TileType.STAIRS_DOWN)
+                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ + 1).findATile(TileType.STAIRS_DOWN)
                         levelMap.remove(player)
 
                         mapStack.currentZ++
@@ -219,7 +219,7 @@ class PlayingScreen implements Screen {
 
                     if (player.levelMap.isType(player.x, player.y, TileType.STAIRS_DOWN) && mapStack.currentZ > 0) {
                         // Descend
-                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX,mapStack.currentY,mapStack.currentZ - 1).findATile(TileType.STAIRS_UP)
+                        Point2i dest = mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ - 1).findATile(TileType.STAIRS_UP)
                         levelMap.remove(player)
 
                         mapStack.currentZ--

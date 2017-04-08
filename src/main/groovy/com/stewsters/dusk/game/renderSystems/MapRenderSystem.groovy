@@ -14,8 +14,8 @@ class MapRenderSystem {
 
     static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
-        int left = player.x - (int)(RenderConfig.mapScreenWidth / 2)
-        int top = player.y - (int)(RenderConfig.mapScreenHeight / 2)
+        int left = player.x - (int) (RenderConfig.mapScreenWidth / 2)
+        int top = player.y - (int) (RenderConfig.mapScreenHeight / 2)
 
         // Render tiles
         for (int x = 0; x < RenderConfig.mapScreenWidth; x++) {

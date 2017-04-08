@@ -45,7 +45,7 @@ class DuskApplicationMain {
             app.setIconImage(ImageIO.read(new File("assets/icon.png")))
         } catch (IOException ex) {
 //            don't do anything if it failed, the default Java icon will be used
-            println("could not find icon. "+ ex.toString())
+            println("could not find icon. " + ex.toString())
         }
 
         app.dispose()

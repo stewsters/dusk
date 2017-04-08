@@ -8,6 +8,7 @@ import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.component.Purse
 import com.stewsters.dusk.core.component.Quiver
 import com.stewsters.dusk.core.component.Spellbook
+import com.stewsters.dusk.core.component.ai.AutoPlayer
 import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
@@ -15,17 +16,6 @@ import com.stewsters.dusk.core.flyweight.Gender
 import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.dusk.core.flyweight.SocialClass
-import com.stewsters.dusk.core.magic.Cleanse
-import com.stewsters.dusk.core.magic.Confusion
-import com.stewsters.dusk.core.magic.Domination
-import com.stewsters.dusk.core.magic.Fireball
-import com.stewsters.dusk.core.magic.Healing
-import com.stewsters.dusk.core.magic.HostileSummoning
-import com.stewsters.dusk.core.magic.LightningStrike
-import com.stewsters.dusk.core.magic.Mapping
-import com.stewsters.dusk.core.magic.StoneCurse
-import com.stewsters.dusk.core.magic.Summoning
-import com.stewsters.dusk.core.magic.Wrath
 import com.stewsters.dusk.core.map.WorldMap
 import com.stewsters.dusk.core.map.gen.JailMapGenerator
 import com.stewsters.dusk.core.map.gen.MapGenerator
@@ -140,7 +130,7 @@ class CharacterGeneration implements Screen {
                 pointerColumn = Math.min(1, pointerColumn + 1)
                 break
             case VK_SPACE:
-                return startGame()
+                return startGame(true)
                 break
             case VK_ESCAPE:
                 return new MainMenu()
@@ -150,7 +140,7 @@ class CharacterGeneration implements Screen {
         return this
     }
 
-    private Screen startGame() {
+    private Screen startGame(boolean auto = false) {
 
         WorldMap mapStack = new WorldMap(1, 1, 10)
 
@@ -175,7 +165,7 @@ class CharacterGeneration implements Screen {
                 xSize: 1, ySize: 1,
                 ch: '@', name: name, color: SColor.WHITE, blocks: true,
                 priority: Priority.PLAYER, faction: Faction.GOOD,
-                ai: new LocalPlayer(),
+                ai: auto ? new AutoPlayer() : new LocalPlayer(),
                 inventory: new Inventory(),
                 purse: new Purse(),
                 quiver: new Quiver(),
@@ -188,19 +178,7 @@ class CharacterGeneration implements Screen {
                         deathFunction: DeathFunctions.playerDeath)
         )
 
-        player.spellbook.spells.addAll([
-                new Cleanse(),
-                new Confusion(),
-                new Domination(),
-                new Fireball(),
-                new Healing(),
-                new HostileSummoning(),
-                new LightningStrike(),
-                new Mapping(),
-                new StoneCurse(),
-                new Summoning(),
-                new Wrath()
-        ])
+        player.spellbook.spells = []
 
         Entity defaultArmor = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                 x: playerStartX, y: playerStartY,

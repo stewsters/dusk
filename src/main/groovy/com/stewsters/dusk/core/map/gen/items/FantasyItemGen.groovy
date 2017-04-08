@@ -22,7 +22,7 @@ class FantasyItemGen {
     // PLAN: so you will have a chance to add certain items at certain levels.  whenever one appears, the
     // probability of another is cut by 1/2
 
-    public static final Map<String,List<Map>> spawnPerLevel = [
+    public static final Map<String, List<Map>> spawnPerLevel = [
 
             treasure: [
                     [name: "Gold", rarity: 20, startLevel: 0, endLevel: 9],
@@ -55,6 +55,7 @@ class FantasyItemGen {
                     [name: "Hand Axe", rarity: 10, startLevel: 0, endLevel: 3],
                     [name: "Arming Sword", rarity: 10, startLevel: 2, endLevel: 4],
                     [name: "Longsword", rarity: 10, startLevel: 3, endLevel: 9],
+
                     [name: "Reaper Blade", rarity: 10, startLevel: 1, endLevel: 5],
 
                     // pierce

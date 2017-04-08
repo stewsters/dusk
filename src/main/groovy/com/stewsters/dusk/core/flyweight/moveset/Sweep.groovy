@@ -16,5 +16,5 @@ class Sweep implements Moveset {
     List<Point2i> getAttackArea(int x, int y, int dx, int dy) {
         return new Point2i(x, y).mooreNeighborhood().toList()
     }
-    
+
 }
