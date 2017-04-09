@@ -7,7 +7,7 @@ class Game {
     public static int gameTurn = 1
 
 
-    public static passTime() {
+    static passTime() {
         gameTurn++
     }
 
@@ -16,7 +16,7 @@ class Game {
     //
     // Day begins at sunrise rather than midnight
     // Negative is moonlight (blue tint) and positive in sunlight (yellow tint)
-    public static double getDayLight() {
+    static double getDayLight() {
         double dayPeriod = (gameTurn % DAY_LENGTH) / (double) DAY_LENGTH
 
         return Math.sin(Math.PI * 2 * dayPeriod)

@@ -1,31 +1,32 @@
 package com.stewsters.dusk.core.component.ai
 
 import com.stewsters.dusk.core.entity.Entity
+import groovy.transform.CompileStatic
 
-public interface Ai {
+@CompileStatic
+interface Ai {
 
-    public boolean takeTurn()
+    Entity getEntity()
 
-    //getters and setters
-    public Entity getOwner()
+    void setEntity(Entity entity)
 
-    public void setOwner(Entity owner)
+    boolean takeTurn()
 
 //    public float[][] getLight()
 
-    public Set<Entity> findAllVisibleEnemies(int maxDistance)
+    Set<Entity> findAllVisibleEnemies(int maxDistance)
 
-    public Entity findClosestVisibleEnemy()
+    Entity findClosestVisibleEnemy()
 
-    public Entity findClosestVisibleItem()
+    Entity findClosestVisibleItem()
 
-    public void calculateSight()
+    void calculateSight()
 
 //    public void hearNoise(int x, int y)
 
-    public int getGameTurn()
+    int getGameTurn()
 
-    public int getSpeed()
+    int getSpeed()
 
-    public void setGameTurn(int gameTurn)
+    void setGameTurn(int gameTurn)
 }

@@ -11,7 +11,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 abstract class BaseAi implements Ai {
 
-    protected Entity owner
+    protected Entity entity
     protected float[][] light
     protected int lightLastCalculated = 0
     protected int sightRange = 20
@@ -20,22 +20,22 @@ abstract class BaseAi implements Ai {
     protected int gameTurn
 
     @Override
-    public Set<Entity> findAllVisibleEnemies(int maxDistance) {
-        if (!owner.faction) return null
+    Set<Entity> findAllVisibleEnemies(int maxDistance) {
+        if (!entity.faction) return null
 
         calculateSight()
 
-        int lowXDist = owner.x - maxDistance
-        int highXDist = owner.x + maxDistance
-        int lowYDist = owner.y - maxDistance
-        int highYDist = owner.y + maxDistance
+        int lowXDist = entity.x - maxDistance
+        int highXDist = entity.x + maxDistance
+        int lowYDist = entity.y - maxDistance
+        int highYDist = entity.y + maxDistance
 
-        int lowX = owner.x - sightRange
-        int lowY = owner.y - sightRange
+        int lowX = entity.x - sightRange
+        int lowY = entity.y - sightRange
 
-        return owner.levelMap.getEntitiesBetween(lowXDist, lowYDist, highXDist, highYDist).findAll { Entity entity ->
+        return entity.levelMap.getEntitiesBetween(lowXDist, lowYDist, highXDist, highYDist).findAll { Entity other ->
 
-            if (entity.fighter && this.owner.faction?.hates(entity.faction) && this.owner.distanceTo(entity) < maxDistance) {
+            if (other.fighter && entity.faction?.hates(other.faction) && entity.distanceTo(other) < maxDistance) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
 
@@ -49,31 +49,31 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public Entity findClosestVisibleEnemy() {
-        if (!owner.faction) return null
+    Entity findClosestVisibleEnemy() {
+        if (!entity.faction) return null
 
         calculateSight()
 
-        int lowX = owner.x - sightRange
-        int highX = owner.x + sightRange
-        int lowY = owner.y - sightRange
-        int highY = owner.y + sightRange
+        int lowX = entity.x - sightRange
+        int highX = entity.x + sightRange
+        int lowY = entity.y - sightRange
+        int highY = entity.y + sightRange
 
         Entity enemy = null
 
         int maxDistance = Integer.MAX_VALUE
 
-        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
-            if (entity.fighter && owner.faction?.hates(entity.faction)) {
-                int lightX = entity.x - lowX
-                int lightY = entity.y - lowY
+        for (Entity otherEntity : entity.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
+            if (otherEntity.fighter && otherEntity.fighter.hp && entity.faction?.hates(otherEntity.faction)) {
+                int lightX = otherEntity.x - lowX
+                int lightY = otherEntity.y - lowY
 
                 //TODO: this goes out of bounds.  Use advanced lighting?
                 if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
 
-                    int tempDist = owner.distanceTo(entity)
+                    int tempDist = entity.distanceTo(otherEntity)
                     if (tempDist <= maxDistance) {
-                        enemy = entity
+                        enemy = otherEntity
                         maxDistance = tempDist
                     }
                 }
@@ -84,30 +84,30 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public Entity findClosestVisibleItem() {
+    Entity findClosestVisibleItem() {
 
         calculateSight()
 
-        int lowX = owner.x - sightRange
-        int highX = owner.x + sightRange
-        int lowY = owner.y - sightRange
-        int highY = owner.y + sightRange
+        int lowX = entity.x - sightRange
+        int highX = entity.x + sightRange
+        int lowY = entity.y - sightRange
+        int highY = entity.y + sightRange
 
         int maxDistance = Integer.MAX_VALUE
         Entity item = null
 
-        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
+        for (Entity otherEntity : entity.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
 
-            if (entity.x > lowX && entity.x < highX &&
-                    entity.y > lowY && entity.y < highY &&
-                    entity.itemComponent) {
-                int lightX = entity.x - lowX
-                int lightY = entity.y - lowY
+            if (otherEntity.x > lowX && otherEntity.x < highX &&
+                    otherEntity.y > lowY && otherEntity.y < highY &&
+                    otherEntity.item) {
+                int lightX = otherEntity.x - lowX
+                int lightY = otherEntity.y - lowY
                 if (light[lightX][lightY] > 0f) {
 
-                    int tempDist = owner.distanceTo(entity)
+                    int tempDist = entity.distanceTo(otherEntity)
                     if (tempDist <= maxDistance) {
-                        item = entity
+                        item = otherEntity
                         maxDistance = tempDist
                     }
                 }
@@ -118,24 +118,24 @@ abstract class BaseAi implements Ai {
     }
 
     @Override
-    public void calculateSight() {
+    void calculateSight() {
         if (lightLastCalculated == Game.gameTurn)
             return
 
-        int worldLowX = owner.x - sightRange //low is upper left corner
-        int worldLowY = owner.y - sightRange
+        int worldLowX = entity.x - sightRange //low is upper left corner
+        int worldLowY = entity.y - sightRange
 
         int range = 2 * sightRange + 1 // this is the total size of the box
 
         //Get resistance from map
-        float[][] resistances = new float[range][range];
+        float[][] resistances = new float[range][range]
         for (int x = 0; x < range; x++) {
             for (int y = 0; y < range; y++) {
                 int originalX = x + worldLowX
                 int originalY = y + worldLowY
 
-                if (owner.levelMap.contains(originalX, originalY)) {
-                    resistances[x][y] = owner.levelMap.getOpacity(originalX, originalY)
+                if (entity.levelMap.contains(originalX, originalY)) {
+                    resistances[x][y] = entity.levelMap.getOpacity(originalX, originalY)
                 } else {
                     resistances[x][y] = 1f
                 }
@@ -143,12 +143,12 @@ abstract class BaseAi implements Ai {
         }
 
         //manually set the radius to equal the force
-        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.enemySightRadiusX, RenderConfig.enemySightRadiusY, 10f, 0.3f, RenderConfig.strat);
+        light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.enemySightRadiusX, RenderConfig.enemySightRadiusY, 10f, 0.3f, RenderConfig.strat)
         lightLastCalculated = Game.gameTurn
     }
 
     @Override
-    public int getGameTurn() {
+    int getGameTurn() {
         return gameTurn
     }
 
@@ -159,18 +159,21 @@ abstract class BaseAi implements Ai {
 
     @Override
     int getSpeed() {
-        return speed;
+        return speed
+    }
+
+    int setSpeed(int speed) {
+        this.speed = speed
     }
 
     @Override
-    Entity getOwner() {
-        return owner
+    Entity getEntity() {
+        return entity
     }
 
     @Override
-    void setOwner(Entity owner) {
-        this.owner = owner
+    void setEntity(Entity entity) {
+        this.entity = entity
     }
-
 
 }

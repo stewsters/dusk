@@ -5,7 +5,10 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.*
+import static java.awt.event.KeyEvent.VK_ESCAPE
+import static java.awt.event.KeyEvent.VK_L
+import static java.awt.event.KeyEvent.VK_UNDEFINED
+import static java.awt.event.KeyEvent.VK_X
 
 class EscapeScreen implements Screen {
 

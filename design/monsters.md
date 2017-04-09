@@ -10,6 +10,11 @@
 -- Herbivore
 -- Omnivore
 
+- Fast Healing from eating
+-- Carnivores can eat dead to regain hp
+-- Herbivores can eat grass to regain hp
+
+
 assuming bilateral symmetry
 
 - Eyes (most have 2)
@@ -113,3 +118,54 @@ Chimera- Animal recombinator - adds parts to creatures
 Relict - 
 
 Monster types are generated when r world is generated.  They persist until it's regenned.
+
+
+# Monsters
+
+Scavenger - savengerAI
+Fallen
+Unseen - flee if injured
+Bile beast - acid covering?
+Blink bat - these are annoying
+Zombie- slow walk
+Rhino charger
+
+Goat archers - retreat an fire, try to draw you into darkness
+Skeleton archers- stand and fire
+
+
+
+
+Random spirit/demon generation
+Corruption
+Writhing worms
+Curse/possession
+Darknes aura
+Kills/grows plants
+
+Species have starting tags.
+Large tag on creatures means they take less damage from small arms
+Immortal tag
+
+Hidden - Reduces the range that they can be detected
+
+Simple working goap
+
+Frost troll
+
+Dragons have territory that you can reclaim.  Each are parts of territory you can gain support from.
+
+Killing a dragon gets you a dragon slayer title and enchants your weapon with the ability to bypass 1 armor.
+
+killing a warg rider has the option of generating a warg or a rider in an adjacent square
+
+Either mounts should have their own slot in entity, or there should be a separate death that splits them.
+
+
+bosses drop reagents, they can be brewed into stat increase potions.
+
+
+
+
+Many monsters have abilities that can change various types of terrain.  May freeze water, light brush, dig, grow plants, 
+eat plants to heal

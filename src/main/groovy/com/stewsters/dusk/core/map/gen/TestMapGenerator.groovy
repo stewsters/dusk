@@ -1,5 +1,7 @@
 package com.stewsters.dusk.core.map.gen
 
+import com.stewsters.dusk.core.component.Fighter
+import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.TileType
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.Tile
@@ -7,6 +9,7 @@ import com.stewsters.dusk.core.map.gen.items.FantasyItemGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.noise.OpenSimplexNoise
+import squidpony.squidcolor.SColor
 
 class TestMapGenerator implements MapGenerator {
 
@@ -14,10 +17,9 @@ class TestMapGenerator implements MapGenerator {
     int playerStartY = 0
 
     @Override
-    public LevelMap reGenerate(int level) {
-        int width = 100
-        int height = 100
-        LevelMap map = new LevelMap(width, height);
+    LevelMap reGenerate(int x, int y, int level) {
+
+        LevelMap map = new LevelMap(x, y, level)
 
         map.xSize.times { iX ->
             map.ySize.times { iY ->
@@ -25,19 +27,17 @@ class TestMapGenerator implements MapGenerator {
             }
         }
 
-        createRoom(map, new Rect(40, 1, 60, 99))
+        createRoom(map, new Rect(20, 1, 40, 50))
 
         //todo Add transitions
-        map.ground[48][30].tileType = TileType.STAIRS_UP
-        map.ground[52][30].tileType = TileType.STAIRS_DOWN
+        map.ground[31][33].tileType = TileType.STAIRS_UP
+        map.ground[32][33].tileType = TileType.STAIRS_DOWN
 
-        MapGenUtils.digPool(map, new Rect(35, 41, 40, 46), TileType.WATER_SHALLOW, TileType.WATER_DEEP)
+        MapGenUtils.digPool(map, new Rect(1, 20, 20, 30), TileType.WATER_SHALLOW, TileType.WATER_DEEP)
 
-        MapGenUtils.pillarRoom(map, new Rect(30, 48, 40, 64), 3, TileType.WALL, TileType.FLOOR_STONE, TileType.WATER_SHALLOW)
+        MapGenUtils.pillarRoom(map, new Rect(1, 32, 20, 42), 3, TileType.WALL, TileType.FLOOR_STONE, TileType.WATER_SHALLOW)
 
-        MapGenUtils.digPool(map, new Rect(35, 66, 40, 70), TileType.LAVA_SHALLOW, TileType.LAVA_DEEP)
-
-
+        MapGenUtils.digPool(map, new Rect(1, 44, 20, 54), TileType.LAVA_SHALLOW, TileType.LAVA_DEEP)
 
         playerStartX = map.xSize / 2 - 1
         playerStartY = map.ySize / 2 - 1
@@ -45,9 +45,22 @@ class TestMapGenerator implements MapGenerator {
         /**
          * Items
          */
-        FantasyItemGen.spawnPerLevel*.name.eachWithIndex { String name, Integer i ->
-            FantasyItemGen.createFromName(map, playerStartX - 1, playerStartY + i, name)
+        FantasyItemGen.spawnPerLevel*.value.flatten()*.name.eachWithIndex { String name, Integer i ->
+            FantasyItemGen.createFromName(map, playerStartX - 1, 2 + i, name)
         }
+
+        new Entity(
+                map: map,
+                x: playerStartX + 1,
+                y: playerStartY + 1,
+                name: "Practice Dummy",
+
+                ch: 'd',
+                color: SColor.WHITE,
+
+                blocks: true,
+                fighter: new Fighter(hp: 100)
+        )
 
         return map
     }
@@ -56,7 +69,7 @@ class TestMapGenerator implements MapGenerator {
      * Paint a room onto the map's tiles
      * @return
      */
-    public static void createRoom(LevelMap map, Rect room) {
+    static void createRoom(LevelMap map, Rect room) {
 
         OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise()
 
@@ -86,5 +99,3 @@ class TestMapGenerator implements MapGenerator {
 
 
 }
-
-

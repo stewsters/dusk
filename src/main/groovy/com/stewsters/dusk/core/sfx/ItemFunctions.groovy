@@ -4,7 +4,10 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.ai.ConfusedOpponent
 import com.stewsters.dusk.core.component.ai.Projectile
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.*
+import com.stewsters.dusk.core.flyweight.DamageType
+import com.stewsters.dusk.core.flyweight.Faction
+import com.stewsters.dusk.core.flyweight.GroundCover
+import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.map.gen.items.MonsterGen
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
@@ -18,7 +21,7 @@ class ItemFunctions {
 
     public static Closure castHeal = { Entity user ->
 
-        if (user.fighter.hp == user.fighter.maxHP) {
+        if (user.fighter.hp >= user.fighter.maxHP) {
             MessageLogSystem.send("You are already at full health.", SColor.RED, [user])
             return false
         } else {
@@ -31,7 +34,7 @@ class ItemFunctions {
 
     public static final int BANDAGE_HEAL_AMOUNT = 6
     public static Closure bandage = { Entity user ->
-        if (user.fighter.hp == user.fighter.maxHP) {
+        if (user.fighter.hp >= user.fighter.maxHP) {
             MessageLogSystem.send("You aren't bleeding.", SColor.RED, [user])
             return false
         } else {
@@ -155,7 +158,7 @@ class ItemFunctions {
                 Ai oldID = enemy.ai
                 enemy.levelMap.actors.remove(oldID)
                 enemy.ai = new ConfusedOpponent(oldAI: oldID, castor: user, numTurns: turns)
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
 
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
@@ -201,7 +204,7 @@ class ItemFunctions {
                         }
 
                 )
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 
@@ -217,7 +220,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -229,11 +232,11 @@ class ItemFunctions {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.GOOD
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
     }
@@ -243,7 +246,7 @@ class ItemFunctions {
         List<Direction> directions = Direction.OUTWARDS as List
         Collections.shuffle(directions)
 
-        def summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
+        Entity summon = MonsterGen.getRandomMonsterByLevel(caster.levelMap, caster.x, caster.y, MatUtils.getIntInRange(1, 9))
 
         for (Direction dir : directions) {
             int x = caster.x + dir.deltaX * summon.xSize
@@ -255,11 +258,11 @@ class ItemFunctions {
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
                 summon.faction = Faction.EVIL
 
-                caster.levelMap.update(summon);
+                caster.levelMap.update(summon)
                 return true
             }
         }
-        caster.levelMap.remove(summon);
+        caster.levelMap.remove(summon)
 
         return false
 
@@ -269,7 +272,6 @@ class ItemFunctions {
     public static final int STONE_CURSE_RANGE = 10
 
     public static Closure castStoneCurse = { Entity user ->
-
 
         Entity enemy = user.ai.findClosestVisibleEnemy()
         if (!enemy) {
@@ -288,60 +290,5 @@ class ItemFunctions {
                 priority: Priority.ITEM
         )
 
-    }
-
-
-    public static Closure cleanse = { Entity user ->
-        //removes toxicity from the system.
-        user.fighter.toxicity = 0
-        MessageLogSystem.send("${user.name} is cleansed.", SColor.GREEN_BAMBOO, [user])
-        return true
-    }
-
-
-    public static final int EAT_STAMINA_BOOST = 4
-    public static Closure eat = { Entity user ->
-        if (user.fighter.stamina == user.fighter.maxStamina) {
-            MessageLogSystem.send("${user.name} isn't hungry.", SColor.RED, [user])
-            return false
-        } else {
-            MessageLogSystem.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET, [user])
-            user.fighter.addStamina(EAT_STAMINA_BOOST)
-            return true
-        }
-    }
-
-    public static Closure rifleAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(12, 20)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.rifle, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
-            return false
-        }
-    }
-    public static Closure pistolAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(12, 20)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.pistol, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} rounds.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for bullets.", SColor.RED, [user])
-            return false
-        }
-    }
-    public static Closure shotgunAmmoBox = { Entity user ->
-        int quantity = MatUtils.getIntInRange(8, 18)
-        if (user.quiver) {
-            user.quiver.addAmmo(AmmoType.shotgun, quantity)
-            MessageLogSystem.send("${user.name} picked up ${quantity} shells.")
-            return true
-        } else {
-            MessageLogSystem.send("${user.name} has no use for shells.", SColor.RED, [user])
-            return false
-        }
     }
 }

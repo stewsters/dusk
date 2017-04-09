@@ -6,44 +6,44 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public trait Spell {
+trait Spell {
 
     private int level = 1
     private Character key
     private String name
 
-    public void setLevel(int level) {
-        this.level = level;
+    void setLevel(int level) {
+        this.level = level
     }
 
-    public int getLevel() {
+    int getLevel() {
         level
     }
 
-    public String getName() {
+    String getName() {
         name
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name
     }
 
-    public Character getKey() {
+    Character getKey() {
         key
     }
 
-    public void setKey(Character c) {
+    void setKey(Character c) {
         key = c
     }
 
-    public String getDescription() {
+    String getDescription() {
         return "Unknown.  How mysterious!"
     }
 
 
-    public boolean cast(Entity castor) {
+    boolean cast(Entity castor) {
         MessageLogSystem.send("The spell does something unknown.", SColor.GREEN)
-        return false;
+        return false
     }
 
 }

@@ -5,14 +5,14 @@ import com.stewsters.dusk.core.magic.Spell
 import groovy.transform.CompileStatic
 
 @CompileStatic
-public class Spellbook {
+class Spellbook {
 
-    Entity owner
+    Entity entity
     public List<Spell> spells = []
 
     boolean castSpell(char key) {
         Spell spell = spells.find { it.key.toUpperCase() == key }
-        return spell ? spell.cast(owner) : false
+        return spell ? spell.cast(entity) : false
     }
 
 }

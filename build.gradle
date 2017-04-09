@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'application'
 
 mainClassName = 'com.stewsters.dusk.game.DuskApplicationMain'
-version = 1.1
+version = 2.0
 
 repositories {
     jcenter()
@@ -11,7 +11,7 @@ repositories {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use the latest groovy 2.x version for building this library
-    compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
 
     compile 'com.squidpony:squidlib:1.95.1'
     compile 'com.stewsters.util:stewsters-util:0.16'

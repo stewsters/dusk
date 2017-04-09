@@ -13,13 +13,13 @@ class LightningStrike implements Spell {
     public static final int LIGHTNING_RANGE = 5
 
 
-    public LightningStrike() {
+    LightningStrike() {
         name = "Lightning Strike"
         key = 'l' as char
     }
 
     @Override
-    public boolean cast(Entity caster) {
+    boolean cast(Entity caster) {
 
         Entity enemy = caster.ai.findClosestVisibleEnemy()
         if (!enemy) {
@@ -36,7 +36,7 @@ class LightningStrike implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Lightning strikes a target no more than ${LIGHTNING_RANGE + level} spaces away for ${LIGHTNING_DAMAGE} damage."
     }
 

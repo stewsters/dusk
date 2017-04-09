@@ -5,7 +5,11 @@ import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.*
+import static java.awt.event.KeyEvent.VK_E
+import static java.awt.event.KeyEvent.VK_ESCAPE
+import static java.awt.event.KeyEvent.VK_H
+import static java.awt.event.KeyEvent.VK_M
+import static java.awt.event.KeyEvent.VK_UNDEFINED
 
 class LevelupScreen implements Screen {
 
@@ -37,7 +41,7 @@ class LevelupScreen implements Screen {
 
         //TODO: marksman, you know, after there are bows or something
 
-        display.placeHorizontalString(x, y, "HP: " + playingScreen?.player?.fighter?.baseMaxHp)
+        display.placeHorizontalString(x, y, "HP: " + playingScreen?.player?.fighter?.maxHP)
 //        y++
 
 //        rightJustifiedText(display, 5, "[L]evel Up")
@@ -84,7 +88,7 @@ class LevelupScreen implements Screen {
             // boost HP
             if (playingScreen?.player?.fighter?.experience) {
                 playingScreen.player.fighter.experience--
-                playingScreen.player.fighter.baseMaxHp += 5
+                playingScreen.player.fighter.maxHP += 5
                 playingScreen.player.fighter.hp += 5
             }
         }

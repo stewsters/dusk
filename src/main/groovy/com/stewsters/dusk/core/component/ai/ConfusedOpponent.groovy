@@ -10,7 +10,7 @@ class ConfusedOpponent extends BaseAi implements Ai {
     int numTurns = 0
     Entity castor
 
-    public ConfusedOpponent(params) {
+    ConfusedOpponent(params) {
         oldAI = params.oldAI
         numTurns = params.numTurns
         castor = params.castor
@@ -18,16 +18,16 @@ class ConfusedOpponent extends BaseAi implements Ai {
     }
 
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         if (numTurns > 0) {
-            owner.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
+            entity.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
             numTurns--
             gameTurn += speed
             return true
         } else {
             restore()
-            MessageLogSystem.send("The ${owner.name} is no longer confused!", SColor.RED, [owner, castor])
+            MessageLogSystem.send("The ${entity.name} is no longer confused!", SColor.RED, [entity, castor])
             gameTurn += speed
             return false
         }
@@ -36,12 +36,12 @@ class ConfusedOpponent extends BaseAi implements Ai {
 
 
     private void restore() {
-        owner.levelMap.actors.remove(this)
+        entity.levelMap.actors.remove(this)
 
         if (oldAI) {
             oldAI.setGameTurn(gameTurn)
-            owner.ai = oldAI
-            owner.levelMap.actors.add oldAI
+            entity.ai = oldAI
+            entity.levelMap.actors.add oldAI
         }
     }
 

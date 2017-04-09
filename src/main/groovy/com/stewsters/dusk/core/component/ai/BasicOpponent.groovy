@@ -2,34 +2,36 @@ package com.stewsters.dusk.core.component.ai
 
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class BasicOpponent extends BaseAi implements Ai {
 
-    public BasicOpponent(int speed = 10) {
+    BasicOpponent(int speed = 10) {
         this.speed = speed
 
         gameTurn = MatUtils.getIntInRange(1, speed)
     }
 
-    private boolean active = false;
+    private boolean active = false
 
-    public boolean takeTurn() {
-        if (!owner)
+    boolean takeTurn() {
+        if (!entity)
             return true//you died this turn, sorry bro
         if (!active) {
 
-            if (owner.levelMap.ground[owner.x][owner.y].isExplored)
+            if (entity.levelMap.ground[entity.x][entity.y].isExplored)
                 active = true
         } else {
             //nearest opponent
             Entity enemy = findClosestVisibleEnemy()
 
             if (enemy) {
-                owner.moveTowardsAndAttack(enemy.x, enemy.y)
+                entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
 
                 if (MatUtils.boolean) {
-                    owner.randomMovement()
+                    entity.randomMovement()
                 }
             }
         }

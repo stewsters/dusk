@@ -4,23 +4,25 @@ import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.core.map.Tile
 import com.stewsters.dusk.game.RenderConfig
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
 import squidpony.squidgrid.gui.swing.SwingPane
 
-public class MapRenderSystem {
+@CompileStatic
+class MapRenderSystem {
 
-    public static void render(SwingPane display, LevelMap levelMap, Entity player) {
+    static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
-        int left = player.x - (RenderConfig.mapScreenWidth / 2)
-        int top = player.y - (RenderConfig.mapScreenHeight / 2)
+        int left = player.x - (int) (RenderConfig.mapScreenWidth / 2)
+        int top = player.y - (int) (RenderConfig.mapScreenHeight / 2)
 
         // Render tiles
         for (int x = 0; x < RenderConfig.mapScreenWidth; x++) {
             for (int y = 0; y < RenderConfig.mapScreenHeight; y++) {
 
-                int wx = x + left;
-                int wy = y + top;
+                int wx = x + left
+                int wy = y + top
 
                 int sx = x + RenderConfig.leftWindow
                 int sy = -y + RenderConfig.mapScreenHeight - 1
@@ -31,26 +33,26 @@ public class MapRenderSystem {
                     continue
                 }
 
-                float lightLevel = levelMap.getLight(wx, wy);
+                float lightLevel = levelMap.getLight(wx, wy)
                 if (lightLevel > 0) {
 
-                    double radius = Math.sqrt((wx - player.x) * (wx - player.x) + (wy - player.y) * (wy - player.y));
-                    SColor cellLight = SColorFactory.fromPallet("dark", lightLevel);
+                    double radius = Math.sqrt((wx - player.x) * (wx - player.x) + (wy - player.y) * (wy - player.y))
+                    SColor cellLight = SColorFactory.fromPallet("dark", lightLevel)
                     SColor backColor = SColorFactory.blend(
                             levelMap.ground[wx][wy].groundCover ? levelMap.ground[wx][wy].groundCover.color : levelMap.ground[wx][wy].background,
-                            cellLight, getTint(radius));
+                            cellLight, getTint(radius))
 
                     Entity entity = levelMap.getEntitiesAtLocation(wx, wy).max { it.priority }
                     if (entity) {
 
-                        SColor objectLight = SColorFactory.blend(entity.color, cellLight, getTint(0f));
-                        display.placeCharacter(sx, sy, entity.ch, objectLight, backColor);
+                        SColor objectLight = SColorFactory.blend(entity.color, cellLight, getTint(0f))
+                        display.placeCharacter(sx, sy, entity.ch, objectLight, backColor)
 
                     } else {
 
-                        SColor groundLight = SColorFactory.blend(levelMap.ground[wx][wy].color, cellLight, getTint(radius));
+                        SColor groundLight = SColorFactory.blend(levelMap.ground[wx][wy].color, cellLight, getTint(radius))
 
-                        display.placeCharacter(sx, sy, levelMap.ground[wx][wy].representation, groundLight, backColor);
+                        display.placeCharacter(sx, sy, levelMap.ground[wx][wy].representation, groundLight, backColor)
                     }
 
                     levelMap.ground[wx][wy].isExplored = true
@@ -60,7 +62,7 @@ public class MapRenderSystem {
                     display.placeCharacter(sx, sy, tile.representation, tile.color.darker().darker(), tile.background.darker().darker())
 
                 } else {
-                    display.clearCell(sx, sy);
+                    display.clearCell(sx, sy)
                 }
 
             }
@@ -75,6 +77,6 @@ public class MapRenderSystem {
  * @return
  */
     private static float getTint(double radius) {
-        return (float) (RenderConfig.lightTintPercentage * radius);//adjust tint based on distance
+        return (float) (RenderConfig.lightTintPercentage * radius)//adjust tint based on distance
     }
 }

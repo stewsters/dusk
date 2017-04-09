@@ -9,7 +9,7 @@ class Projectile extends BaseAi implements Ai {
     Point2i target
     Closure onImpact
 
-    public Projectile(params) {
+    Projectile(params) {
         oldAI = params.oldAI
         caster = params.caster
         target = params.target
@@ -25,17 +25,17 @@ class Projectile extends BaseAi implements Ai {
         }
     }
 
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
-        int dx = target.x - owner.x
-        int dy = target.y - owner.y
+        int dx = target.x - entity.x
+        int dy = target.y - entity.y
         float distance = Math.sqrt(dx**2 + dy**2)
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
 
-        if (owner.move(dx, dy)) {
+        if (entity.move(dx, dy)) {
             // kept flying
-            if (target.x == owner.x && target.y == owner.y) {
+            if (target.x == entity.x && target.y == entity.y) {
 
                 if (onImpact(0, 0)) {
                     return false
@@ -66,8 +66,8 @@ class Projectile extends BaseAi implements Ai {
 
     private boolean onImpact(int dx, int dy) {
         if (onImpact) {
-            if (onImpact(caster, owner.x + dx, owner.y + dy)) {
-                owner.levelMap.remove(owner)
+            if (onImpact(caster, entity.x + dx, entity.y + dy)) {
+                entity.levelMap.remove(entity)
                 return true
             }
         }
@@ -76,17 +76,17 @@ class Projectile extends BaseAi implements Ai {
 
 
     private void restore() {
-        if (!owner) // owner destroyed?
+        if (!entity) // entity destroyed?
             return
 
-        owner.levelMap.actors.remove(this)
+        entity.levelMap.actors.remove(this)
 
         if (oldAI) {
             oldAI.setGameTurn(gameTurn)
-            owner.ai = oldAI
-            owner.levelMap.actors.add oldAI
+            entity.ai = oldAI
+            entity.levelMap.actors.add oldAI
         } else {
-            owner.ai = null
+            entity.ai = null
         }
     }
 

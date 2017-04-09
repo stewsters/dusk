@@ -6,11 +6,11 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public class Domination implements Spell {
+class Domination implements Spell {
 
     public static final int DOMINATION_RANGE = 3
 
-    public Domination() {
+    Domination() {
         name = "Domination"
         key = 'd' as char
     }
@@ -33,7 +33,7 @@ public class Domination implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Changes the alignment of the nearest enemy to match yours."
     }
 

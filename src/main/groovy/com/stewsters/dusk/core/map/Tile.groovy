@@ -2,36 +2,38 @@ package com.stewsters.dusk.core.map
 
 import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.dusk.core.flyweight.TileType
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
-public class Tile {
+@CompileStatic
+class Tile {
 
     public TileType tileType
     public Boolean isExplored = false
     public GroundCover groundCover = null
 
-    public Tile(TileType tileType) {
-        this.tileType = tileType;
+    Tile(TileType tileType) {
+        this.tileType = tileType
     }
 
 
-    public boolean getIsBlocked() {
+    boolean getIsBlocked() {
         tileType.blocks
     }
 
-    public char getRepresentation() {
+    char getRepresentation() {
         tileType.character
     }
 
-    public SColor getColor() {
+    SColor getColor() {
         tileType.color
     }
 
-    public SColor getBackground() {
+    SColor getBackground() {
         tileType.background
     }
 
-    public float getOpacity() {
+    float getOpacity() {
         tileType.opacity
     }
 

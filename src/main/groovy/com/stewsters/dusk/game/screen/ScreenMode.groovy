@@ -1,7 +1,9 @@
 package com.stewsters.dusk.game.screen
 
+import groovy.transform.CompileStatic
 
-public enum ScreenMode {
+@CompileStatic
+enum ScreenMode {
     PLAYING,
     INVENTORY,
     INVENTORY_INSPECT,

@@ -7,10 +7,12 @@ import com.stewsters.dusk.core.map.gen.items.MonsterGen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class MapGenUtils {
 
-    public static void digPool(LevelMap map, Rect room, TileType shallow, TileType deep) {
+    static void digPool(LevelMap map, Rect room, TileType shallow, TileType deep) {
 
         ((room.x1)..(room.x2)).each { int x ->
             ((room.y1)..(room.y2)).each { int y ->
@@ -26,7 +28,6 @@ class MapGenUtils {
         }
     }
 
-    public
     static void pillarRoom(LevelMap map, Rect room, int spacing, TileType column, TileType floor, TileType edge = null) {
         ((room.x1)..(room.x2)).each { int x ->
             ((room.y1)..(room.y2)).each { int y ->
@@ -71,7 +72,7 @@ class MapGenUtils {
 
     protected static void placeObjects(LevelMap map, Rect room, int level, int MAX_ROOM_MONSTERS, int MAX_ROOM_ITEMS) {
 
-        int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
+        Integer numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
 
         numMonsters.times {
             int x = MatUtils.getIntInRange(room.x1, room.x2)
@@ -83,7 +84,7 @@ class MapGenUtils {
         }
 
         //now items
-        int numItems = MatUtils.getIntInRange(0, MAX_ROOM_ITEMS)
+        Integer numItems = MatUtils.getIntInRange(0, MAX_ROOM_ITEMS)
         numItems.times {
             int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
             int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)

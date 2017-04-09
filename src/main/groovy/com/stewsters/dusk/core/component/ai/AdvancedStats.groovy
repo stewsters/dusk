@@ -6,21 +6,21 @@ import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.util.math.MatUtils
 
-public class AdvancedStats extends BaseAi implements Ai {
+class AdvancedStats extends BaseAi implements Ai {
 
     private float morale
     private float chargeProbability
     private float retreatProbability
 
 
-    public AdvancedStats() {
+    AdvancedStats() {
         morale = 0.5f
         chargeProbability = 0.5f
         retreatProbability = 0.5f
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
-    public AdvancedStats(Map params) {
+    AdvancedStats(Map params) {
         morale = params?.morale ?: 0.5f
         chargeProbability = params?.chargeProbability ?: 0.5f
         retreatProbability = params?.retreatProbability ?: 0.5f
@@ -28,7 +28,7 @@ public class AdvancedStats extends BaseAi implements Ai {
     }
 
     // http://dillingers.com/blog/2014/05/10/roguelike-ai/
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
@@ -36,15 +36,15 @@ public class AdvancedStats extends BaseAi implements Ai {
 
 
         if (enemy) {
-            int enemyDistance = owner.distanceTo(enemy)
+            int enemyDistance = entity.distanceTo(enemy)
 
             Equipment weapon
             Item item
 
-            if (owner.inventory) {
-                weapon = owner.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
+            if (entity.inventory) {
+                weapon = entity.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
                 if (weapon) {
-                    item = weapon.owner.itemComponent
+                    item = weapon.entity.item
 //                    if (item) {
 //                        optimalRange = (item.minRange + item.maxRange) / 2
 //                    }
@@ -52,62 +52,62 @@ public class AdvancedStats extends BaseAi implements Ai {
             }
 
             //if we have a gun, and they are getting too close, shoot them
-            if (owner.fighter && (((float) owner.fighter.hp / owner.fighter.maxHP) < morale)) {
+            if (entity.fighter && (((float) entity.fighter.hp / entity.fighter.maxHP) < morale)) {
 //                //flee
-                if (!owner.moveAway(enemy.x, enemy.y)) {
-                    owner.moveTowardsAndAttack(enemy.x, enemy.y)
+                if (!entity.moveAway(enemy.x, enemy.y)) {
+                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
                 }
-            } else if (enemyDistance > optimalRange && canAttack(enemyDistance, item) && canMoveToward(enemy)) {
+            } else if (item && enemyDistance > optimalRange && canAttack(enemyDistance, item) && canMoveToward(enemy)) {
 
                 if (MatUtils.getFloatInRange(0, 1) < chargeProbability) {
-                    owner.moveTowardsAndAttack(enemy.x, enemy.y)
+                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
                 } else {
                     attackTarget(enemy, item, enemyDistance)
                 }
-            } else if (enemyDistance < optimalRange && canAttack(enemyDistance, item) && canMoveAway(enemy)) {
+            } else if (item && enemyDistance < optimalRange && canAttack(enemyDistance, item) && canMoveAway(enemy)) {
                 // to close
                 if (MatUtils.getFloatInRange(0, 1) < retreatProbability) {
-                    owner.moveAway(enemy.x, enemy.y)
+                    entity.moveAway(enemy.x, enemy.y)
                 } else {
                     attackTarget(enemy, item, enemyDistance)
                 }
-            } else if (canAttack(enemyDistance, item)) {
+            } else if (item && canAttack(enemyDistance, item)) {
                 attackTarget(enemy, item, enemyDistance)
 
             } else if (enemyDistance > optimalRange && canMoveToward(enemy)) {
-                owner.moveTowardsAndAttack(enemy.x, enemy.y)
+                entity.moveTowardsAndAttack(enemy.x, enemy.y)
 
             } else if (enemyDistance < optimalRange && canMoveAway(enemy)) {
-                owner.moveAway(enemy.x, enemy.y)
+                entity.moveAway(enemy.x, enemy.y)
 
             } else if (MatUtils.boolean) {
-                owner.randomMovement();
+                entity.randomMovement()
             }
 
 
-        } else if (owner.inventory) {
+        } else if (entity.inventory) {
 
             //if we are standing on an item and we have room, pick it up
-            if (owner.inventory.isFull()) {
-                owner.randomMovement()
+            if (entity.inventory.isFull()) {
+                entity.randomMovement()
             } else {
                 //find nearest visible item
-                Entity item = owner.ai.findClosestVisibleItem()
+                Entity item = entity.ai.findClosestVisibleItem()
 
                 //if we are standing on it, pickUp
                 if (item) {
-                    if (item.x == owner.x && item.y == owner.y) {
-                        owner.inventory.pickUp(item)
+                    if (item.x == entity.x && item.y == entity.y) {
+                        entity.inventory.pickUp(item)
                     } else {
-                        owner.moveTowardsAndAttack(item.x, item.y)
+                        entity.moveTowardsAndAttack(item.x, item.y)
                     }
                 } else {
-                    owner.randomMovement()
+                    entity.randomMovement()
                 }
 
             }
         } else if (MatUtils.boolean) {
-            owner.randomMovement();
+            entity.randomMovement()
         }
         gameTurn += speed
 
@@ -115,24 +115,24 @@ public class AdvancedStats extends BaseAi implements Ai {
     }
 
     boolean canMoveAway(Entity target) {
-        int dx = target.x - owner.x
-        int dy = target.y - owner.y
+        int dx = target.x - entity.x
+        int dy = target.y - entity.y
 
         dx = MatUtils.limit(dx, -1, 1)
         dy = MatUtils.limit(dy, -1, 1)
 
-        return owner.levelMap.isBlocked(owner.x + dx, owner.y + dy)
+        return entity.levelMap.isBlocked(entity.x + dx, entity.y + dy)
     }
 
 
     boolean canMoveToward(Entity target) {
-        int dx = target.x - owner.x
-        int dy = target.y - owner.y
+        int dx = target.x - entity.x
+        int dy = target.y - entity.y
         float distance = Math.sqrt(dx**2 + dy**2)
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
 
-        return owner.levelMap.isBlocked(owner.x + dx, owner.y + dy)
+        return entity.levelMap.isBlocked(entity.x + dx, entity.y + dy)
     }
 
     private static boolean canAttack(int targetRange, Item item) {
@@ -144,13 +144,13 @@ public class AdvancedStats extends BaseAi implements Ai {
         return targetRange <= 1 //melee
     }
 
-    void attackTarget(Entity entity, Item item, int distance) {
+    void attackTarget(Entity target, Item item, int distance) {
 
         if (item && item.useFunction != null) {
-            item.useHeldItem(owner)
+            item.useHeldItem(entity)
             println "AI Bang!"
         } else {
-            owner.moveTowardsAndAttack(entity.x, entity.y)
+            entity.moveTowardsAndAttack(target.x, target.y)
         }
     }
 

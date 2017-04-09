@@ -6,11 +6,11 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public class Cleanse implements Spell {
+class Cleanse implements Spell {
 
     public static final int HEAL_AMOUNT = 20
 
-    public Cleanse() {
+    Cleanse() {
         name = "Cleanse"
         key = 'e' as char
     }
@@ -25,7 +25,7 @@ public class Cleanse implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Removes toxicity"
     }
 }

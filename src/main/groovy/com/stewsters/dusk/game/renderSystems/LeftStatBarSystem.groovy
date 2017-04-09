@@ -5,12 +5,14 @@ import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.game.RenderConfig
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
+@CompileStatic
 class LeftStatBarSystem {
 
-    public static void render(SwingPane display, LevelMap levelMap, Entity player) {
+    static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
         int linesTaken = 0
 
@@ -34,7 +36,8 @@ class LeftStatBarSystem {
         int linesTaken = 0
 
         if (entity.ch && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            display.placeHorizontalString(0, verticalOffset + linesTaken, "${entity.ch}: ${entity.name}")
+            display.placeCharacter(0, verticalOffset + linesTaken, entity.ch, entity.color, SColor.BLACK)
+            display.placeHorizontalString(1, verticalOffset + linesTaken, ": ${entity.name}")
             linesTaken++
         }
 
@@ -42,10 +45,16 @@ class LeftStatBarSystem {
             renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Health", entity?.fighter?.hp ?: 0, entity?.fighter?.maxHP ?: 1, SColor.DARK_BLUE)
             linesTaken++
         }
-        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset + linesTaken) {
-            renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Stamina", entity?.fighter?.stamina ?: 0, entity?.fighter?.maxStamina ?: 1, SColor.BLUE_VIOLET)
+
+        if (entity?.fighter?.maxArmor && RenderConfig.screenHeight > verticalOffset + linesTaken) {
+            renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Armor", entity?.fighter?.armor ?: 0, entity?.fighter?.maxArmor ?: 0, SColor.LIGHT_BLUE)
             linesTaken++
         }
+
+//        if (entity?.fighter?.stamina && RenderConfig.screenHeight > verticalOffset + linesTaken) {
+//            renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Stamina", entity?.fighter?.stamina ?: 0, entity?.fighter?.maxStamina ?: 1, SColor.BLUE_VIOLET)
+//            linesTaken++
+//        }
         if (entity?.fighter?.toxicity && RenderConfig.screenHeight > verticalOffset + linesTaken) {
             renderTextBar(display, 0, verticalOffset + linesTaken, 20, "Toxicity", entity?.fighter?.toxicity ?: 0, entity?.fighter?.maxToxicity ?: 1, SColor.DARK_RED)
             linesTaken++
@@ -81,7 +90,6 @@ class LeftStatBarSystem {
     }
 
 
-    public
     static void render(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {
 
         double ratio = (double) value / (double) maximum
@@ -104,7 +112,7 @@ class LeftStatBarSystem {
     }
 
     //width 20
-    public static void renderTextOnly(SwingPane display, int x, int y, String name, int value, int maximum) {
+    static void renderTextOnly(SwingPane display, int x, int y, String name, int value, int maximum) {
 
         20.times { xPos ->
             display.clearCell(xPos + x, y)
@@ -113,7 +121,7 @@ class LeftStatBarSystem {
         display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
     }
 
-    public
+
     static void renderTextBar(SwingPane display, int x, int y, int totalWidth, String barName, int value, int maximum, SColor barColor) {
 
         double ratio = (double) value / (double) maximum
@@ -124,7 +132,7 @@ class LeftStatBarSystem {
         if (name.size() > totalWidth)
             name = name.substring(0, totalWidth)
 
-        int leftJust = (totalWidth - name.size()) / 2
+        int leftJust = (int) ((totalWidth - name.size()) / 2)
 
         RenderConfig.leftWindow.times { int xPos ->
 

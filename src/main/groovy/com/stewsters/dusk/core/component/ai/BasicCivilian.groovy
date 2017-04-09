@@ -4,15 +4,17 @@ import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class BasicCivilian extends BaseAi implements Ai {
 
-    public BasicCivilian() {
+    BasicCivilian() {
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
     @Override
-    public boolean takeTurn() {
+    boolean takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
@@ -21,44 +23,44 @@ class BasicCivilian extends BaseAi implements Ai {
         if (enemy) {
             //if we have a gun, and they are getting too close, shoot them
 
-            if (owner.distanceTo(enemy) < 2) {
-                owner.moveTowardsAndAttack(enemy.x, enemy.y)
+            if (entity.distanceTo(enemy) < 2) {
+                entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
-                if (owner.inventory) {
-                    Equipment weapon = owner.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
-                    if (weapon && weapon.owner.itemComponent.useFunction != null) {
-                        weapon.owner.itemComponent.useHeldItem(owner)
+                if (entity.inventory) {
+                    Equipment weapon = entity.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
+                    if (weapon && weapon.entity.item.useFunction != null) {
+                        weapon.entity.item.useHeldItem(entity)
                         println "Bang!"
                     } else {
-                        owner.moveAway(enemy.x, enemy.y)
+                        entity.moveAway(enemy.x, enemy.y)
                     }
                 } else {
-                    owner.moveAway(enemy.x, enemy.y)
+                    entity.moveAway(enemy.x, enemy.y)
                 }
             }
-        } else if (owner.inventory) {
+        } else if (entity.inventory) {
 
             //if we are standing on an item and we have room, pick it up
-            if (owner.inventory.isFull()) {
-                owner.randomMovement()
+            if (entity.inventory.isFull()) {
+                entity.randomMovement()
             } else {
                 //find nearest visible item
-                Entity item = owner.ai.findClosestVisibleItem()
+                Entity item = entity.ai.findClosestVisibleItem()
 
                 //if we are standing on it, pickUp
                 if (item) {
-                    if (item.x == owner.x && item.y == owner.y) {
-                        owner.inventory.pickUp(item)
+                    if (item.x == entity.x && item.y == entity.y) {
+                        entity.inventory.pickUp(item)
                     } else {
-                        owner.moveTowardsAndAttack(item.x, item.y)
+                        entity.moveTowardsAndAttack(item.x, item.y)
                     }
                 } else {
-                    owner.randomMovement()
+                    entity.randomMovement()
                 }
 
             }
         } else if (MatUtils.boolean) {
-            owner.randomMovement();
+            entity.randomMovement()
         }
 
         gameTurn += speed

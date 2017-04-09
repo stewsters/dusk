@@ -11,13 +11,13 @@ class StoneCurse implements Spell {
 
     public static final int STONE_CURSE_RANGE = 10
 
-    public StoneCurse() {
+    StoneCurse() {
         name = "Stone Curse"
         key = 't' as char
     }
 
     @Override
-    public boolean cast(Entity caster) {
+    boolean cast(Entity caster) {
 
         Entity enemy = caster.ai.findClosestVisibleEnemy()
         if (!enemy) {
@@ -39,7 +39,7 @@ class StoneCurse implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Turns closest enemy to stone."
     }
 

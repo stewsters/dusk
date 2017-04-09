@@ -1,15 +1,11 @@
 package com.stewsters.dusk.core.flyweight.moveset
 
-abstract class Moveset {
+import com.stewsters.util.math.Point2i
 
-    boolean standard = false
-    boolean lunge = false
-    boolean _long = false
-    boolean cleave = false
-    boolean sweep = false
-    boolean slash = false
-    boolean feintRetreat = false
-    boolean fend = false
-    boolean range = false
+interface Moveset {
+
+    List<Point2i> getTriggerArea(int x, int y, int dx, int dy);
+
+    List<Point2i> getAttackArea(int x, int y, int dx, int dy);
 
 }

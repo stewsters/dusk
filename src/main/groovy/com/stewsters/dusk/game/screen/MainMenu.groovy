@@ -1,32 +1,61 @@
 package com.stewsters.dusk.game.screen
 
-import com.stewsters.dusk.core.component.*
+import com.stewsters.dusk.core.component.Fighter
+import com.stewsters.dusk.core.component.Inventory
+import com.stewsters.dusk.core.component.Purse
+import com.stewsters.dusk.core.component.Quiver
+import com.stewsters.dusk.core.component.Spellbook
 import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
-import com.stewsters.dusk.core.map.MapStack
-import com.stewsters.dusk.core.map.gen.*
+import com.stewsters.dusk.core.magic.Cleanse
+import com.stewsters.dusk.core.magic.Confusion
+import com.stewsters.dusk.core.magic.Domination
+import com.stewsters.dusk.core.magic.Fireball
+import com.stewsters.dusk.core.magic.Healing
+import com.stewsters.dusk.core.magic.HostileSummoning
+import com.stewsters.dusk.core.magic.LightningStrike
+import com.stewsters.dusk.core.magic.Mapping
+import com.stewsters.dusk.core.magic.StoneCurse
+import com.stewsters.dusk.core.magic.Summoning
+import com.stewsters.dusk.core.magic.Wrath
+import com.stewsters.dusk.core.map.WorldMap
+import com.stewsters.dusk.core.map.gen.JailMapGenerator
+import com.stewsters.dusk.core.map.gen.MapGenerator
+import com.stewsters.dusk.core.map.gen.SimpleMapGenerator
+import com.stewsters.dusk.core.map.gen.SurfaceMapGenerator
+import com.stewsters.dusk.core.map.gen.TestMapGenerator
 import com.stewsters.dusk.core.sfx.DeathFunctions
 import com.stewsters.dusk.game.RenderConfig
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 import squidpony.squidgrid.gui.swing.SwingPane
 
 import java.awt.event.KeyEvent
 
-import static java.awt.event.KeyEvent.*
+import static java.awt.event.KeyEvent.VK_N
+import static java.awt.event.KeyEvent.VK_T
+import static java.awt.event.KeyEvent.VK_UNDEFINED
+import static java.awt.event.KeyEvent.VK_X
 
+@CompileStatic
 class MainMenu implements Screen {
+
     @Override
     void displayOutput(SwingPane display) {
 
-        rightJustifiedText(display, 5, "Dusk of a Shattered Kingdom")
-        rightJustifiedText(display, 10, "(N)ew Game")
-        rightJustifiedText(display, 15, "E(x)it Game")
-        rightJustifiedText(display, 45, "(T)esting Arena")
+        centerJustifiedText(display, 5, "Dusk of a Shattered Kingdom")
+        centerJustifiedText(display, 10, "N New Game")
+        centerJustifiedText(display, 15, "X Exit Game")
+        centerJustifiedText(display, 45, "T Testing Arena")
 
     }
 
+    static void centerJustifiedText(SwingPane display, int y, String txt) {
+        int startX = (int) (RenderConfig.screenWidth / 2) - (int) (txt.length() / 2)
+        display.placeHorizontalString(startX, y, txt)
+    }
 
     static void rightJustifiedText(SwingPane display, int y, String txt) {
         int startX = RenderConfig.screenWidth - txt.length() - 1
@@ -47,16 +76,16 @@ class MainMenu implements Screen {
 
         } else if (code == VK_T) {
 
-            MapStack mapStack = new MapStack(1, 1, 4)
-            MapGenerator mapgen = new TestMapGenerator();
+            WorldMap mapStack = new WorldMap(1, 1, 4)
+            MapGenerator mapgen = new TestMapGenerator()
 
-            mapStack.levelMaps[0][0][0] = mapgen.reGenerate(0)
-            mapStack.levelMaps[0][0][1] = new JailMapGenerator().reGenerate(1)
-            mapStack.levelMaps[0][0][2] = new SimpleMapGenerator().reGenerate(2)
-            mapStack.levelMaps[0][0][3] = new SurfaceMapGenerator().reGenerate(3)
+            mapStack.setLevelMap(mapgen.reGenerate(0, 0, 0))
+            mapStack.setLevelMap(new JailMapGenerator().reGenerate(0, 0, 1))
+            mapStack.setLevelMap(new SimpleMapGenerator().reGenerate(0, 0, 2))
+            mapStack.setLevelMap(new SurfaceMapGenerator().reGenerate(0, 0, 3))
 
 
-            Entity testPlayer = new Entity(map: mapStack.levelMaps[mapStack.currentX][mapStack.currentY][mapStack.currentZ],
+            Entity testPlayer = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                     x: mapgen.playerStartX, y: mapgen.playerStartY,
                     ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,
@@ -75,6 +104,20 @@ class MainMenu implements Screen {
                             unarmedDamage: (1..4),
                             deathFunction: DeathFunctions.playerDeath)
             )
+
+            testPlayer.spellbook.spells.addAll([
+                    new Cleanse(),
+                    new Confusion(),
+                    new Domination(),
+                    new Fireball(),
+                    new Healing(),
+                    new HostileSummoning(),
+                    new LightningStrike(),
+                    new Mapping(),
+                    new StoneCurse(),
+                    new Summoning(),
+                    new Wrath()
+            ])
 
             return new PlayingScreen(mapStack, testPlayer)
         } else if (code == VK_X) {

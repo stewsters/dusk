@@ -10,11 +10,11 @@ import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 @CompileStatic
-public class Wrath implements Spell {
+class Wrath implements Spell {
 
     public static final int WRATH_RANGE = 10
 
-    public Wrath() {
+    Wrath() {
         name = "Wrath"
         key = 'w' as char
     }
@@ -52,7 +52,7 @@ public class Wrath implements Spell {
                         }
 
                 )
-                enemy.ai.owner = enemy
+                enemy.ai.entity = enemy
                 enemy.levelMap.actors.add(enemy.ai)
                 MessageLogSystem.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 
@@ -63,7 +63,7 @@ public class Wrath implements Spell {
     }
 
     @Override
-    public String getDescription() {
+    String getDescription() {
         "Throws enemies away from the castor."
     }
 

@@ -5,40 +5,42 @@ import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import squidpony.squidcolor.SColor
 
 class Item {
-    public Entity owner
+    public Entity entity
 
     Closure useFunction
     boolean useOnPickup
     boolean autoPickup
+    int weight
 
-    public Item(params) {
+    Item(Map params) {
         useFunction = params?.useFunction
         useOnPickup = params?.useOnPickup
-        autoPickup = params?.autoPickup
+        autoPickup = params.autoPickup != false
+        weight = params?.weight ?: 0
     }
 
     /**
      *
      * @return true if the item should be used up
      */
-    public boolean useItem(Entity user) {
+    boolean useItem(Entity user) {
 
-        if (owner.equipment) {
-            owner.equipment.toggleEquip(user)
+        if (entity.equipment) {
+            entity.equipment.toggleEquip(user)
             return true
         } else if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${entity.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }
 
-    public boolean useHeldItem(Entity user) {
+    boolean useHeldItem(Entity user) {
         if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLogSystem.send("${owner.name} cannot be used.", SColor.RED, [user])
+            MessageLogSystem.send("${entity.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }
