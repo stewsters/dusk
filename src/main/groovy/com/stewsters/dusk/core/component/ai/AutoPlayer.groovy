@@ -1,10 +1,12 @@
 package com.stewsters.dusk.core.component.ai
 
-import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.entity.Entity
-import com.stewsters.dusk.core.flyweight.Slot
 import com.stewsters.util.math.MatUtils
+import com.stewsters.util.pathing.twoDimention.pathfinder.AStarPathFinder2d
+import com.stewsters.util.pathing.twoDimention.searcher.DjikstraSearcher2d
+import com.stewsters.util.pathing.twoDimention.shared.FullPath2d
+import com.stewsters.util.pathing.twoDimention.shared.PathNode2d
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -33,83 +35,66 @@ class AutoPlayer extends BaseAi implements Ai {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
-        int optimalRange = 1
-
+        Entity nearestItem = findClosestVisibleItem()
 
         if (enemy) {
+            println "Enemy"
             int enemyDistance = entity.distanceTo(enemy)
 
-            Equipment weapon
-            Item item
-
-            if (entity.inventory) {
-                weapon = entity.inventory.getEquippedInSlot(Slot.PRIMARY_HAND)
-                if (weapon) {
-                    item = weapon.entity.item
-//                    if (item) {
-//                        optimalRange = (item.minRange + item.maxRange) / 2
-//                    }
-                }
-            }
-
-            //if we have a gun, and they are getting too close, shoot them
-            if (entity.fighter && (((float) entity.fighter.hp / entity.fighter.maxHP) < morale)) {
-//                //flee
-                if (!entity.moveAway(enemy.x, enemy.y)) {
-                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
-                }
-            } else if (item && enemyDistance > optimalRange && canAttack(enemyDistance, item) && canMoveToward(enemy)) {
-
-                if (MatUtils.getFloatInRange(0, 1) < chargeProbability) {
-                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
-                } else {
-                    attackTarget(enemy, item, enemyDistance)
-                }
-            } else if (item && enemyDistance < optimalRange && canAttack(enemyDistance, item) && canMoveAway(enemy)) {
-                // to close
-                if (MatUtils.getFloatInRange(0, 1) < retreatProbability) {
-                    entity.moveAway(enemy.x, enemy.y)
-                } else {
-                    attackTarget(enemy, item, enemyDistance)
-                }
-            } else if (item && canAttack(enemyDistance, item)) {
-                attackTarget(enemy, item, enemyDistance)
-
-            } else if (enemyDistance > optimalRange && canMoveToward(enemy)) {
+            if (enemyDistance <= 1) {
                 entity.moveTowardsAndAttack(enemy.x, enemy.y)
-
-            } else if (enemyDistance < optimalRange && canMoveAway(enemy)) {
-                entity.moveAway(enemy.x, enemy.y)
-
-            } else if (MatUtils.boolean) {
-                entity.randomMovement()
-            }
-
-
-        } else if (entity.inventory) {
-
-            //if we are standing on an item and we have room, pick it up
-            if (entity.inventory.isFull()) {
-                entity.randomMovement()
             } else {
-                //find nearest visible item
-                Entity item = entity.ai.findClosestVisibleItem()
+                AStarPathFinder2d pathFinder2d = new AStarPathFinder2d(entity.levelMap, 1000, true)
+                FullPath2d path = pathFinder2d.findPath(entity.mover, entity.x, entity.y, enemy.x, enemy.y)
 
-                //if we are standing on it, pickUp
-                if (item) {
-                    if (item.x == entity.x && item.y == entity.y) {
-                        entity.inventory.pickUp(item)
-                    } else {
-                        entity.moveTowardsAndAttack(item.x, item.y)
-                    }
-                } else {
+                if (path) {
+                    def step = path.getStep(1)
+                    entity.moveTowardsAndAttack(step.x, step.y)
+                }else{
                     entity.randomMovement()
                 }
-
             }
-        } else if (MatUtils.boolean) {
-            entity.randomMovement()
+
+//            if (entity.fighter && (((float) entity.fighter.hp / entity.fighter.maxHP) < morale)) {
+//                if (!entity.moveAway(enemy.x, enemy.y)) {
+//                    entity.moveTowardsAndAttack(enemy.x, enemy.y)
+//                }
+//
+//            } else if (canMoveToward(enemy)) {
+//                entity.moveTowardsAndAttack(enemy.x, enemy.y)
+//
+//            } else {//} if (canMoveAway(enemy)) {
+//                entity.randomMovement()
+//                //moveAway(enemy.x, enemy.y)
+//
+//            }
+
+        } else if (entity.inventory && !entity.inventory.isFull() && nearestItem) {
+            println "Grabbing item..."
+
+            if (nearestItem.x == entity.x && nearestItem.y == entity.y) {
+                entity.inventory.pickUp(nearestItem)
+            } else {
+                entity.moveTowardsAndAttack(nearestItem.x, nearestItem.y)
+            }
+
+        } else {
+            println "Exploring..."
+            DjikstraSearcher2d searcher2d = new DjikstraSearcher2d(entity.levelMap, 1000, true)
+            FullPath2d path = searcher2d.search(entity.mover, entity.x, entity.y, { PathNode2d current -> !entity.levelMap.ground[current.x][current.y].isExplored })
+            if (path && path.length > 1) {
+                FullPath2d.Step step = path.getStep(1)
+                entity.moveTowardsAndAttack(step.x, step.y)
+                println "Explored ${step.x}, ${step.y}"
+            } else {
+                println "No exploration left"
+//                    entity.randomMovement()
+            }
         }
+
+//        else if (MatUtils.boolean) {
+//            entity.randomMovement()
+//        }
         gameTurn += speed
 
         return true

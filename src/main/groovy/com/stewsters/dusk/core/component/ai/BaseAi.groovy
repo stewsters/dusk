@@ -64,7 +64,7 @@ abstract class BaseAi implements Ai {
         int maxDistance = Integer.MAX_VALUE
 
         for (Entity otherEntity : entity.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
-            if (otherEntity.fighter && entity.faction?.hates(otherEntity.faction)) {
+            if (otherEntity.fighter && otherEntity.fighter.hp && entity.faction?.hates(otherEntity.faction)) {
                 int lightX = otherEntity.x - lowX
                 int lightY = otherEntity.y - lowY
 

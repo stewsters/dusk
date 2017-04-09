@@ -58,6 +58,7 @@ import static java.awt.event.KeyEvent.VK_NUMPAD8
 import static java.awt.event.KeyEvent.VK_NUMPAD9
 import static java.awt.event.KeyEvent.VK_P
 import static java.awt.event.KeyEvent.VK_PERIOD
+import static java.awt.event.KeyEvent.VK_Q
 import static java.awt.event.KeyEvent.VK_R
 import static java.awt.event.KeyEvent.VK_RIGHT
 import static java.awt.event.KeyEvent.VK_SLASH
@@ -139,8 +140,13 @@ class PlayingScreen implements Screen {
                 return new DeathScreen(player)
             }
         } else if (screenMode == ScreenMode.PLAYING) {
+
             switch (code) {
-            //movement
+                case VK_Q:
+                    // Auto
+                    stepSim()
+                    break;
+                //movement
                 case VK_H:
                 case VK_LEFT:
                 case VK_NUMPAD4:
