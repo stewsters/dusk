@@ -130,6 +130,8 @@ Blink bat - these are annoying
 Zombie- slow walk
 Rhino charger
 
+Puddi
+
 Goat archers - retreat an fire, try to draw you into darkness
 Skeleton archers- stand and fire
 
