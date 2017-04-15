@@ -50,7 +50,7 @@ class AutoPlayer extends BaseAi implements Ai {
                 if (path) {
                     def step = path.getStep(1)
                     entity.moveTowardsAndAttack(step.x, step.y)
-                }else{
+                } else {
                     entity.randomMovement()
                 }
             }

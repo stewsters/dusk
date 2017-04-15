@@ -1,6 +1,7 @@
 package com.stewsters.dusk.core.entity
 
 import com.stewsters.dusk.core.component.Armor
+import com.stewsters.dusk.core.component.CoreStats
 import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.component.Inventory
@@ -42,6 +43,7 @@ class Entity {
     public boolean blocks
 
     public Fighter fighter
+    public CoreStats coreStats
     public Ai ai
     public Faction faction
     public Item item
@@ -76,6 +78,11 @@ class Entity {
 
         if (params.description)
             description = params.description
+
+        if (params.coreStats) {
+            coreStats = params.coreStats
+            coreStats.entity = this
+        }
 
         if (params.fighter) {
             fighter = params.fighter

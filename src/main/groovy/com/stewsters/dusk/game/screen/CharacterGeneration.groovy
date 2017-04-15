@@ -1,6 +1,7 @@
 package com.stewsters.dusk.game.screen
 
 import com.stewsters.dusk.core.component.Armor
+import com.stewsters.dusk.core.component.CoreStats
 import com.stewsters.dusk.core.component.Equipment
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.component.Inventory
@@ -175,7 +176,8 @@ class CharacterGeneration implements Screen {
                         stamina: 10,
                         toxicity: 10,
                         unarmedDamage: (1..4),
-                        deathFunction: DeathFunctions.playerDeath)
+                        deathFunction: DeathFunctions.playerDeath),
+                coreStats: new CoreStats(strength: 10, life: 10, stamina: 10)
         )
 
         player.spellbook.spells = []

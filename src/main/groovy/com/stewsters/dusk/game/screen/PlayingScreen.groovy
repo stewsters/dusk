@@ -146,7 +146,7 @@ class PlayingScreen implements Screen {
                     // Auto
                     stepSim()
                     break;
-                //movement
+            //movement
                 case VK_H:
                 case VK_LEFT:
                 case VK_NUMPAD4:

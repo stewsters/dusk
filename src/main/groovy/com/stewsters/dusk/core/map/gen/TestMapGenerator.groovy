@@ -1,5 +1,6 @@
 package com.stewsters.dusk.core.map.gen
 
+import com.stewsters.dusk.core.component.CoreStats
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.TileType
@@ -59,7 +60,8 @@ class TestMapGenerator implements MapGenerator {
                 color: SColor.WHITE,
 
                 blocks: true,
-                fighter: new Fighter(hp: 100)
+                fighter: new Fighter(hp: 100),
+                coreStats: new CoreStats(strength: 10, life: 10, stamina: 10)
         )
 
         return map

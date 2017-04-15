@@ -1,5 +1,6 @@
 package com.stewsters.dusk.game.screen
 
+import com.stewsters.dusk.core.component.CoreStats
 import com.stewsters.dusk.core.component.Fighter
 import com.stewsters.dusk.core.component.Inventory
 import com.stewsters.dusk.core.component.Purse
@@ -102,7 +103,8 @@ class MainMenu implements Screen {
                             evasion: 1,
                             marksman: 1,
                             unarmedDamage: (1..4),
-                            deathFunction: DeathFunctions.playerDeath)
+                            deathFunction: DeathFunctions.playerDeath),
+                    coreStats: new CoreStats(strength: 10, life: 10, stamina: 10)
             )
 
             testPlayer.spellbook.spells.addAll([
