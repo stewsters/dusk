@@ -1,12 +1,16 @@
-package com.stewsters.dusk.core.component.ai
+package com.stewsters.dusk.core.component.ai.auto
 
 import com.stewsters.dusk.core.component.Item
+import com.stewsters.dusk.core.component.ai.Ai
+import com.stewsters.dusk.core.component.ai.BaseAi
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.pathing.twoDimention.pathfinder.AStarPathFinder2d
 import com.stewsters.util.pathing.twoDimention.searcher.DjikstraSearcher2d
 import com.stewsters.util.pathing.twoDimention.shared.FullPath2d
 import com.stewsters.util.pathing.twoDimention.shared.PathNode2d
+import com.stewsters.util.planner.Action
+import com.stewsters.util.planner.Planner
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -33,6 +37,53 @@ class AutoPlayer extends BaseAi implements Ai {
     // http://dillingers.com/blog/2014/05/10/roguelike-ai/
     boolean takeTurn() {
 
+//        List<Action<AutoPlayWorld>> actions = Arrays.asList(
+//                new Action<>(
+//                        "Wait",
+//                        { AutoPlayWorld w ->
+//                            return w;
+//                        },
+//                        { AutoPlayWorld w ->
+//
+//                            return w;
+//                        }),
+//                new Action<>(
+//                        "Attack",
+//                        { AutoPlayWorld w ->
+//                            return w.visableOpponents;
+//                        },
+//                        { AutoPlayWorld w ->
+//
+//                            w.health -= 1
+//
+//
+//                            return w;
+//                        }),
+//                new Action<>(
+//                        "GrabItem",
+//                        { AutoPlayWorld w ->
+//                            return w;
+//                        },
+//                        { AutoPlayWorld w ->
+//
+//                            return w;
+//                        }),
+//                new Action<>(
+//                        "Explore",
+//                        { AutoPlayWorld w ->
+//                            return w;
+//                        },
+//                        { AutoPlayWorld w ->
+//
+//                            return w;
+//                        }),
+//        )
+
+//        Planner<AutoPlayWorld> planner = new Planner<>()
+//        planner.plan(new AutoPlayWorld(entity),
+//
+//        )
+
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
         Entity nearestItem = findClosestVisibleItem()
@@ -44,7 +95,7 @@ class AutoPlayer extends BaseAi implements Ai {
             if (enemyDistance <= 1) {
                 entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
-                AStarPathFinder2d pathFinder2d = new AStarPathFinder2d(entity.levelMap, 1000, true)
+                AStarPathFinder2d pathFinder2d = new AStarPathFinder2d(entity.levelMap, 1000)
                 FullPath2d path = pathFinder2d.findPath(entity.mover, entity.x, entity.y, enemy.x, enemy.y)
 
                 if (path) {
@@ -80,7 +131,7 @@ class AutoPlayer extends BaseAi implements Ai {
 
         } else {
             println "Exploring..."
-            DjikstraSearcher2d searcher2d = new DjikstraSearcher2d(entity.levelMap, 1000, true)
+            DjikstraSearcher2d searcher2d = new DjikstraSearcher2d(entity.levelMap, 1000)
             FullPath2d path = searcher2d.search(entity.mover, entity.x, entity.y, { PathNode2d current -> !entity.levelMap.ground[current.x][current.y].isExplored })
             if (path && path.length > 1) {
                 FullPath2d.Step step = path.getStep(1)

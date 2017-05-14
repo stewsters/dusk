@@ -1,12 +1,15 @@
 package com.stewsters.dusk.core.component.mover
 
 import com.stewsters.dusk.core.entity.Entity
+import com.stewsters.util.pathing.twoDimention.heuristic.AStarHeuristic2d
+import com.stewsters.util.pathing.twoDimention.heuristic.ChebyshevHeuristic2d
 import com.stewsters.util.pathing.twoDimention.shared.Mover2d
 import groovy.transform.CompileStatic
 
 @CompileStatic
 class DuskMover2d implements Mover2d {
 
+    private static final AStarHeuristic2d heuristic = new ChebyshevHeuristic2d()
     private Entity entity
 
     DuskMover2d(Entity entity) {
@@ -33,5 +36,15 @@ class DuskMover2d implements Mover2d {
     @Override
     float getCost(int sx, int sy, int tx, int ty) {
         return 1
+    }
+
+    @Override
+    AStarHeuristic2d getHeuristic() {
+        return heuristic
+    }
+
+    @Override
+    boolean getDiagonal() {
+        return true
     }
 }

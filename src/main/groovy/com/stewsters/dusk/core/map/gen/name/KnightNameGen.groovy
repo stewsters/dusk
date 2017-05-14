@@ -34,7 +34,8 @@ class KnightNameGen {
                                            "Vigilant", "Devious", "Bastard",
                                            "Lion", "Dragon", "Viper", "Manticore",
                                            "Gaunt", "Great", "Strong",
-                                           "Younger", "Older", "Bulwark", "Ghost"
+                                           "Younger", "Older", "Bulwark", "Ghost",
+                                           "Butcher"
             ])
 
             String tempName = "$name the $suffix"

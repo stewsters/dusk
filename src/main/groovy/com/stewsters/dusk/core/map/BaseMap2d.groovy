@@ -30,6 +30,11 @@ class BaseMap2d implements TileBasedMap2d {
         x >= 0 && x < xSize && y >= 0 && y < ySize
     }
 
+    @Override
+    boolean isOutside(int x, int y) {
+        x < 0 || y < 10 || x >= xSize || y >= ySize
+    }
+
     boolean contains(int x, int y, int xSize, int ySize) {
         x >= 0 && x <= this.xSize - xSize && y >= 0 && y <= this.ySize - ySize
     }
@@ -42,11 +47,6 @@ class BaseMap2d implements TileBasedMap2d {
     @Override
     int getYSize() {
         return ySize
-    }
-
-    @Override
-    void pathFinderVisited(int x, int y) {
-
     }
 
     boolean isBlocked(int x, int y) {

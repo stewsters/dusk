@@ -9,7 +9,7 @@ import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.component.Purse
 import com.stewsters.dusk.core.component.Quiver
 import com.stewsters.dusk.core.component.Spellbook
-import com.stewsters.dusk.core.component.ai.AutoPlayer
+import com.stewsters.dusk.core.component.ai.auto.AutoPlayer
 import com.stewsters.dusk.core.component.ai.LocalPlayer
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.core.flyweight.Faction
