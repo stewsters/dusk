@@ -274,7 +274,7 @@ class FantasyItemGen {
                 DamageType material = MatUtils.rand([DamageType.IRON, DamageType.SILVER])
 
                 return new Entity(map: map, x: x, y: y,
-                        ch: '↑', color: SColor.STEEL_BLUE,
+                        ch: '†', color: SColor.STEEL_BLUE,
                         name: "${material.name} Longsword",
                         description: "A long sword",
                         itemComponent: new Item(weight: 8),
