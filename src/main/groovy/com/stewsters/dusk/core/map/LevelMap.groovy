@@ -69,6 +69,9 @@ class LevelMap extends BaseLitMap2d {
         return spatialHash.getValues(lowX - 0.5, lowY - 0.5, highX + 0.5, highY + 0.5, entityTemp)
     }
 
+    boolean isBlockedIgnoreEntities(int x, int y){
+        super.isBlocked(x,y)
+    }
 
     boolean isBlocked(int x, int y, Entity ignore = null) {
 

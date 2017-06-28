@@ -89,7 +89,7 @@ class AutoPlayer extends BaseAi implements Ai {
         Entity nearestItem = findClosestVisibleItem()
 
         if (enemy) {
-            println "Enemy"
+            println "Enemy found ${enemy.x - entity.x} ${enemy.y - entity.y}"
             int enemyDistance = entity.distanceTo(enemy)
 
             if (enemyDistance <= 1) {
@@ -99,9 +99,11 @@ class AutoPlayer extends BaseAi implements Ai {
                 FullPath2d path = pathFinder2d.findPath(entity.mover, entity.x, entity.y, enemy.x, enemy.y)
 
                 if (path) {
+                    println " Path found, advancing towards"
                     def step = path.getStep(1)
                     entity.moveTowardsAndAttack(step.x, step.y)
                 } else {
+                    println " No valid path, random movement"
                     entity.randomMovement()
                 }
             }

@@ -20,7 +20,7 @@ class DuskMover2d implements Mover2d {
     boolean canTraverse(int sx, int sy, int tx, int ty) {
         for (int x = 0; x < entity.xSize; x++) {
             for (int y = 0; y < entity.ySize; y++) {
-                if (entity.levelMap.isBlocked(tx + x, ty + y, entity)) {
+                if (entity.levelMap.isBlockedIgnoreEntities(tx + x, ty + y)) {
                     return false
                 }
             }
@@ -30,7 +30,7 @@ class DuskMover2d implements Mover2d {
 
     @Override
     boolean canOccupy(int tx, int ty) {
-        return !entity.levelMap.isBlocked(tx, ty)
+        return !entity.levelMap.isBlockedIgnoreEntities(tx, ty)
     }
 
     @Override
