@@ -13,14 +13,16 @@ Equipment
 
 ## Core Stats
 
-  Strength
+  Strength 
+  
   Life - Does not regenerate, however you can brew potions to heal
+  
   Stamina - Regenerates a small amount each turn
-    resource for melee attacks and dodge.  
-    Low stamina also slows attack speed and damage (up to 30%).  
-    Light armor uses less stamina and heavy armor decreases it more.
-    Stamina Regen slower if you are too damaged or too toxic
-    (will likely need to be a larger number to have much variation)
+   * resource for melee attacks and dodge.  
+   * Low stamina also slows attack speed and damage (up to 30%).  
+   * Light armor uses less stamina and heavy armor decreases it more.
+   * Stamina Regen slower if you are too damaged or too toxic
+   * (will likely need to be a larger number to have much variation)
 
 ## Derived
 
