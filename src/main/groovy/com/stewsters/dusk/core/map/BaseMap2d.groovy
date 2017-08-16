@@ -45,13 +45,13 @@ class BaseMap2d implements TileBasedMap2d {
     }
 
     @Override
-    void pathFinderVisited(int x, int y) {
-
+    boolean isOutside(int x, int y) {
+        return (x < 0 || x >= xSize || y < 0 || y >= ySize)
     }
 
     boolean isBlocked(int x, int y) {
 
-        if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
+        if (isOutside(x, y)) {
             return true
         }
 
@@ -60,7 +60,7 @@ class BaseMap2d implements TileBasedMap2d {
 
     boolean isType(int x, int y, TileType tileType) {
 
-        if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
+        if (isOutside(x, y)) {
             return false
         }
         return ground[x][y].tileType == tileType
