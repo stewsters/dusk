@@ -5,84 +5,87 @@ import com.stewsters.dusk.core.component.ai.Ai
 import com.stewsters.dusk.core.component.ai.BaseAi
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
 import com.stewsters.util.pathing.twoDimention.pathfinder.AStarPathFinder2d
 import com.stewsters.util.pathing.twoDimention.searcher.DjikstraSearcher2d
 import com.stewsters.util.pathing.twoDimention.shared.FullPath2d
 import com.stewsters.util.pathing.twoDimention.shared.PathNode2d
 import com.stewsters.util.planner.Action
+import com.stewsters.util.planner.Fitness
 import com.stewsters.util.planner.Planner
-import groovy.transform.CompileStatic
 
-@CompileStatic
 class AutoPlayer extends BaseAi implements Ai {
 
-    private float morale
-    private float chargeProbability
-    private float retreatProbability
-
     AutoPlayer() {
-        morale = 0.5f
-        chargeProbability = 0.5f
-        retreatProbability = 0.5f
         gameTurn = MatUtils.getIntInRange(0, speed)
     }
 
-//    AutoPlayer(Map params) {
-//        morale = params?.morale ?: 0.5f
-//        chargeProbability = params?.chargeProbability ?: 0.5f
-//        retreatProbability = params?.retreatProbability ?: 0.5f
-//
-//    }
+    //Memory
+    Point2i floorExit = null
 
-    // http://dillingers.com/blog/2014/05/10/roguelike-ai/
     boolean takeTurn() {
 
-//        List<Action<AutoPlayWorld>> actions = Arrays.asList(
-//                new Action<>(
-//                        "Wait",
-//                        { AutoPlayWorld w ->
-//                            return w;
-//                        },
-//                        { AutoPlayWorld w ->
-//
-//                            return w;
-//                        }),
-//                new Action<>(
-//                        "Attack",
-//                        { AutoPlayWorld w ->
-//                            return w.visableOpponents;
-//                        },
-//                        { AutoPlayWorld w ->
-//
-//                            w.health -= 1
-//
-//
-//                            return w;
-//                        }),
-//                new Action<>(
-//                        "GrabItem",
-//                        { AutoPlayWorld w ->
-//                            return w;
-//                        },
-//                        { AutoPlayWorld w ->
-//
-//                            return w;
-//                        }),
-//                new Action<>(
-//                        "Explore",
-//                        { AutoPlayWorld w ->
-//                            return w;
-//                        },
-//                        { AutoPlayWorld w ->
-//
-//                            return w;
-//                        }),
-//        )
+        int maxCost = 100
+        List<Action<AutoPlayWorld>> actions = Arrays.asList(
+                new Action<>(
+                        "Wait",
+                        { AutoPlayWorld w ->
+                            return true;
+                        },
+                        { AutoPlayWorld w ->
 
-//        Planner<AutoPlayWorld> planner = new Planner<>()
-//        planner.plan(new AutoPlayWorld(entity),
-//
-//        )
+                            w.addCost(1)
+                            return w;
+                        }),
+                new Action<>(
+                        "Attack",
+                        { AutoPlayWorld w ->
+                            return w.visableOpponents > 0;
+                        },
+                        { AutoPlayWorld w ->
+                            w.health -= 1
+                            w.visableOpponents--
+                            w.addCost(1)
+                            return w;
+                        }),
+                new Action<>(
+                        "GrabItem",
+                        { AutoPlayWorld w ->
+
+                            return w.visableItems > 0;
+                        },
+                        { AutoPlayWorld w ->
+
+                            w.items++
+                            w.visableItems--
+                            w.addCost(1)
+                            return w;
+                        }),
+                new Action<>(
+                        "Explore",
+                        { AutoPlayWorld w ->
+                            return w;
+                        },
+                        { AutoPlayWorld w ->
+                            w.visableOpponents++
+                            w.visableItems++
+                            return w;
+                        }),
+        )
+
+        Planner<AutoPlayWorld> planner = new Planner<>()
+        AutoPlayWorld world = new AutoPlayWorld(entity)
+        planner.plan(world,
+                new Fitness<AutoPlayWorld>() {
+                    @Override
+                    float fitness(AutoPlayWorld worldState) {
+                        return worldState.health - worldState.visableOpponents
+                    }
+                },
+                actions,
+                maxCost
+
+        )
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()

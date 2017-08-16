@@ -9,7 +9,9 @@ class AutoPlayWorld extends BaseWorldState implements Comparable<AutoPlayWorld>,
 
     public int health
     public int maxHealth
-    List<Entity> visableOpponents
+    public int visableOpponents
+    public int visableItems
+    public int items = 0
 
     public AutoPlayWorld() {
         parentState = null;
@@ -18,7 +20,8 @@ class AutoPlayWorld extends BaseWorldState implements Comparable<AutoPlayWorld>,
 
         health = 0;
         maxHealth = 0;
-        visableOpponents = []
+        visableOpponents = 0
+        visableItems = 0
     }
 
     public AutoPlayWorld(Entity e) {
@@ -28,7 +31,7 @@ class AutoPlayWorld extends BaseWorldState implements Comparable<AutoPlayWorld>,
 
         health = e.fighter.maxHP
         maxHealth = e.fighter.hp
-        visableOpponents = []
+        visableOpponents = e.ai.findAllVisibleEnemies(10).size()
     }
 
     @Override
@@ -36,8 +39,10 @@ class AutoPlayWorld extends BaseWorldState implements Comparable<AutoPlayWorld>,
         def w = new AutoPlayWorld()
 
         w.health = health
-        w.maxHealth = w.maxHealth
-        w.visableOpponents = visableOpponents.clone()
+        w.items = items
+        w.maxHealth = maxHealth
+        w.visableOpponents = visableOpponents
+        w.visableItems = visableItems
         return w
     }
 
