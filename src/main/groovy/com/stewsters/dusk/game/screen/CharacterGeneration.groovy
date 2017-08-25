@@ -131,7 +131,7 @@ class CharacterGeneration implements Screen {
                 pointerColumn = Math.min(1, pointerColumn + 1)
                 break
             case VK_SPACE:
-                return startGame(true)
+                return startGame(false)
                 break
             case VK_ESCAPE:
                 return new MainMenu()
