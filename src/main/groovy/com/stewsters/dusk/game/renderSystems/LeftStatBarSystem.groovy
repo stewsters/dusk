@@ -14,7 +14,7 @@ class LeftStatBarSystem {
 
     static void render(SwingPane display, LevelMap levelMap, Entity player) {
 
-        int linesTaken = 0
+        Integer linesTaken = 0
 
         List<Entity> nearbyEntities = new ArrayList<Entity>(levelMap.getEntitiesBetween(player.x - 10, player.y - 10, player.x + 10, player.y + 10).findAll {
             levelMap.getLight(it.x, it.y) > 0

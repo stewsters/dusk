@@ -1,7 +1,8 @@
 package com.stewsters.dusk.core.flyweight;
 
 public enum AmmoType {
-    ARROW("arrow");
+    ARROW("arrow"),
+    BULLET("bullet");
 
     final String name;
 

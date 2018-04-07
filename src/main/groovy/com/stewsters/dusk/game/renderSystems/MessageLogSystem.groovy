@@ -11,7 +11,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 @CompileStatic
 class MessageLogSystem {
 
-    private static LinkedList<Message> gameMessages = []
+    private static LinkedList<Message> gameMessages = new LinkedList<>()
 
     static void send(String message, SColor color = SColor.WHITE, List<Entity> concerning = []) {
         WordUtils.wrap('>' + message, RenderConfig.screenWidth - RenderConfig.leftWindow - 1).eachLine {

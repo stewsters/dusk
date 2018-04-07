@@ -326,7 +326,7 @@ class FantasyItemGen {
                 return new Entity(map: map, x: x, y: y,
                         ch: '↑', color: SColor.WHITE,
                         name: "${material.name} Rapier",
-                        description: "A sharp peircing sword.",
+                        description: "A sharp piercing sword.",
                         itemComponent: new Item(weight: 2),
                         equipment: new Equipment(slot: Slot.PRIMARY_HAND),
                         weapon: new Weapon(
