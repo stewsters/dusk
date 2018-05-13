@@ -45,7 +45,7 @@ class LevelMap extends BaseLitMap2d {
             actors.add(e.ai)
         }
 
-        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.xSize - 0.75, e)
+        spatialHash.put(e.x - 0.25d, e.y - 0.25d, e.x + e.xSize - 0.75d, e.y + e.xSize - 0.75d, e)
     }
 
     void remove(Entity e) {
@@ -56,17 +56,17 @@ class LevelMap extends BaseLitMap2d {
 
 
     void update(Entity e) {
-        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + e.xSize - 0.75, e.y + e.ySize - 0.75, e)
+        spatialHash.put(e.x - 0.25d, e.y - 0.25d, e.x + e.xSize - 0.75d, e.y + e.ySize - 0.75d, e)
     }
 
     HashSet<Entity> getEntitiesAtLocation(int x, int y) {
         entityTemp.clear()
-        return spatialHash.getValues(x - 0.5, y - 0.5, x + 0.5, y + 0.5, entityTemp)
+        return spatialHash.getValues(x - 0.5d, y - 0.5d, x + 0.5d, y + 0.5d, entityTemp)
     }
 
     HashSet<Entity> getEntitiesBetween(int lowX, int lowY, int highX, int highY) {
         entityTemp.clear()
-        return spatialHash.getValues(lowX - 0.5, lowY - 0.5, highX + 0.5, highY + 0.5, entityTemp)
+        return spatialHash.getValues(lowX - 0.5d, lowY - 0.5d, highX + 0.5d, highY + 0.5d, entityTemp)
     }
 
 

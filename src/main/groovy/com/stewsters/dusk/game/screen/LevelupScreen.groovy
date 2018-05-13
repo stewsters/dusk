@@ -29,7 +29,6 @@ class LevelupScreen implements Screen {
         display.placeHorizontalString(x, y, "Name: " + playingScreen?.player?.name)
         y++
 
-
         display.placeHorizontalString(x, y, "XP: " + playingScreen?.player?.fighter?.experience)
         y += 2
 

@@ -114,7 +114,7 @@ class AutoPlayer extends BaseAi implements Ai {
     boolean canMoveToward(Entity target) {
         int dx = target.x - entity.x
         int dy = target.y - entity.y
-        float distance = (float) Math.sqrt(dx**2 + dy**2)
+        float distance = (float) Math.sqrt((dx**2 + dy**2) as double)
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
 

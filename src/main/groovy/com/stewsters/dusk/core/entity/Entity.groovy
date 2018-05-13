@@ -18,6 +18,7 @@ import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 /**

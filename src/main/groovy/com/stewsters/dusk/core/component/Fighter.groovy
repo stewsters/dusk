@@ -5,6 +5,7 @@ import com.stewsters.dusk.core.flyweight.DamageType
 import com.stewsters.dusk.core.flyweight.GroundCover
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
+import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 class Fighter {
@@ -18,6 +19,8 @@ class Fighter {
 
     int maxToxicity //maximum toxicity you can withstand
     int toxicity
+
+    int experience
 
 //    int maxStamina
 //    int stamina // used to make attacks and sprint
@@ -56,7 +59,7 @@ class Fighter {
         int resistance = resistances.intersect(damageTypes).size()
         int weakness = weaknesses.intersect(damageTypes).size()
 
-        int finalDamage = initialDamage * Math.pow(1.5, weakness - resistance)
+        int finalDamage = (initialDamage * Math.pow(1.5, weakness - resistance)) as Integer
 
         if (finalDamage > 0) {
 
@@ -71,7 +74,7 @@ class Fighter {
                     deathFunction(entity, attacker)
             }
 
-            int range = Math.sqrt(damageToHp) - 1
+            int range = (Math.sqrt(damageToHp) as Integer) - 1
             for (int i = 0; i < damageToHp; i++) {
                 // blood splatter
                 int xPos = MatUtils.getIntInRange(-range, range) + entity.x
@@ -132,7 +135,7 @@ class Fighter {
     }
 
     int getMaxArmor() {
-        return entity.inventory?.allEquippedEquipment?.armor?.armor?.sum() ?: 0
+        return entity.inventory?.allEquippedEquipment?.armor?.armor?.sum() as Integer ?: 0
     }
 
 }
