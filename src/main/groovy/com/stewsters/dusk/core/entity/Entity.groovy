@@ -353,29 +353,6 @@ class Entity {
         return false
     }
 
-    boolean dropItemById(int number) {
-        //take held item and put it on the ground where you stand
-
-        if (inventory.items.size() && inventory.items.size() > number) {
-            Entity item = inventory.items.remove(number)
-            item.x = x
-            item.y = y
-            if (item.equipment?.isEquipped)
-                item.equipment.dequip(this)
-            levelMap.add(item)
-            return true
-        } else {
-            MessageLogSystem.send("${name} has nothing to drop.", SColor.WHITE, [this])
-            return false
-        }
-
-    }
-
-    boolean throwItemById(int i) {
-        //TODO: throw
-        false
-    }
-
     boolean standStill() {
 
         if (fighter) {

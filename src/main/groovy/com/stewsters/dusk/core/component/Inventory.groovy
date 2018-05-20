@@ -6,6 +6,7 @@ import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
+import squidpony.squidmath.Bresenham
 
 @CompileStatic
 class Inventory {
@@ -72,17 +73,22 @@ class Inventory {
         items.indexOf(entity)
     }
 
-    boolean dropById(int id) {
-        if (items.size() > id) {
-            Entity item = items.get(id)
-            if (item) {
-                if (item.item.useItem(entity)) {
-                    items.remove(item)
-                    return true
-                }
-            }
+    boolean dropItemById(int number) {
+        //take held item and put it on the ground where you stand
+
+        if ( items.size() > number) {
+            Entity item = items.remove(number)
+            item.x = entity.x
+            item.y = entity.y
+            if (item.equipment?.isEquipped)
+                item.equipment.dequip(entity)
+            entity.levelMap.add(item)
+            return true
+        } else {
+            MessageLogSystem.send("${entity.name} has nothing to drop.", SColor.WHITE, [entity])
+            return false
         }
-        return false
+
     }
 
     boolean hasItemById(int id) {
@@ -127,6 +133,41 @@ class Inventory {
             }
         }
         return false
+    }
+
+    boolean throwItemById(int id, int wx, int wy) {
+
+
+        if (items.size() > id) {
+            Entity item = items.remove(id)
+            if (item.equipment?.isEquipped)
+                item.equipment.dequip(entity)
+
+            int x = entity.x
+            int y = entity.y
+            for (def p : Bresenham.line2D(entity.x, entity.y, wx, wy)) {
+                if (entity.levelMap.isBlocked(x, y)){
+                   // TODO: blocked by something.  if its the thrower ignore it, if its a target hit it
+
+                    break
+                }
+                x = p.x as Integer
+                y = p.y as Integer
+            }
+
+            item.x = x
+            item.y = y
+            entity.levelMap.add(item)
+            return true
+
+
+        } else {
+            MessageLogSystem.send("${entity.name} has nothing to drop.", SColor.WHITE, [entity])
+            return false
+        }
+
+
+        false
     }
 
 

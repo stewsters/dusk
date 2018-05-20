@@ -9,6 +9,7 @@ class Weapon {
 
     Entity entity
     IntRange damage
+    IntRange thrownDamage
     List<DamageType> damageTypes
 
     // TODO: moveset, special, SP
@@ -21,6 +22,7 @@ class Weapon {
 
     Weapon(Map params) {
         damage = params?.damage ?: null
+        thrownDamage = params?.thrownDamage?:null
         damageTypes = params?.damageTypes ?: []
         strengthReq = params?.strengthReq ?: 0
 
