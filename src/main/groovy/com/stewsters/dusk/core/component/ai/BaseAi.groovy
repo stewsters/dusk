@@ -8,7 +8,7 @@ import groovy.transform.CompileStatic
 /**
  * These are functions common to all AIs
  */
-@CompileStatic
+//@CompileStatic
 abstract class BaseAi implements Ai {
 
     protected Entity entity
