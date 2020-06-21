@@ -164,7 +164,7 @@ class CharacterGeneration implements Screen {
         Entity player = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                 x: playerStartX, y: playerStartY,
                 xSize: 1, ySize: 1,
-                ch: '@', name: name, color: SColor.WHITE, blocks: true,
+                ch: '@' as char, name: name, color: SColor.WHITE, blocks: true,
                 priority: Priority.PLAYER, faction: Faction.GOOD,
                 ai: auto ? new AutoPlayer() : new LocalPlayer(),
                 inventory: new Inventory(),
@@ -184,7 +184,7 @@ class CharacterGeneration implements Screen {
 
         Entity defaultArmor = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                 x: playerStartX, y: playerStartY,
-                ch: '[', color: SColor.DARK_BLUE,
+                ch: '[' as char, color: SColor.DARK_BLUE,
                 name: "Prisoner's Rags",
                 description: "Rags covered in filth.",
                 item: new Item(weight: 1),

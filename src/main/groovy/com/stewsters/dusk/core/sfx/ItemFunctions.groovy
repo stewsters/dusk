@@ -226,7 +226,7 @@ class ItemFunctions {
             int x = caster.x + dir.deltaX * summon.xSize
             int y = caster.y + dir.deltaY * summon.ySize
 
-            if (summon.mover.canOccupy(x, y)) {
+            if (!summon.levelMap.isBlocked(x,y, summon.xSize,summon.ySize)) {
                 summon.x = x
                 summon.y = y
                 summon.ai.gameTurn = caster.ai.gameTurn + 1
@@ -252,7 +252,7 @@ class ItemFunctions {
             int x = caster.x + dir.deltaX * summon.xSize
             int y = caster.y + dir.deltaY * summon.ySize
 
-            if (summon.mover.canOccupy(x, y)) {
+            if (!summon.levelMap.isBlocked(x,y, summon.xSize,summon.ySize)) {
                 summon.x = x
                 summon.y = y
                 summon.ai.gameTurn = caster.ai.gameTurn + 1

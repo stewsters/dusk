@@ -1,11 +1,11 @@
 package com.stewsters.dusk.core.map
 
 import com.stewsters.dusk.core.flyweight.TileType
-import com.stewsters.util.pathing.twoDimention.shared.TileBasedMap2d
+import com.stewsters.util.pathing.twoDimention.shared.BoundingBox2d
 import groovy.transform.CompileStatic
 
 @CompileStatic
-class BaseMap2d implements TileBasedMap2d {
+class BaseMap2d implements BoundingBox2d {
 
     public final int xSize
     public final int ySize

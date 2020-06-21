@@ -3,9 +3,10 @@ package com.stewsters.dusk.core.component.ai
 import com.stewsters.dusk.core.component.Item
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
+import com.stewsters.util.pathing.twoDimention.heuristic.ChebyshevHeuristic2d
 import com.stewsters.util.pathing.twoDimention.pathfinder.AStarPathFinder2d
 import com.stewsters.util.pathing.twoDimention.searcher.DjikstraSearcher2d
-import com.stewsters.util.pathing.twoDimention.shared.FullPath2d
 import com.stewsters.util.pathing.twoDimention.shared.PathNode2d
 import groovy.transform.CompileStatic
 
@@ -45,10 +46,16 @@ class AutoPlayer extends BaseAi implements Ai {
                 entity.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
                 AStarPathFinder2d pathFinder2d = new AStarPathFinder2d(entity.levelMap, 1000)
-                FullPath2d path = pathFinder2d.findPath(entity.mover, entity.x, entity.y, enemy.x, enemy.y)
+                Optional<List<Point2i>> path = pathFinder2d.findPath(
+                        { sx, sy, tx, ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
+                        { tx, ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
+                        { sx, sy, tx, ty -> 1.0 },
+                        new ChebyshevHeuristic2d(),
+                        true,
+                        entity.x, entity.y, enemy.x, enemy.y)
 
-                if (path) {
-                    def step = path.getStep(1)
+                if (path.isPresent()) {
+                    def step = path.get().get(1)
                     entity.moveTowardsAndAttack(step.x, step.y)
                 } else {
                     entity.randomMovement()
@@ -81,9 +88,15 @@ class AutoPlayer extends BaseAi implements Ai {
         } else {
             println "Exploring..."
             DjikstraSearcher2d searcher2d = new DjikstraSearcher2d(entity.levelMap, 1000)
-            FullPath2d path = searcher2d.search(entity.mover, entity.x, entity.y, { PathNode2d current -> !entity.levelMap.ground[current.x][current.y].isExplored })
-            if (path && path.length > 1) {
-                FullPath2d.Step step = path.getStep(1)
+            Optional<List<Point2i>> path = searcher2d.search(
+                    { PathNode2d current -> !entity.levelMap.ground[current.x][current.y].isExplored },
+                    { int sx, int sy, int tx, int ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
+                    { sx, sy, tx, ty -> 1.0 },
+                    true,
+                    entity.x, entity.y,
+            )
+            if (path.isPresent()) {
+                Point2i step = path.get().get(1)
                 entity.moveTowardsAndAttack(step.x, step.y)
                 println "Explored ${step.x}, ${step.y}"
             } else {
@@ -111,15 +124,15 @@ class AutoPlayer extends BaseAi implements Ai {
     }
 
 
-    boolean canMoveToward(Entity target) {
-        int dx = target.x - entity.x
-        int dy = target.y - entity.y
-        float distance = (float) Math.sqrt((dx**2 + dy**2) as double)
-        dx = (int) Math.round(dx / distance)
-        dy = (int) Math.round(dy / distance)
-
-        return entity.levelMap.isBlocked(entity.x + dx, entity.y + dy)
-    }
+//    boolean canMoveToward(Entity target) {
+//        float dx = target.x - entity.x
+//        float dy = target.y - entity.y
+//        float distance = (float) Math.sqrt((dx**2 + dy**2) as double)
+//        dx = (int) Math.round(dx / distance)
+//        dy = (int) Math.round(dy / distance)
+//
+//        return entity.levelMap.isBlocked(entity.x + dx, entity.y + dy)
+//    }
 
     private static boolean canAttack(int targetRange, Item item) {
         //todo: los?  we select based on view, so it may not matter

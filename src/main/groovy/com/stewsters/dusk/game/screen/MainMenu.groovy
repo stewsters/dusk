@@ -88,7 +88,7 @@ class MainMenu implements Screen {
 
             Entity testPlayer = new Entity(map: mapStack.getLevelMapAt(mapStack.currentX, mapStack.currentY, mapStack.currentZ),
                     x: mapgen.playerStartX, y: mapgen.playerStartY,
-                    ch: '@', name: "Test Player", color: SColor.WHITE, blocks: true,
+                    ch: '@' as char, name: "Test Player", color: SColor.WHITE, blocks: true,
                     priority: Priority.PLAYER, faction: Faction.GOOD,
                     ai: new LocalPlayer(),
                     inventory: new Inventory(),

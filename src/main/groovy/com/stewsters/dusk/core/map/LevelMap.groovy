@@ -82,6 +82,22 @@ class LevelMap extends BaseLitMap2d {
         return false
     }
 
+    boolean isBlocked(final int x, final int y, final int xSize, final int ySize, Entity ignore = null) {
+        for (int xMod = 0; xMod < xSize; xMod++) {
+            for (int yMod = 0; yMod < ySize; yMod++) {
+                if (super.isBlocked(x + xMod, y + yMod))
+                    return true
+
+                for (Entity entity : getEntitiesAtLocation(x + xMod, y + yMod)) {
+                    if (entity != ignore && entity.blocks)
+                        return true
+                }
+            }
+        }
+
+        return false
+    }
+
     // This is used to find up and down stairs
     Point2i findATile(TileType tileType) {
         for (int x = 0; x < xSize; x++) {

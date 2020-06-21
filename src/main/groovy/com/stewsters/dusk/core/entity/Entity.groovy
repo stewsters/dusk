@@ -11,14 +11,12 @@ import com.stewsters.dusk.core.component.Quiver
 import com.stewsters.dusk.core.component.Spellbook
 import com.stewsters.dusk.core.component.Weapon
 import com.stewsters.dusk.core.component.ai.Ai
-import com.stewsters.dusk.core.component.mover.DuskMover2d
 import com.stewsters.dusk.core.flyweight.Faction
 import com.stewsters.dusk.core.flyweight.Priority
 import com.stewsters.dusk.core.map.LevelMap
 import com.stewsters.dusk.game.renderSystems.MessageLogSystem
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
-import groovy.transform.CompileStatic
 import squidpony.squidcolor.SColor
 
 /**
@@ -58,8 +56,6 @@ class Entity {
     public Quiver quiver
     public Spellbook spellbook
 
-    public DuskMover2d mover
-
     Entity(Map params) {
 
         x = params.x ?: 0
@@ -93,7 +89,6 @@ class Entity {
         if (params.ai) {
             ai = params.ai
             ai.entity = this
-            mover = new DuskMover2d(this)
         }
 
         if (params.inventory) {
@@ -154,7 +149,7 @@ class Entity {
         int newX = xDif + x
         int newY = yDif + y
 
-        if (mover.canTraverse(x, y, newX, newY)) {
+        if (!levelMap.isBlocked(newX, newY, xSize, ySize, this)) {
             x = newX
             y = newY
             levelMap.update(this)
