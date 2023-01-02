@@ -22,7 +22,7 @@ class Quiver {
 
     boolean useAmmo(AmmoType ammoType) {
         if (pouch[ammoType]) {
-            pouch[ammoType]--
+            pouch[ammoType] = pouch[ammoType] - 1
             return true
         } else return false
 

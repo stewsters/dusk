@@ -3,7 +3,6 @@ package com.stewsters.dusk.core.component.ai
 import com.stewsters.dusk.core.entity.Entity
 import com.stewsters.dusk.game.Game
 import com.stewsters.dusk.game.RenderConfig
-import groovy.transform.CompileStatic
 
 /**
  * These are functions common to all AIs

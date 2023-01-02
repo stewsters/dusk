@@ -70,7 +70,6 @@ class ItemFunctions {
             int dx = MatUtils.limit(enemy.x - user.x, -1, 1)
             int dy = MatUtils.limit(enemy.y - user.y, -1, 1)
 
-            //TODO: create a fireball in the direction of the opponent.
             new Entity(map: user.levelMap, x: user.x + dx, y: user.y + dy,
                     ch: '*', name: 'Fireball', color: SColor.BLOOD_RED, blocks: false, priority: Priority.OPPONENT,
                     ai: new Projectile(caster: user, target: new Point2i(enemy.x, enemy.y),
@@ -115,8 +114,9 @@ class ItemFunctions {
             MessageLogSystem.send("${enemy.name} is too farther than $LIGHTNING_RANGE.", SColor.RED, [user])
             return false
         } else {
+            String name = enemy.name
             int actualDamage = enemy.fighter.takeDamage(LIGHTNING_DAMAGE, user, [])
-            MessageLogSystem.send("A lightning bolt strikes the ${enemy.name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
+            MessageLogSystem.send("A lightning bolt strikes the ${name} with a loud thunder for ${actualDamage} damage!", SColor.LIGHT_BLUE, [user, enemy])
             return true
         }
     }

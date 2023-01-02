@@ -45,7 +45,9 @@ class LevelMap extends BaseLitMap2d {
             actors.add(e.ai)
         }
 
-        spatialHash.put(e.x - 0.25d, e.y - 0.25d, e.x + e.xSize - 0.75d, e.y + e.xSize - 0.75d, e)
+        // TODO: this can cause issues with 2x2 creatures.  I think the xSize and ySize are wrong
+        // They look like
+        spatialHash.put(e.x - 0.25d, e.y - 0.25d, e.x + e.xSize - 0.75d, e.y + e.ySize - 0.75d, e)
     }
 
     void remove(Entity e) {

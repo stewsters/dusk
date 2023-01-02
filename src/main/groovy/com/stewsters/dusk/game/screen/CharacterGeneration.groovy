@@ -136,6 +136,8 @@ class CharacterGeneration implements Screen {
             case VK_ESCAPE:
                 return new MainMenu()
                 break
+            default:
+                println("unknown key $code")
         }
 
         return this

@@ -29,7 +29,7 @@ class Confusion implements Spell {
             return false
         } else {
 
-            int turns = (int) Math.ceil((CONFUSE_NUM_TURNS as double) / enemies.size())
+            int turns = (int) Math.ceil((CONFUSE_NUM_TURNS as double) / enemies.size() as double)
 
             enemies.each { Entity enemy ->
                 Ai oldID = enemy.ai

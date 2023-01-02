@@ -10,25 +10,26 @@ version = 2.2
 
 
 repositories {
-    jcenter()
+//    jcenter()
     maven { url 'https://jitpack.io' }
+    mavenCentral()
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use the latest groovy 2.x version for building this library
-    implementation 'org.codehaus.groovy:groovy-all:3.0.4'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.14'
 
     implementation 'com.squidpony:squidlib:1.95.1'
-    implementation 'com.github.stewsters:stewsters-util:0.19'
+    implementation 'com.github.stewsters:stewsters-util:0.20'
 
-    implementation 'commons-io:commons-io:2.7'
-    implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
-    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
-    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
 
     // We use the awesome Spock testing and specification framework
-    testImplementation 'org.spockframework:spock-core:2.0-M3-groovy-3.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'junit:junit:4.13.2'
 }

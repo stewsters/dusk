@@ -32,11 +32,11 @@ class LevelupScreen implements Screen {
         display.placeHorizontalString(x, y, "XP: " + playingScreen?.player?.fighter?.experience)
         y += 2
 
-        display.placeHorizontalString(x, y, "Melee: " + playingScreen?.player?.fighter?.skillMelee)
-        y++
-
-        display.placeHorizontalString(x, y, "Evasion: " + playingScreen?.player?.fighter?.skillEvasion)
-        y++
+//        display.placeHorizontalString(x, y, "Melee: " + playingScreen?.player?.fighter?.skillMelee)
+//        y++
+//
+//        display.placeHorizontalString(x, y, "Evasion: " + playingScreen?.player?.fighter?.skillEvasion)
+//        y++
 
         //TODO: marksman, you know, after there are bows or something
 
