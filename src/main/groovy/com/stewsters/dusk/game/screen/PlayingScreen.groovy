@@ -224,7 +224,7 @@ class PlayingScreen implements Screen {
                     return new EscapeScreen(this)
                     break
                 case VK_P:
-                    return new LevelupScreen(this)
+                    return new LevelUpScreen(this)
                 default:
                     break
 

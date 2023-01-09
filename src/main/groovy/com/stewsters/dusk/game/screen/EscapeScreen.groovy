@@ -49,7 +49,7 @@ class EscapeScreen implements Screen {
         } else if (code == VK_ESCAPE) {
             return playingScreen
         } else if (code == VK_L) {
-            return new LevelupScreen(playingScreen)
+            return new LevelUpScreen(playingScreen)
         }
 
         return this

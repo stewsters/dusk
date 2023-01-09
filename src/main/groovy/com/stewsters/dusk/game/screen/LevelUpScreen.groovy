@@ -11,12 +11,12 @@ import static java.awt.event.KeyEvent.VK_H
 import static java.awt.event.KeyEvent.VK_M
 import static java.awt.event.KeyEvent.VK_UNDEFINED
 
-class LevelupScreen implements Screen {
+class LevelUpScreen implements Screen {
 
 
     PlayingScreen playingScreen
 
-    LevelupScreen(PlayingScreen playingScreen) {
+    LevelUpScreen(PlayingScreen playingScreen) {
         this.playingScreen = playingScreen
     }
 
@@ -32,23 +32,21 @@ class LevelupScreen implements Screen {
         display.placeHorizontalString(x, y, "XP: " + playingScreen?.player?.fighter?.experience)
         y += 2
 
-//        display.placeHorizontalString(x, y, "Melee: " + playingScreen?.player?.fighter?.skillMelee)
-//        y++
-//
-//        display.placeHorizontalString(x, y, "Evasion: " + playingScreen?.player?.fighter?.skillEvasion)
-//        y++
+        display.placeHorizontalString(x, y, "[M] Melee: " + playingScreen?.player?.fighter?.skillMelee)
+        y++
+
+        display.placeHorizontalString(x, y, "[E] Evasion: " + playingScreen?.player?.fighter?.skillEvasion)
+        y++
 
         //TODO: marksman, you know, after there are bows or something
 
-        display.placeHorizontalString(x, y, "HP: " + playingScreen?.player?.fighter?.maxHP)
+        display.placeHorizontalString(x, y, "[H] HP: " + playingScreen?.player?.fighter?.maxHP)
 //        y++
 
 //        rightJustifiedText(display, 5, "[L]evel Up")
 //        rightJustifiedText(display, 15, "[Escape] to continue")
 //        rightJustifiedText(display, 25, "[x] Exit to main menu")
 //        rightJustifiedText(display, 35, "Yeah, there is no saving.  Sorry.")
-
-
     }
 
 
