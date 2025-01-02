@@ -49,7 +49,7 @@ class AutoPlayer extends BaseAi implements Ai {
                 Optional<List<Point2i>> path = pathFinder2d.findPath(
                         { sx, sy, tx, ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
                         { tx, ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
-                        { sx, sy, tx, ty -> 1.0 },
+                        { sx, sy, tx, ty -> 1.0f },
                         new ChebyshevHeuristic2d(),
                         true,
                         entity.x, entity.y, enemy.x, enemy.y)
@@ -91,7 +91,7 @@ class AutoPlayer extends BaseAi implements Ai {
             Optional<List<Point2i>> path = searcher2d.search(
                     { PathNode2d current -> !entity.levelMap.ground[current.x][current.y].isExplored },
                     { int sx, int sy, int tx, int ty -> !entity.levelMap.isBlocked(tx, ty,entity.xSize, entity.ySize, entity) },
-                    { sx, sy, tx, ty -> 1.0 },
+                    { sx, sy, tx, ty -> 1.0f },
                     true,
                     entity.x, entity.y,
             )

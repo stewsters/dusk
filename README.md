@@ -14,10 +14,10 @@ to free your lands.
 
 ## My tools: ##
 
-+ Groovy 2.4.0
++ Groovy
 + SquidLib 1.95.1 ( https://github.com/SquidPony/SquidLib)
 + Gradle for building
-+ Java8
++ Java
 + Intellij
 
 

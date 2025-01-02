@@ -1,35 +1,38 @@
 plugins{
-    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id "groovy"
+    id "application"
 }
-
-apply plugin: 'groovy'
-apply plugin: 'application'
 
 mainClassName = 'com.stewsters.dusk.game.DuskApplicationMain'
 version = 2.2
 
 
 repositories {
-//    jcenter()
     maven { url 'https://jitpack.io' }
     mavenCentral()
 }
 
+test {
+    maxParallelForks = 3
+    useJUnitPlatform()
+}
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // We use the latest groovy 2.x version for building this library
-    implementation 'org.codehaus.groovy:groovy-all:3.0.14'
+    // We use the latest groovy 3.x version for building this library
+    implementation 'org.apache.groovy:groovy-all:4.0.24'
 
     implementation 'com.squidpony:squidlib:1.95.1'
     implementation 'com.github.stewsters:stewsters-util:0.20'
 
-    implementation 'commons-io:commons-io:2.11.0'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'commons-io:commons-io:2.18.0'
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
 
-    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
+    implementation 'org.apache.logging.log4j:log4j-core:2.24.3'
 
     // We use the awesome Spock testing and specification framework
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
     testImplementation 'junit:junit:4.13.2'
 }
